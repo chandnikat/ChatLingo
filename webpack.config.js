@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 
@@ -12,14 +12,16 @@ module.exports = {
   },
 
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: '[name].bundle.js',
-    publicPath: '/',
+    // path: path.resolve(__dirname, './dist'),
+    // filename: '[name].bundle.js',
+    // publicPath: '/',
   },
 
   devServer: {
     proxy: {
-      '/': 'http://localhost:3000',
+      '*': 'http://[::1]:3000',
+      // "secure": false,
+      // "changeOrigin": true
     },
     historyApiFallback: true,
     contentBase: path.resolve(__dirname, './dist'),
@@ -28,7 +30,7 @@ module.exports = {
     hot: true,
     port: 8080,
   },
-
+  devtool: 'source-map',
   module: {
     rules: [
       // JavaScript
@@ -78,7 +80,7 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
-    new CleanWebpackPlugin(),
+    // new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
 

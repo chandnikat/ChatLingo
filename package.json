@@ -1,25 +1,29 @@
 {
-  "name": "chationary",
+  "name": "ChatLingo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "proxy": "http://localhost:3000",
   "secure": false,
   "scripts": {
-    "start": "webpack serve --open 'Google Chrome' & nodemon server/server.js",
-    "startwin": "webpack serve --open Chrome.exe & nodemon server/server.js"
+    "start": "cross-env NODE_ENV=production webpack serve --no-cache",
+    "server": "cross-env nodemon --inspect server/server.js",
+    "dev": "cross-env NODE_ENV=development webpack serve & NODE_ENV=development nodemon server/server.js",
+    "build": "cross-env NODE_ENV=production webpack",
+    "lint": "cross-env eslint",
+    "clean": "cross-env rm dist/main.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Team-Wobbegong/Chationary.git"
+    "url": "git+https://github.com/ChatLingoDevs/ChatLingo.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Team-Wobbegong/Chationary/issues"
+    "url": "https://github.com/ChatLingoDevs/ChatLingo/issues"
   },
-  "homepage": "https://github.com/Team-Wobbegong/Chationary#readme",
+  "homepage": "https://github.com/ChatLingoDevs/ChatLingo#readme",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
@@ -27,7 +31,6 @@
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "babel-loader": "^8.2.2",
-    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
@@ -46,8 +49,11 @@
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
+    "concurrently": "^5.3.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
     "emoji-mart": "^3.0.0",
     "express": "^4.17.1",
     "jquery": "^3.5.1",

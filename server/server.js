@@ -2,9 +2,10 @@ const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const https = require('https');
+require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 /**
  * require routers
@@ -16,7 +17,7 @@ const authRouter = require('./routes/auth');
  * handle parsing request body
  */
 app.use(express.json()); // recognize the incoming Request Object as a JSON Object.
-app.use(express.urlencoded()); //recognize the incoming Request Object as strings or arrays.
+app.use(express.urlencoded({ extended: true })); //recognize the incoming Request Object as strings or arrays.
 
 /**
  * Parse Cookie header and populate req.cookies with an object keyed by the cookie names. Optionally you may enable signed cookie support by passing a secret string, which assigns req.secret so it may be used by other middleware.
@@ -43,8 +44,8 @@ app.get('/activerooms', (req, res) => {
 });
 
 // Oxford Dictionaries API
-const appId = '5d31df20';
-const appKey = '0ef1989e11f3eccf8ebb9f20590cdb28';
+const APPID = process.env.APIID;
+const APPKEY = process.env.APIKEY;
 const language = 'en-us';
 let wordId;
 const fields = 'definitions';
@@ -62,15 +63,15 @@ app.post('/dictionary', (req, res) => {
     path: `/api/v2/entries/${language}/${wordId.toLowerCase()}?fields=${fields}&strictMatch=${strictMatch}`,
     method: 'GET',
     headers: {
-      app_id: appId,
-      app_key: appKey,
+      app_id: process.env.APIID,
+      app_key: process.env.APIKEY,
     },
   };
 
-  https.get(options, (resp) => {
+  https.get(options, resp => {
     console.log('in https get request');
     let body = '';
-    resp.on('data', (d) => {
+    resp.on('data', d => {
       body += d;
     });
     resp.on('end', () => {
@@ -125,14 +126,14 @@ const usersCountByRoom = [
 ];
 
 // usersCountByRoom Helper functions
-const incrementCount = (roomName) => {
-  usersCountByRoom.forEach((room) => {
+const incrementCount = roomName => {
+  usersCountByRoom.forEach(room => {
     if (room.roomName === roomName) room.userCount++;
   });
 };
 
-const decrementCount = (roomName) => {
-  usersCountByRoom.forEach((room) => {
+const decrementCount = roomName => {
+  usersCountByRoom.forEach(room => {
     if (room.roomName === roomName) room.userCount--;
   });
 };
@@ -149,7 +150,7 @@ const checkActiveRoom = (roomName, status) => {
 const socketio = require('socket.io');
 const io = socketio(server);
 
-io.on('connection', (socket) => {
+io.on('connection', socket => {
   console.log('socket.id => ', socket.id);
   const { name, room } = socket.handshake.query;
 
@@ -174,11 +175,11 @@ io.on('connection', (socket) => {
     text: `${name} has joined!`,
   });
 
-  socket.on('sendNewMessage', (message) => {
+  socket.on('sendNewMessage', message => {
     io.in(room).emit('message', message);
   });
 
-  socket.on('sendTypingMsg', (data) => {
+  socket.on('sendTypingMsg', data => {
     // console.log('data-->', data);
     socket.to(room).emit('sendTypingMsg', data);
     //socket.broadcast.to().emit has the same effect!!!
