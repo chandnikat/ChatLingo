@@ -6,8 +6,12 @@
   "proxy": "http://localhost:3000",
   "secure": false,
   "scripts": {
-    "start": "webpack serve --open 'Google Chrome' & nodemon server/server.js",
-    "startwin": "webpack serve --open Chrome.exe & nodemon server/server.js"
+    "start": "webpack serve --no-cache",
+    "server": "nodemon --inspect server/server.js",
+    "dev": "concurrently \"nodemon server/server.js\" \"npm run start\"",
+    "build": "NODE_ENV=production webpack",
+    "lint": "eslint",
+    "clean": "rm dist/main.js"
   },
   "repository": {
     "type": "git",

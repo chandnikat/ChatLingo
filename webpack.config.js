@@ -28,7 +28,7 @@ module.exports = {
     hot: true,
     port: 8080,
   },
-
+  devtool: 'source-map',
   module: {
     rules: [
       // JavaScript
