@@ -1,4 +1,4 @@
-.signin {
+.signon {
   overflow: hidden;
   background-color: #1a1a1d;
   display: flex;
@@ -7,7 +7,7 @@
   height: 100vh;
   padding-top: 120px;
 }
-.signin h1,
+.signon h1,
 span {
   color: #d9d9d9;
 }
@@ -18,7 +18,7 @@ span {
   align-items: center;
 }
 
-.form-signin {
+.form-signon {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -57,7 +57,7 @@ span {
   font-weight: lighter;
 }
 
-.form-signin label {
+.form-signon label {
   margin: 6px;
   display: flex;
   flex-direction: column;
@@ -65,18 +65,18 @@ span {
   align-items: flex-start;
 }
 
-.form-signin span {
+.form-signon span {
   margin: 2px;
   font-size: 14px;
   font-weight: 500;
 }
 
-.form-signin label input {
+.form-signon label input {
   width: 340px;
   height: 40px;
 }
 
-button.btn-signin {
+button.btn-signon {
   margin-top: 25px;
   width: 340px;
 }
