@@ -8,7 +8,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production webpack serve --no-cache",
     "server": "cross-env nodemon --inspect server/server.js",
-    "dev": "cross-env NODE_ENV=development webpack serve & NODE_ENV=development nodemon server/server.js",
+    "dev": "cross-env NODE_ENV=development concurrently \"nodemon server/server.js\" \"npm run start\"",
     "build": "cross-env NODE_ENV=production webpack",
     "lint": "cross-env eslint",
     "clean": "cross-env rm dist/main.js"
@@ -58,6 +58,7 @@
     "express": "^4.17.1",
     "jquery": "^3.5.1",
     "pg": "^8.5.1",
+    "postgresql": "0.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-feather": "^2.0.9",
