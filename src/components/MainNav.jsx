@@ -1,34 +1,61 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MenuItems } from './MenuItems';
-//import useToggle from './useToggle';
 
+
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import {AppBar, Toolbar, Typography, Button} from '@material-ui/core';
+import ChatIcon from '@material-ui/icons/Chat'
+import theme from "../styles/theme.js"
+
+//STYLING:
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+ 
+  title: {
+    flexGrow: 1,
+    color: "white",
+    fontWeight: '800'
+  },
+}));
+
+//NavBar COMPONENT:
 export default function MainNav() {
-  // const [dropdown, setDropdown] = useToggle(false);
-  return (
-    <nav className='MainNav'>
-      <div className='title'>
-        <Link to='/' style={{ textDecoration: 'none' }}>
-          Chationary
-        </Link>
-        <img
-          className='logo'
-          src='https://icon-library.com/images/chatroom-icon/chatroom-icon-24.jpg'
-          height='80px'
-          width='80px'
-          alt='chatroom-logo'
-        />
-      </div>
 
-      <ul>
-        {MenuItems.map((item, idx) => {
-          return (
-            <li className='MainNav-item' key={`menuitem-${idx}`}>
-              <Link to={item.link}>{item.itemName}</Link>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <ThemeProvider theme={theme}>
+      <AppBar position="static" color="primary">
+        <Toolbar>
+        <ChatIcon style={{marginRight: "10px"}}/>
+        <Link to='/' style={{ textDecoration: 'none' }}>
+          <Typography variant="h6" className={classes.title}>
+            Chatlingo
+          </Typography>
+          </Link>
+          <Button color="inherit" className={classes.title} >Login</Button>
+        </Toolbar>
+      </AppBar>
+      </ThemeProvider>
+    </div>
   );
+
+
+  //     <ul>
+  //       {MenuItems.map((item, idx) => {
+  //         return (
+  //           <li className='MainNav-item' key={`menuitem-${idx}`}>
+  //             <Link to={item.link}>{item.itemName}</Link>
+  //           </li>
+  //         );
+  //       })}
+  //     </ul>
+  //   </nav>
+  // );
 }

@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-//SignIn/SignUp COMPONENT:
+//SignIn_SignUp COMPONENT:
 const Signon_new = ({ history }) => {
   const [username, handleUsername] = useInputState('');
   const [password, handlePassword] = useInputState('');
@@ -118,9 +118,10 @@ const Signon_new = ({ history }) => {
       <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography 	variant="h4"
+        <Typography 	variant="h5"
 							color="primary"
-							style={{ fontWeight: '600', margin: "10px" }}>Chatlingo</Typography>
+							style={{ fontWeight: '800', margin: "10px" }}>Welcome!
+        </Typography>
         <ToggleButtonGroup
           value={hasAccount}
           exclusive
@@ -154,7 +155,7 @@ const Signon_new = ({ history }) => {
             onChange={handleUsername}
           />
           {!hasAccount && (
-            <Button onClick={handleClick}  variant="contained" color="secondary" style={{ fontWeight: '700'}}>Check Availability</Button>
+            <Button onClick={handleClick} fullWidth variant="contained" color="secondary" style={{ fontWeight: '700'}}>Check Availability</Button>
           )}
 
           {nameExists === null ? null : nameExists ? (
