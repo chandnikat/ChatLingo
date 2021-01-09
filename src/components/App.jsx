@@ -5,7 +5,7 @@ import Signon from './Signon';
 import Chat from './Chat';
 import MainNav from './MainNav';
 import About from './About';
-import Dashboard from './dashboard';
+import Dashboard from './Dashboard';
 
 class App extends Component {
   render() {
