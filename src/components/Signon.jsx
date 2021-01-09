@@ -70,7 +70,7 @@ const Signon = ({ history }) => {
       if (!data.err) {
         console.log(hasAccount ? 'Signed In!' : 'Signed Up!');
         //redirect to Home
-        history.push(`/join/${user_name}`);
+        history.push(`/dashboard/${user_name}`);
       } else {
         setWarn(true);
         setTimeout(() => {
