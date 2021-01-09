@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
-import {Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container} from '@material-ui/core';
-import {ToggleButtonGroup, ToggleButton, Alert} from '@material-ui/lab';
-import { ThemeProvider, makeStyles} from '@material-ui/core/styles';
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from '@material-ui/core';
+import { ToggleButtonGroup, ToggleButton, Alert } from '@material-ui/lab';
+import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import useInputState from './useInputState';
-import theme from "../styles/theme.js"
+import theme from '../styles/theme.js';
 
 //STYLING:
 const useStyles = makeStyles(theme => ({
@@ -18,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', 
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -26,10 +35,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
 //SignIn_SignUp COMPONENT:
 const Signon_new = ({ history }) => {
-  const [username, handleUsername] = useInputState('');
+  const [user_name, handleUsername] = useInputState('');
   const [password, handlePassword] = useInputState('');
   const [email, handleEmail] = useInputState('');
   const [warn, setWarn] = useState(false);
@@ -41,8 +49,8 @@ const Signon_new = ({ history }) => {
     e.preventDefault();
 
     const body = hasAccount
-      ? { username, password }
-      : { username, email, password };
+      ? { user_name, password }
+      : { user_name, email, password };
     console.log('body==>', body);
 
     try {
@@ -57,12 +65,12 @@ const Signon_new = ({ history }) => {
         }
       );
 
-      let data = await response.jason()
+      let data = await response.jason();
 
       if (!data.err) {
         console.log(hasAccount ? 'Signed In!' : 'Signed Up!');
         //redirect to Home
-        history.push(`/join/${username}`);
+        history.push(`/join/${user_name}`);
       } else {
         setWarn(true);
         setTimeout(() => {
@@ -77,7 +85,7 @@ const Signon_new = ({ history }) => {
   const handleClick = async e => {
     e.preventDefault();
 
-    const body = { username };
+    const body = { user_name };
     console.log('body==>', body);
 
     try {
@@ -112,149 +120,149 @@ const Signon_new = ({ history }) => {
     }
   };
 
-
   return (
     <Container component="main" maxWidth="xs">
       <ThemeProvider /*theme={theme} */>
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography 	variant="h3"
-							color="primary"
-							style={{ fontWeight: '800', margin: "10px" }}>Welcome!
-        </Typography>
-        <ToggleButtonGroup
-          value={hasAccount}
-          exclusive
-          onChange={(event, status) => {
-            if (status !== null) {
-              setHasAccount(status);
-            }
-          }}
-          aria-label="signon-toggle"
-        >
-          <ToggleButton value={false} aria-label="signup">
-            Sign Up
-          </ToggleButton>
-          <ToggleButton value={true} aria-label="signin">
-            Sign In
-          </ToggleButton>
-        </ToggleButtonGroup>
-  
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Username"
-            name="username"
-            autoComplete="username"
-            autoFocus
-            value={username}
-            onChange={handleUsername}
-          />
-          {!hasAccount && (
-            <Button onClick={handleClick} fullWidth variant="contained" color="secondary" style={{ fontWeight: '700'}}>Check Availability</Button>
-          )}
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography
+            variant="h3"
+            color="primary"
+            style={{ fontWeight: '800', margin: '10px' }}
+          >
+            Welcome!
+          </Typography>
+          <ToggleButtonGroup
+            value={hasAccount}
+            exclusive
+            onChange={(event, status) => {
+              if (status !== null) {
+                setHasAccount(status);
+              }
+            }}
+            aria-label="signon-toggle"
+          >
+            <ToggleButton value={false} aria-label="signup">
+              Sign Up
+            </ToggleButton>
+            <ToggleButton value={true} aria-label="signin">
+              Sign In
+            </ToggleButton>
+          </ToggleButtonGroup>
 
-          {nameExists === null ? null : nameExists ? (
-            <Alert severity="error">
-              Username Already Exist!
-            </Alert>
-          ) : (
-            <Alert severity="success">
-              Username Is Available!
-            </Alert>
-          )}
-
-          {!hasAccount && (
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
-              value={email}
-              onChange={handleEmail}
+              value={user_name}
+              onChange={handleUsername}
             />
-          )}
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            value={password}
-            onChange={handlePassword}
-          />
-          {hasAccount ? (
-            <Button
-              type="submit"
+            {!hasAccount &&
+              (nameExists === null ? (
+                <Button
+                  onClick={handleClick}
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  style={{ fontWeight: '700' }}
+                >
+                  Check Availability
+                </Button>
+              ) : nameExists ? (
+                <Alert severity="error">Username Already Exist!</Alert>
+              ) : (
+                <Alert severity="success">Username Is Available!</Alert>
+              ))}
+
+            {!hasAccount && (
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={email}
+                onChange={handleEmail}
+              />
+            )}
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
               fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              style={{ fontWeight: '700'}}
-            >
-              {' '}
-              Sign In
-            </Button>
-          ) : (
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              style={{ fontWeight: '700'}}
-            >
-              {' '}
-              Sign Up
-            </Button>
-          )}
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            {/* <Grid item>
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={handlePassword}
+            />
+            {hasAccount ? (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                style={{ fontWeight: '700' }}
+              >
+                {' '}
+                Sign In
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                style={{ fontWeight: '700' }}
+              >
+                {' '}
+                Sign Up
+              </Button>
+            )}
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              {/* <Grid item>
               <Link href="#" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid> */}
-          </Grid>
-        </form>
-      </div>
-      <Box mt={3}>
-        <Copyright />
-      </Box>
+            </Grid>
+          </form>
+        </div>
+        <Box mt={3}>
+          <Copyright />
+        </Box>
       </ThemeProvider>
     </Container>
-    
   );
 };
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © Chatlingo'}
-      {' '}
-      {new Date().getFullYear()}
+      {'Copyright © Chatlingo'} {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
 }
-
-
 
 export default Signon_new;

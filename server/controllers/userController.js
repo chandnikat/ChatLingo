@@ -6,8 +6,8 @@ const userController = {};
 userController.createUser = async (req, res, next) => {
   try {
     console.log('req.body => ', req.body);
-    const { username, password } = req.body;
-    if (!username || !password) return res.sendStatus(401);
+    const { user_name, password } = req.body;
+    if (!user_name || !password) return res.sendStatus(401);
 
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -18,7 +18,7 @@ userController.createUser = async (req, res, next) => {
       VALUES ($1, $2) 
       RETURNING *
     ;`;
-    const values = [username, hashedPassword];
+    const values = [user_name, hashedPassword];
 
     const data = await db.query(text, values);
     console.log('data.rows[0] => ', data.rows[0]);
@@ -41,9 +41,9 @@ userController.createUser = async (req, res, next) => {
  */
 userController.verifyUser = async (req, res, next) => {
   console.log('req.body => ', req.body);
-  const { username, password } = req.body;
+  const { user_name, password } = req.body;
 
-  if (!username || !password) return res.sendStatus(401);
+  if (!user_name || !password) return res.sendStatus(401);
 
   try {
     const text = `
@@ -51,7 +51,7 @@ userController.verifyUser = async (req, res, next) => {
         from profiles
         WHERE profiles.username = $1
       ;`;
-    const values = [username];
+    const values = [user_name];
 
     const data = await db.query(text, values);
     console.log('data.rows[0] => ', data.rows[0]);
@@ -79,9 +79,9 @@ userController.verifyUser = async (req, res, next) => {
 
 userController.checkUsername = async (req, res, next) => {
   console.log('req.body => ', req.body);
-  const { username } = req.body;
+  const { user_name } = req.body;
 
-  if (!username) return res.sendStatus(401);
+  if (!user_name) return res.sendStatus(401);
 
   try {
     const text = `
@@ -89,7 +89,7 @@ userController.checkUsername = async (req, res, next) => {
         from profiles
         WHERE profiles.username = $1
       ;`;
-    const values = [username];
+    const values = [user_name];
 
     const data = await db.query(text, values);
     console.log('data.rows[0] => ', data.rows[0]);
