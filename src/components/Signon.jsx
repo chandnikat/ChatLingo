@@ -1,21 +1,56 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from '@material-ui/core';
+import { ToggleButtonGroup, ToggleButton, Alert } from '@material-ui/lab';
+import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import useInputState from './useInputState';
+import theme from '../styles/theme.js';
 
+//STYLING:
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+//SignIn_SignUp COMPONENT:
 const Signon = ({ history }) => {
-  const [username, handleUsername] = useInputState('');
+  const [user_name, handleUsername] = useInputState('');
   const [password, handlePassword] = useInputState('');
   const [email, handleEmail] = useInputState('');
   const [warn, setWarn] = useState(false);
   const [nameExists, setNameExists] = useState(null);
   const [hasAccount, setHasAccount] = useState(false);
+  const classes = useStyles();
 
   const handleSubmit = async e => {
     e.preventDefault();
 
     const body = hasAccount
-      ? { username, password }
-      : { username, email, password };
+      ? { user_name, password }
+      : { user_name, email, password };
     console.log('body==>', body);
 
     try {
@@ -30,12 +65,12 @@ const Signon = ({ history }) => {
         }
       );
 
-      console.log('response.status => ', response.status);
+      let data = await response.json();
 
-      if (response.status === 200) {
+      if (!data.err) {
         console.log(hasAccount ? 'Signed In!' : 'Signed Up!');
         //redirect to Home
-        history.push(`/join/${username}`);
+        history.push(`/join/${user_name}`);
       } else {
         setWarn(true);
         setTimeout(() => {
@@ -50,7 +85,7 @@ const Signon = ({ history }) => {
   const handleClick = async e => {
     e.preventDefault();
 
-    const body = { username };
+    const body = { user_name };
     console.log('body==>', body);
 
     try {
@@ -63,6 +98,8 @@ const Signon = ({ history }) => {
       });
 
       console.log('response.status => ', response.status);
+
+      // json the response, check if that response has an error, instead of checking for status 200
 
       if (response.status === 200) {
         const data = await response.json();
@@ -85,72 +122,149 @@ const Signon = ({ history }) => {
     }
   };
 
-  const styleRed = {
-    color: 'red',
-  };
-
   return (
-    <div className="signon">
-      <button className="toggle" onClick={() => setHasAccount(!hasAccount)}>
-        toggle
-      </button>
-      {hasAccount ? <h1>SignIn</h1> : <h1>SignUp</h1>}
+    <Container component="main" maxWidth="xs">
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Typography
+            variant="h3"
+            color="primary"
+            style={{ fontWeight: '800', margin: '10px' }}
+          >
+            Welcome!
+          </Typography>
+          <ToggleButtonGroup
+            value={hasAccount}
+            exclusive
+            onChange={(event, status) => {
+              if (status !== null) {
+                setHasAccount(status);
+              }
+            }}
+            aria-label="signon-toggle"
+          >
+            <ToggleButton value={false} aria-label="signup">
+              Sign Up
+            </ToggleButton>
+            <ToggleButton value={true} aria-label="signin">
+              Sign In
+            </ToggleButton>
+          </ToggleButtonGroup>
 
-      {/* <div className="redirect-to-signin">
-        <p>Already have an account?</p>
-        <Link to="/" className="link-signin">
-          Sign In
-        </Link>
-      </div> */}
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
+              autoFocus
+              value={user_name}
+              onChange={handleUsername}
+            />
+            {!hasAccount &&
+              (nameExists === null ? (
+                <Button
+                  onClick={handleClick}
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  style={{ fontWeight: '700' }}
+                >
+                  Check Availability
+                </Button>
+              ) : nameExists ? (
+                <Alert severity="error">Username Already Exist!</Alert>
+              ) : (
+                <Alert severity="success">Username Is Available!</Alert>
+              ))}
 
-      <form className="form-signon" onSubmit={handleSubmit}>
-        <label>
-          <span>Username</span>
-          <input
-            className="margin-bottom-10"
-            type="text"
-            value={username}
-            onChange={handleUsername}
-          />
-        </label>
-
-        {!hasAccount && (
-          <div className="checkUsername">
-            <button onClick={handleClick}>Check Availability</button>
-            {nameExists === null ? null : nameExists ? (
-              <img src={'../assets/images/x.png'} />
-            ) : (
-              <img src={'../assets/images/checkmark.png'} />
+            {!hasAccount && (
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                value={email}
+                onChange={handleEmail}
+              />
             )}
-
-            <label>
-              <span>eMail</span>
-              <input type="email" value={email} onChange={handleEmail} />
-            </label>
-          </div>
-        )}
-
-        <label>
-          <span>Password</span>
-          <input type="password" value={password} onChange={handlePassword} />
-        </label>
-        {hasAccount ? (
-          <button className="btn btn-signon">Sign In</button>
-        ) : (
-          <button className="btn btn-signon">Sign Up</button>
-        )}
-
-        {warn &&
-          (hasAccount ? (
-            <p style={styleRed}>
-              Invalid Username Or Password. Please Try Again Or Go To Sign Up.
-            </p>
-          ) : (
-            <p style={styleRed}>Sign Up Not Completed. Please Try Again</p>
-          ))}
-      </form>
-    </div>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={handlePassword}
+            />
+            {hasAccount ? (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                style={{ fontWeight: '700' }}
+              >
+                {' '}
+                Sign In
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                style={{ fontWeight: '700' }}
+              >
+                {' '}
+                Sign Up
+              </Button>
+            )}
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              {/* <Grid item>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid> */}
+            </Grid>
+          </form>
+        </div>
+        <Box mt={3}>
+          <Copyright />
+        </Box>
+      </ThemeProvider>
+    </Container>
   );
 };
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © ChatLingo'} {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 export default Signon;
