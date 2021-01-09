@@ -4,8 +4,8 @@ import { Chatrooms } from './Chatrooms';
 import useInputState from './useInputState';
 import axios from 'axios';
 
-const Join = ({ match }) => {
-  const { name } = match.params;
+const Join = ({ name }) => {
+  // const { name } = match.params;
   const [room, handleChangeRoom] = useInputState('');
   const [usersCountByRoom, setUsersCountByRoom] = useState([]);
 

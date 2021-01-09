@@ -5,8 +5,8 @@ import InputBox from './InputBox';
 import useSocket from './useSocket';
 import API from './VocabAPI';
 
-const Chat = ({ match }) => {
-  const { name, room } = match.params;
+const Chat = ({name, room}) => {
+  // const { name, room } = match.params;
   // console.log(match.params);
   const [messages, typeMsg, sendNewMessage, sendTypingMsg] = useSocket(
     name,
@@ -15,9 +15,9 @@ const Chat = ({ match }) => {
 
   return (
     <div className="chatOuterContainer">
-      <div>
+      {/* <div>
         <API />
-      </div>
+      </div> */}
       <div className="chatInnerContainer">
         <InfoBar room={room} />
         <Messages messages={messages} name={name} typeMsg={typeMsg} />

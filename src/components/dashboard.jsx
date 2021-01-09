@@ -18,7 +18,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Join from './Join'
-
+import VocabAPI from './VocabAPI'
+import Chat from './Chat'
 
 const drawerWidth = 240;
 
@@ -85,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = ({  match  }) => {
-const { name } = match.params;
+const { name, room } = match.params;
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -171,14 +172,15 @@ console.log("NAME ->" ,name)
         <Typography paragraph>
         {tool} 
         </Typography>
-      
-      
+        {tool === 'rooms' && (<Join name={name}/>)}
+        {tool === 'dictionary' && (<VocabAPI />)}
       </main>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>
-        Chat Box
+          Chatbox
         </Typography>
+        <Chat name={name} room={"English"}/>
 
       </main>
     </div>
