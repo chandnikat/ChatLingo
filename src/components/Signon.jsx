@@ -42,7 +42,7 @@ const Signon = ({ history }) => {
   const [email, handleEmail] = useInputState('');
   const [warn, setWarn] = useState(false);
   const [nameExists, setNameExists] = useState(null);
-  const [hasAccount, setHasAccount] = useState(false);
+  const [hasAccount, setHasAccount] = useState(true);
   const classes = useStyles();
 
   const handleSubmit = async e => {
@@ -144,11 +144,11 @@ const Signon = ({ history }) => {
             }}
             aria-label="signon-toggle"
           >
-            <ToggleButton value={false} aria-label="signup">
-              Sign Up
-            </ToggleButton>
             <ToggleButton value={true} aria-label="signin">
               Sign In
+            </ToggleButton>
+            <ToggleButton value={false} aria-label="signup">
+              Sign Up
             </ToggleButton>
           </ToggleButtonGroup>
 
