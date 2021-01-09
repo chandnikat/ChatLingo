@@ -118,7 +118,7 @@ const Signon_new = ({ history }) => {
       <ThemeProvider /*theme={theme} */>
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography 	variant="h5"
+        <Typography 	variant="h3"
 							color="primary"
 							style={{ fontWeight: '800', margin: "10px" }}>Welcome!
         </Typography>

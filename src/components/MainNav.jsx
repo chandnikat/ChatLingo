@@ -15,6 +15,8 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    color: "white",
+    fontWeight: '800'
   },
  
   title: {
@@ -39,7 +41,7 @@ export default function MainNav() {
             Chatlingo
           </Typography>
           </Link>
-          <Button color="inherit" className={classes.title} >Login</Button>
+          <Button color="inherit" className={classes.menuButton} >Login</Button>
         </Toolbar>
       </AppBar>
       </ThemeProvider>
