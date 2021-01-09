@@ -1,13 +1,33 @@
 import React, { useState } from 'react';
-import {Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container} from '@material-ui/core';
+import {Button, CssBaseline, TextField, Link, Grid, Box, Typography, Container} from '@material-ui/core';
 import {ToggleButtonGroup, ToggleButton, Alert} from '@material-ui/lab';
-import { ThemeProvider } from '@material-ui/core/styles';
-
-// import Signon from './Signon';
+import { ThemeProvider, makeStyles} from '@material-ui/core/styles';
 import useInputState from './useInputState';
 import theme from "../styles/theme.js"
-import useStyles from "../styles/useStyles"
 
+//STYLING:
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', 
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+
+//SignIn/SignUp COMPONENT:
 const Signon_new = ({ history }) => {
   const [username, handleUsername] = useInputState('');
   const [password, handlePassword] = useInputState('');
@@ -118,9 +138,7 @@ const Signon_new = ({ history }) => {
             Sign In
           </ToggleButton>
         </ToggleButtonGroup>
-        {/* <Typography component="h1" variant="h5">
-          Sign in
-        </Typography> */}
+  
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
@@ -177,10 +195,6 @@ const Signon_new = ({ history }) => {
             value={password}
             onChange={handlePassword}
           />
-          {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
           {hasAccount ? (
             <Button
               type="submit"
