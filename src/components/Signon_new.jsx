@@ -1,22 +1,12 @@
 import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import Alert from '@material-ui/lab/Alert';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Signon from './Signon';
+import {Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, Container} from '@material-ui/core';
+import {ToggleButtonGroup, ToggleButton, Alert} from '@material-ui/lab';
+import { ThemeProvider } from '@material-ui/core/styles';
+
+// import Signon from './Signon';
 import useInputState from './useInputState';
+import theme from "../styles/theme.js"
+import useStyles from "../styles/useStyles"
 
 const Signon_new = ({ history }) => {
   const [username, handleUsername] = useInputState('');
@@ -25,6 +15,7 @@ const Signon_new = ({ history }) => {
   const [warn, setWarn] = useState(false);
   const [nameExists, setNameExists] = useState(null);
   const [hasAccount, setHasAccount] = useState(false);
+  const classes = useStyles();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -46,9 +37,9 @@ const Signon_new = ({ history }) => {
         }
       );
 
-      console.log('response.status => ', response.status);
+      let data = await response.jason()
 
-      if (response.status === 200) {
+      if (!data.err) {
         console.log(hasAccount ? 'Signed In!' : 'Signed Up!');
         //redirect to Home
         history.push(`/join/${username}`);
@@ -100,13 +91,16 @@ const Signon_new = ({ history }) => {
       console.log('Error in handleClick of Signon component:', error);
     }
   };
-  const classes = useStyles();
+
 
   return (
     <Container component="main" maxWidth="xs">
+      <ThemeProvider theme={theme}>
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>{/* <LockOutlinedIcon /> */}</Avatar>
+        <Typography 	variant="h4"
+							color="primary"
+							style={{ fontWeight: '600', margin: "10px" }}>Chatlingo</Typography>
         <ToggleButtonGroup
           value={hasAccount}
           exclusive
@@ -142,16 +136,16 @@ const Signon_new = ({ history }) => {
             onChange={handleUsername}
           />
           {!hasAccount && (
-            <Button onClick={handleClick}>Check Availability</Button>
+            <Button onClick={handleClick}  variant="contained" color="secondary" style={{ fontWeight: '700'}}>Check Availability</Button>
           )}
 
           {nameExists === null ? null : nameExists ? (
             <Alert severity="error">
-              This is an error alert — check it out!
+              Username Already Exist!
             </Alert>
           ) : (
             <Alert severity="success">
-              This is a success alert — check it out!
+              Username Is Available!
             </Alert>
           )}
 
@@ -194,6 +188,7 @@ const Signon_new = ({ history }) => {
               variant="contained"
               color="primary"
               className={classes.submit}
+              style={{ fontWeight: '700'}}
             >
               {' '}
               Sign In
@@ -205,6 +200,7 @@ const Signon_new = ({ history }) => {
               variant="contained"
               color="primary"
               className={classes.submit}
+              style={{ fontWeight: '700'}}
             >
               {' '}
               Sign Up
@@ -227,41 +223,23 @@ const Signon_new = ({ history }) => {
       <Box mt={8}>
         <Copyright />
       </Box>
+      </ThemeProvider>
     </Container>
+    
   );
 };
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
+      {'Copyright © Chatlingo'}
+      {' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
 }
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+
 
 export default Signon_new;
