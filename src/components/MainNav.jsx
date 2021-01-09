@@ -30,7 +30,7 @@ export default function MainNav() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider >
       <AppBar position="static" color="primary">
         <Toolbar>
         <ChatIcon style={{marginRight: "10px"}}/>

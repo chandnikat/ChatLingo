@@ -115,7 +115,7 @@ const Signon_new = ({ history }) => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <ThemeProvider theme={theme}>
+      <ThemeProvider >
       <CssBaseline />
       <div className={classes.paper}>
         <Typography 	variant="h5"
@@ -227,15 +227,15 @@ const Signon_new = ({ history }) => {
                 Forgot password?
               </Link>
             </Grid>
-            <Grid item>
+            {/* <Grid item>
               <Link href="#" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
-            </Grid>
+            </Grid> */}
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
+      <Box mt={3}>
         <Copyright />
       </Box>
       </ThemeProvider>
