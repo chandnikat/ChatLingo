@@ -115,7 +115,7 @@ const Signon_new = ({ history }) => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <ThemeProvider >
+      <ThemeProvider /*theme={theme} */>
       <CssBaseline />
       <div className={classes.paper}>
         <Typography 	variant="h5"
