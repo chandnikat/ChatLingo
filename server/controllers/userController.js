@@ -6,21 +6,24 @@ const userController = {};
 userController.createUser = async (req, res, next) => {
   console.log('req.body', req.body);
   let registration_date = new Date().toString().slice(0, 15);
-  // Email will come from req.body once updated in front end 
+  // Email will come from req.body once updated in front end
   // let email = "hello@email.com"
   const { user_name, password, email } = req.body;
   // Where do we want to handle form control, i.e. if user does not fill out username and/or password field? Front end using a library such as react hook form? Back end by sending a message
-  if (!user_name) return next({
-    message: { err: 'Please complete username field' }
-  })
-  if (!password) return next({
-    message: { err: 'Please complete password field' }
-  })
-  if (!email) return next({
-    message: { err: 'Please complete email field' }
-  })
+  if (!user_name)
+    return next({
+      message: { err: 'Please complete username field' },
+    });
+  if (!password)
+    return next({
+      message: { err: 'Please complete password field' },
+    });
+  if (!email)
+    return next({
+      message: { err: 'Please complete email field' },
+    });
   const saltRounds = 10;
-  const hashedPassword = await (bcrypt.hash(password, saltRounds));
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
   console.log('hashedPassword => ', hashedPassword);
 
   const createUserQueryString = `
@@ -43,18 +46,16 @@ userController.createUser = async (req, res, next) => {
       if (err.constraint === 'Users_user_name_key') {
         return next({
           message: { err: 'Username already exists' },
-        })
-      }
-      else if (err.constraint === 'Users_email_key') {
+        });
+      } else if (err.constraint === 'Users_email_key') {
         return next({
           message: { err: 'Email already exists' },
-        })
-      }
-      else {
+        });
+      } else {
         return next(err);
       }
-    })
-}
+    });
+};
 
 /**
  * verifyUser - Obtain username and password from the request body, locate
@@ -76,7 +77,7 @@ userController.verifyUser = (req, res, next) => {
       if (!response.rows[0]) {
         return next({
           message: { err: 'Username and/or password do not match' },
-        })
+        });
       }
       const hashedPassword = response.rows[0].password;
       const isMatch = await bcrypt.compare(password, hashedPassword);
@@ -87,19 +88,18 @@ userController.verifyUser = (req, res, next) => {
       } else {
         return next({
           message: { err: 'Username and/or password do not match' },
-        })
+        });
       }
     })
-    .catch((err) => {
+    .catch(err => {
       return next({
         log: `userController: Unable to verify user data with verifyUser`,
         message: {
           err: `userController.verifyUser: ERROR: ${err}`,
         },
       });
-    })
-}
-
+    });
+};
 
 userController.checkUsername = async (req, res, next) => {
   console.log('req.body => ', req.body);
@@ -122,7 +122,7 @@ userController.checkUsername = async (req, res, next) => {
           err: `userController.verifyUser: ERROR: ${err}`,
         },
       });
-    })
+    });
 };
 
 module.exports = userController;
