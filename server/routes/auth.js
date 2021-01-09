@@ -9,7 +9,9 @@ router.post('/signup', userController.createUser, (req, res) => {
 });
 
 router.post('/signin', userController.verifyUser, (req, res) => {
-  return res.sendStatus(200);
+  return res.status(200).json({
+    user: res.locals.user
+  });
 });
 
 router.post('/checkusername', userController.checkUsername, (req, res) => {
