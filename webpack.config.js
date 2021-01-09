@@ -19,7 +19,7 @@ module.exports = {
 
   devServer: {
     proxy: {
-      '*': 'http://[::1]:3000',
+      '/': 'http://localhost:3000',
       // "secure": false,
       // "changeOrigin": true
     },

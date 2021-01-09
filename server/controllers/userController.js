@@ -7,8 +7,8 @@ userController.createUser = async (req, res, next) => {
   console.log('req.body', req.body);
   let registration_date = new Date().toString().slice(0, 15);
   // Email will come from req.body once updated in front end 
-  let email = "hello@email.com"
-  const { user_name, password } = req.body;
+  // let email = "hello@email.com"
+  const { user_name, password, email } = req.body;
   // Where do we want to handle form control, i.e. if user does not fill out username and/or password field? Front end using a library such as react hook form? Back end by sending a message
   if (!user_name) return next({
     message: { err: 'Please complete username field' }

@@ -8,7 +8,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production webpack serve --no-cache",
     "server": "cross-env nodemon --inspect server/server.js",
-    "dev": "cross-env NODE_ENV=development webpack serve & NODE_ENV=development nodemon server/server.js",
+    "dev": "cross-env NODE_ENV=development concurrently \"nodemon server/server.js\" \"npm run start\"",
     "build": "cross-env NODE_ENV=production webpack",
     "lint": "cross-env eslint",
     "clean": "cross-env rm dist/main.js"
