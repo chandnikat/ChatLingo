@@ -15,6 +15,8 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper'
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Join from './Join'
@@ -125,7 +127,7 @@ console.log("NAME ->" ,name)
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Mini variant drawer
+            ChatLingo
           </Typography>
         </Toolbar>
       </AppBar>
@@ -167,22 +169,28 @@ console.log("NAME ->" ,name)
             </ListItem>
         </List>
       </Drawer>
-      <main className={classes.content}>
+      <Grid container direction="row" alignItems="stretch" spacing={1} style={{height:"100vh"}}>
+      <Grid item xs={12} sm={4} className={classes.content} >
+        <Paper style={{height:'100%'}}>
         <div className={classes.toolbar} />
         <Typography paragraph>
         {tool} 
         </Typography>
         {tool === 'rooms' && (<Join name={name}/>)}
         {tool === 'dictionary' && (<VocabAPI />)}
-      </main>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
+      </Paper>
+      </Grid>
+      <Divider orientation="vertical" style={{height:'100%'}}/>
+      <Grid item xs={12} sm={7} className={classes.content}>
+        <Paper style={{height:'100%'}}>
+          <div className={classes.toolbar} />
         <Typography paragraph>
           Chatbox
         </Typography>
-        <Chat name={name} room={"English"}/>
-
-      </main>
+          <Chat name={name} room={"English"}/>
+        </Paper>
+      </Grid>
+      </Grid>
     </div>
   );
 }
