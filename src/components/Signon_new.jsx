@@ -247,7 +247,7 @@ const Signon_new = ({ history }) => {
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © Chatlingo'}
+      {'Copyright © ChatLingo'}
       {' '}
       {new Date().getFullYear()}
       {'.'}

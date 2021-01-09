@@ -38,7 +38,7 @@ export default function MainNav() {
         <ChatIcon style={{marginRight: "10px"}}/>
         <Link to='/' style={{ textDecoration: 'none' }}>
           <Typography variant="h6" className={classes.title}>
-            Chatlingo
+            ChatLingo
           </Typography>
           </Link>
           <Button color="inherit" className={classes.menuButton} >Login</Button>
