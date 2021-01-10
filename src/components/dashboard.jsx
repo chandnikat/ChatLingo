@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    width: "100%"
   },
   title: {
     flexGrow: 1,
@@ -169,27 +170,27 @@ console.log("NAME ->" ,name)
             </ListItem>
         </List>
       </Drawer>
-      <Grid container direction="row" alignItems="stretch" spacing={1} style={{height:"100vh"}}>
-      <Grid item xs={12} sm={4} className={classes.content} >
-        <Paper style={{height:'100%'}}>
-        <div className={classes.toolbar} />
-        <Typography paragraph>
-        {tool} 
-        </Typography>
-        {tool === 'rooms' && (<Join name={name}/>)}
-        {tool === 'dictionary' && (<VocabAPI />)}
-      </Paper>
-      </Grid>
-      <Divider orientation="vertical" style={{height:'100%'}}/>
-      <Grid item xs={12} sm={7} className={classes.content}>
-        <Paper style={{height:'100%'}}>
+      <Grid container style={{height:"92vh"}}>
+        <Grid item xs={12} sm={3} className={classes.content} >
+        <Paper style={{height:'85vh'}}>
           <div className={classes.toolbar} />
-        <Typography paragraph>
-          Chatbox
-        </Typography>
-          <Chat name={name} room={"English"}/>
-        </Paper>
-      </Grid>
+          <Typography paragraph>
+          {tool} 
+          </Typography>
+          {tool === 'rooms' && (<Join name={name}/>)}
+          {tool === 'dictionary' && (<VocabAPI />)}
+          </Paper>
+        </Grid>
+        <Divider orientation="vertical" />
+        <Grid item xs={12} sm={8} className={classes.content}>
+          <Paper style={{height:'85vh'}}>
+            <div className={classes.toolbar} />
+          <Typography paragraph>
+            Chatbox
+          </Typography>
+            <Chat name={name} room={"English"} />
+          </Paper>
+        </Grid>
       </Grid>
       </ThemeProvider>
     </div>
