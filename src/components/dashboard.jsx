@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
-import {Drawer, Grid, Paper, AppBar, Toolbar, List, CssBaseline, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
+import {Drawer, Grid, Paper, AppBar, Toolbar, List, CssBaseline, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Button} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -88,6 +88,11 @@ const useStyles = makeStyles((theme) => ({
   gridItem: {
     padding: "15px"
   },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    color: 'white',
+    fontWeight: '800',
+  },
 }));
 
 const Dashboard = ({  match  }) => {
@@ -134,6 +139,9 @@ console.log("NAME ->" ,name)
           <Typography variant="h6" noWrap className={classes.title}>
             ChatLingo
           </Typography>
+          <Button color="inherit" className={classes.menuButton}>
+              Logout
+            </Button>
         </Toolbar>
       </AppBar>
       <Drawer
