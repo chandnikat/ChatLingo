@@ -41,6 +41,10 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
     fontSize: "25px"
   },
+  avatar : {
+    color: '#fff',
+    backgroundColor: "#40637E",
+  }
 });
 
 const Chat = ({name, room}) => {
@@ -66,9 +70,9 @@ const Chat = ({name, room}) => {
                   <Divider />
                   <ListItem button >
                       <ListItemIcon>
-                          <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
+                          <Avatar className={classes.avatar}>{name[0]}</Avatar>
                       </ListItemIcon>
-                      <ListItemText >Remy Sharp</ListItemText>
+                      <ListItemText >{name} </ListItemText>
                   </ListItem>
               </List>
           </Grid>
