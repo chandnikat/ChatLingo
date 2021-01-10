@@ -31,11 +31,6 @@ const useStyles = makeStyles(theme => ({
 const MainNav = ({history}) => {
   const classes = useStyles();
 
-const handleClick = async e => {
-  e.preventDefault();
-  history.push('/team');
-  console.log("About button")
-}
 
   return (
     <div className={classes.root}>
