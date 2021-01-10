@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
 import {Drawer, Grid, Paper, AppBar, Toolbar, List, CssBaseline, Typography, Divider, IconButton, ListItem, ListItemIcon, ListItemText, Button} from '@material-ui/core';
@@ -145,9 +146,11 @@ console.log("NAME ->" ,name)
           <Typography variant="h6" noWrap className={classes.title}>
             ChatLingo
           </Typography>
+          <Link to="/" style={{ textDecoration: 'none' }}>
           <Button color="inherit" className={classes.menuButton}>
               Logout
             </Button>
+            </Link>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -203,9 +206,6 @@ console.log("NAME ->" ,name)
         <Grid item xs={12} sm={8} className={classes.content}>
           <Paper style={{height:'85vh'}} className={classes.gridItem}>
             <div className={classes.toolbar} />
-          <Typography >
-            Chatbox
-          </Typography>
             <Chat name={name} room={"English"}/>
           </Paper>
         </Grid>
