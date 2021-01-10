@@ -50,6 +50,10 @@ const Chat = ({name, room}) => {
     room
   );
 
+  //Get current time:
+  var date = new Date();
+  var time = date.toLocaleTimeString();
+
 
   return (
     <div>
@@ -76,7 +80,7 @@ const Chat = ({name, room}) => {
                               <ListItemText align="right" primary={"Hey man, What's up ?"}></ListItemText>
                           </Grid>
                           <Grid item xs={12}>
-                              <ListItemText align="right" secondary={name}></ListItemText>
+                              <ListItemText align="right" secondary={`${name}- ${time}`}></ListItemText>
                           </Grid>
                       </Grid>
                   </ListItem>
