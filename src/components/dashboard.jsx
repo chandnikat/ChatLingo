@@ -77,12 +77,16 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    width: "100%"
+    width: "100%",
+    padding: "7px"
   },
   title: {
     flexGrow: 1,
     color: 'white',
     fontWeight: '800',
+  },
+  gridItem: {
+    padding: "15px"
   },
 }));
 
@@ -172,7 +176,7 @@ console.log("NAME ->" ,name)
       </Drawer>
       <Grid container style={{height:"92vh"}}>
         <Grid item xs={12} sm={3} className={classes.content} >
-        <Paper style={{height:'85vh'}}>
+        <Paper style={{height:'85vh'}} className={classes.gridItem}>
           <div className={classes.toolbar} />
           <Typography paragraph>
           {tool} 
@@ -183,12 +187,12 @@ console.log("NAME ->" ,name)
         </Grid>
         <Divider orientation="vertical" />
         <Grid item xs={12} sm={8} className={classes.content}>
-          <Paper style={{height:'85vh'}}>
+          <Paper style={{height:'85vh'}} className={classes.gridItem}>
             <div className={classes.toolbar} />
-          <Typography paragraph>
+          <Typography >
             Chatbox
           </Typography>
-            <Chat name={name} room={"English"} />
+            <Chat name={name} room={"English"}/>
           </Paper>
         </Grid>
       </Grid>
