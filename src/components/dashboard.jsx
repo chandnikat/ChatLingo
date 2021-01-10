@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = ({  match  }) => {
-const { name, room } = match.params;
+let { name, room } = match.params;
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -104,6 +104,12 @@ const { name, room } = match.params;
 
 console.log("TOOL ->", tool)
 console.log("NAME ->" ,name)
+
+//Capitalizes username:
+ name = name.toLowerCase().replace(/\b\w{3,}/g, function (l) {
+  return l.charAt(0).toUpperCase() + l.slice(1);
+});
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
