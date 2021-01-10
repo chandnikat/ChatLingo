@@ -98,16 +98,6 @@ const Chat = ({name, room}) => {
                           </Grid>
                       </Grid>
                   </ListItem>
-                  <ListItem key="3">
-                      <Grid container>
-                          <Grid item xs={12}>
-                              <ListItemText align="right" primary="Cool. i am good, let's catch up!"></ListItemText>
-                          </Grid>
-                          <Grid item xs={12}>
-                              <ListItemText align="right" secondary="10:30"></ListItemText>
-                          </Grid>
-                      </Grid>
-                  </ListItem>
               </List>
               <Divider />
               <Grid container style={{padding: '20px'}}>
