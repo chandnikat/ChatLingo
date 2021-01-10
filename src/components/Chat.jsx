@@ -120,18 +120,11 @@ const Chat = ({name, room}) => {
 );
 
 
-
-  // return (
-  //   <div className="chatOuterContainer">
-  //     <div className="chatInnerContainer">
-  //       <InfoBar room={room} />
   //       <Messages messages={messages} name={name} typeMsg={typeMsg} />
   //       <InputBox
   //         sendNewMessage={sendNewMessage}
   //         sendTypingMsg={sendTypingMsg}
   //       />
-  //     </div>
-  //   </div>
-  // );
+
 };
 export default Chat;
