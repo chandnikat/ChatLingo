@@ -5,8 +5,11 @@ import {Drawer, Grid, Paper, AppBar, Toolbar, List, CssBaseline, Typography, Div
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
 import ChatIcon from '@material-ui/icons/Chat';
+import HistoryIcon from '@material-ui/icons/History'
+import LanguageIcon from '@material-ui/icons/Language'
+import MenuBookIcon from '@material-ui/icons/MenuBook'
 import Join from './Join'
 import VocabAPI from './VocabAPI'
 import Chat from './Chat'
@@ -149,19 +152,19 @@ console.log("NAME ->" ,name)
         <Divider />
         <List>
             <ListItem button onClick={() => setTool('dictionary')} key={"Dictionary"} >
-              <ListItemIcon >{<InboxIcon />}</ListItemIcon>
+              <ListItemIcon >{<MenuBookIcon color="secondary"/>}</ListItemIcon>
               <ListItemText primary={"Dictionary"} />
             </ListItem>
             <ListItem button onClick={() => setTool('translation') } key={"Translation"} >
-              <ListItemIcon>{<InboxIcon />}</ListItemIcon>
+              <ListItemIcon>{<LanguageIcon color="secondary"/>}</ListItemIcon>
               <ListItemText primary={"Translation"} />
             </ListItem>
             <ListItem button button onClick={() => setTool('history') }key={"History"} >
-              <ListItemIcon>{<InboxIcon />}</ListItemIcon>
+              <ListItemIcon>{<HistoryIcon color="secondary"/>}</ListItemIcon>
               <ListItemText primary={"History"} />
             </ListItem>
             <ListItem button button onClick={() => setTool('rooms') }key={"Rooms"} >
-              <ListItemIcon>{<InboxIcon />}</ListItemIcon>
+              <ListItemIcon>{<PeopleAltIcon color="secondary"/>}</ListItemIcon>
               <ListItemText primary={"Rooms"} />
             </ListItem>
         </List>
