@@ -25,9 +25,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+
 //NavBar COMPONENT:
-export default function MainNav() {
+const MainNav = ({history}) => {
   const classes = useStyles();
+
+const handleClick = async e => {
+  e.preventDefault();
+  history.push('/team');
+  console.log("About button")
+}
+
   return (
     <div className={classes.root}>
       <ThemeProvider theme={theme}>
@@ -39,24 +48,16 @@ export default function MainNav() {
                 ChatLingo
               </Typography>
             {/* </Link> */}
+            <Link to="/team" style={{ textDecoration: 'none' }}>
             <Button color="inherit" className={classes.menuButton}>
               About
             </Button>
+            </Link>
           </Toolbar>
         </AppBar>
       </ThemeProvider>
     </div>
   );
 
-  //     <ul>
-  //       {MenuItems.map((item, idx) => {
-  //         return (
-  //           <li className='MainNav-item' key={`menuitem-${idx}`}>
-  //             <Link to={item.link}>{item.itemName}</Link>
-  //           </li>
-  //         );
-  //       })}
-  //     </ul>
-  //   </nav>
-  // );
 }
+export default MainNav;
