@@ -22,7 +22,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import Join from './Join'
 import VocabAPI from './VocabAPI'
 import Chat from './Chat'
-import theme from '../styles/theme.js';
+import theme1 from '../styles/theme.js';
+import ChatIcon from '@material-ui/icons/Chat';
 
 const drawerWidth = 240;
 
@@ -86,12 +87,17 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  title: {
+    flexGrow: 1,
+    color: 'white',
+    fontWeight: '800',
+  },
 }));
 
 const Dashboard = ({  match  }) => {
 const { name, room } = match.params;
   const classes = useStyles();
-  // const theme = useTheme();
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [tool, setTool] = React.useState('rooms');
 
@@ -108,7 +114,7 @@ console.log("NAME ->" ,name)
 
   return (
     <div className={classes.root}>
-         <ThemeProvider theme={theme}>
+         <ThemeProvider theme={theme1}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -128,7 +134,8 @@ console.log("NAME ->" ,name)
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <ChatIcon style={{ marginRight: '10px' }} />
+          <Typography variant="h6" noWrap className={classes.title}>
             ChatLingo
           </Typography>
         </Toolbar>
