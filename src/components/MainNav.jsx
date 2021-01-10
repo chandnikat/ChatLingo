@@ -34,13 +34,13 @@ export default function MainNav() {
         <AppBar position="static" color="primary">
           <Toolbar>
             <ChatIcon style={{ marginRight: '10px' }} />
-            <Link to="/" style={{ textDecoration: 'none' }}>
+            {/* <Link to="/" style={{ textDecoration: 'none' }}> */}
               <Typography variant="h6" className={classes.title}>
                 ChatLingo
               </Typography>
-            </Link>
+            {/* </Link> */}
             <Button color="inherit" className={classes.menuButton}>
-              Login
+              About
             </Button>
           </Toolbar>
         </AppBar>
