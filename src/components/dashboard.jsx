@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -22,6 +22,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import Join from './Join'
 import VocabAPI from './VocabAPI'
 import Chat from './Chat'
+import theme from '../styles/theme.js';
 
 const drawerWidth = 240;
 
@@ -90,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = ({  match  }) => {
 const { name, room } = match.params;
   const classes = useStyles();
-  const theme = useTheme();
+  // const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [tool, setTool] = React.useState('rooms');
 
@@ -107,6 +108,7 @@ console.log("NAME ->" ,name)
 
   return (
     <div className={classes.root}>
+         <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -191,6 +193,7 @@ console.log("NAME ->" ,name)
         </Paper>
       </Grid>
       </Grid>
+      </ThemeProvider>
     </div>
   );
 }
