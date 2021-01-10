@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: '800',
   },
   gridItem: {
-    padding: "15px"
+    padding: "10px"
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -147,10 +147,10 @@ console.log("NAME ->" ,name)
             ChatLingo
           </Typography>
           <Link to="/" style={{ textDecoration: 'none' }}>
-          <Button color="inherit" className={classes.menuButton}>
+            <Button color="inherit" className={classes.menuButton}>
               Logout
             </Button>
-            </Link>
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -204,8 +204,8 @@ console.log("NAME ->" ,name)
         </Grid>
         <Divider orientation="vertical" />
         <Grid item xs={12} sm={8} className={classes.content}>
-          <Paper style={{height:'85vh'}} className={classes.gridItem}>
-            <div className={classes.toolbar} />
+          <Paper style={{height:'85vh'}} className={classes.gridItem} style={{backgroundColor:"#3caea3"}}>
+            {/* <div className={classes.toolbar} /> */}
             <Chat name={name} room={"English"}/>
           </Paper>
         </Grid>
