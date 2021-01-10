@@ -35,7 +35,12 @@ const useStyles = makeStyles({
   messageArea: {
     height: '71vh',
     overflowY: 'auto'
-  }
+  },
+  roomBox: {
+    color: '#40637E',
+    fontWeight: 'bold',
+    fontSize: "25px"
+  },
 });
 
 const Chat = ({name, room}) => {
@@ -51,12 +56,15 @@ const Chat = ({name, room}) => {
       <Grid container component={Paper} className={classes.chatSection}>
           <Grid item xs={3} className={classes.borderRight500}>
               <List>
-                  <ListItem button key="RemySharp">
+                  <ListItem button >
+                      <Typography className={classes.roomBox}>{room}</Typography>
+                  </ListItem>
+                  <Divider />
+                  <ListItem button >
                       <ListItemIcon>
                           <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
                       </ListItemIcon>
-                      <ListItemText primary="Remy Sharp">Remy Sharp</ListItemText>
-                      <ListItemText secondary="online" align="right"></ListItemText>
+                      <ListItemText >Remy Sharp</ListItemText>
                   </ListItem>
               </List>
           </Grid>
@@ -65,10 +73,10 @@ const Chat = ({name, room}) => {
                   <ListItem key="1">
                       <Grid container>
                           <Grid item xs={12}>
-                              <ListItemText align="right" primary="Hey man, What's up ?"></ListItemText>
+                              <ListItemText align="right" primary={"Hey man, What's up ?"}></ListItemText>
                           </Grid>
                           <Grid item xs={12}>
-                              <ListItemText align="right" secondary="09:30"></ListItemText>
+                              <ListItemText align="right" secondary={name}></ListItemText>
                           </Grid>
                       </Grid>
                   </ListItem>
