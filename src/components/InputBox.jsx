@@ -4,11 +4,7 @@ import { Smile } from 'react-feather';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 
-
-
-
 import Grid from '@material-ui/core/Grid';
-
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
