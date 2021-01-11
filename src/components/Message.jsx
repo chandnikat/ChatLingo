@@ -40,10 +40,10 @@ const Message = ({ message, name }) => {
         <ListItem key="1">
             <Grid container>
                 <Grid item xs={12}>
-                    <ListItemText align="right" primary={"Hey man, What's up ?"}></ListItemText>
+                    <ListItemText align="right" primary={message.text}></ListItemText>
                 </Grid>
                 <Grid item xs={12}>
-                    <ListItemText align="right" secondary={`${name}- ${time}`}></ListItemText>
+                    <ListItemText align="right" secondary={`${message.name}- ${time}`}></ListItemText>
                 </Grid>
             </Grid>
         </ListItem>
@@ -53,10 +53,10 @@ const Message = ({ message, name }) => {
         <ListItem key="2">
           <Grid container>
               <Grid item xs={12}>
-                  <ListItemText align="left" primary="Hey, Iam Good! What about you ?"></ListItemText>
+                  <ListItemText align="left" primary={message.text}></ListItemText>
               </Grid>
               <Grid item xs={12}>
-                  <ListItemText align="left" secondary={`${name}- ${time}`}></ListItemText>
+                  <ListItemText align="left" secondary={`${message.name}- ${time}`}></ListItemText>
               </Grid>
           </Grid>
         </ListItem>
