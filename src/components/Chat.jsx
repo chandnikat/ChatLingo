@@ -100,14 +100,8 @@ const Chat = ({name, room}) => {
                   </ListItem>
               </List>
               <Divider />
-              <Grid container style={{padding: '20px'}}>
-                  <Grid item xs={11}>
-                      <TextField id="outlined-basic-email" label="Type a message..." fullWidth />
-                  </Grid>
-                  <Grid xs={1} align="right">
-                      <Fab color="primary" aria-label="add"><SendIcon /></Fab>
-                  </Grid>
-              </Grid>
+     
+              <InputBox sendNewMessage={sendNewMessage} sendTypingMsg={sendTypingMsg}/>
           </Grid>
       </Grid>
     </div>
@@ -115,10 +109,7 @@ const Chat = ({name, room}) => {
 
 
   //       <Messages messages={messages} name={name} typeMsg={typeMsg} />
-  //       <InputBox
-  //         sendNewMessage={sendNewMessage}
-  //         sendTypingMsg={sendTypingMsg}
-  //       />
+
 
 };
 export default Chat;

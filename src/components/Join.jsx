@@ -53,7 +53,7 @@ const Join = ({name, room, handleRoomNameChange}) => {
           </select>
         </>
         <>
-          <Link
+          {/* <Link
             onClick={(e) =>
               !name || !room || room === 'Choose A Chatroom'
                 ? e.preventDefault()
@@ -64,7 +64,7 @@ const Join = ({name, room, handleRoomNameChange}) => {
             <button className="joinButton" type="submit">
               Join
             </button>
-          </Link>
+          </Link> */}
         </>
         <>
           <div className="usersCountByRoom">
