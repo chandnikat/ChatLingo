@@ -4,10 +4,12 @@ import { Chatrooms } from './Chatrooms';
 import useInputState from './useInputState';
 import axios from 'axios';
 
-const Join = ({ name }) => {
+const Join = ({name, room, handleRoomNameChange}) => {
   // const { name } = match.params;
-  const [room, handleChangeRoom] = useInputState('');
+  // const [room, handleChangeRoom] = useInputState('');
   const [usersCountByRoom, setUsersCountByRoom] = useState([]);
+
+  
 
   const getActiveRooms = async () => {
     try {
@@ -31,6 +33,7 @@ const Join = ({ name }) => {
     getActiveRooms();
   }, []);
 
+
   return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
@@ -39,7 +42,7 @@ const Join = ({ name }) => {
           <select
             className="joinInput"
             value={room}
-            onChange={handleChangeRoom}
+            onChange={(e) => handleRoomNameChange(e.target.value)}
           >
             <option>Choose A Chatroom</option>
             {Chatrooms.map((room, idx) => (

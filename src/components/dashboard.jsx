@@ -97,14 +97,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = ({  match  }) => {
-let { name, room } = match.params;
+let { name } = match.params;
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [tool, setTool] = React.useState('rooms');
+  const [open, setOpen] = useState(false);
+  const [tool, setTool] = useState('rooms');
+  const [room, setRoom] = useState("English")
 
 console.log("TOOL ->", tool)
 console.log("NAME ->" ,name)
+console.log("ROOMS ->", room)
 
 //Capitalizes username:
  name = name.toLowerCase().replace(/\b\w{3,}/g, function (l) {
@@ -119,6 +121,10 @@ console.log("NAME ->" ,name)
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleRoomNameChange = (input) => {
+    setRoom(input);
+  }
 
   return (
     <div className={classes.root}>
@@ -198,7 +204,7 @@ console.log("NAME ->" ,name)
           <Typography paragraph>
           {tool} 
           </Typography>
-          {tool === 'rooms' && (<Join name={name}/>)}
+          {tool === 'rooms' && (<Join name={name} handleRoomNameChange={handleRoomNameChange} room={room}/>)}
           {tool === 'dictionary' && (<VocabAPI />)}
           </Paper>
         </Grid>
@@ -206,7 +212,7 @@ console.log("NAME ->" ,name)
         <Grid item xs={12} sm={8} className={classes.content}>
           <Paper style={{height:'85vh'}} className={classes.gridItem} style={{backgroundColor:"#3caea3"}}>
             {/* <div className={classes.toolbar} /> */}
-            <Chat name={name} room={"English"}/>
+            <Chat name={name} room={room}/>
           </Paper>
         </Grid>
       </Grid>
