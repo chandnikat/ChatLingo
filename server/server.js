@@ -13,8 +13,8 @@ const PORT = process.env.PORT;
  * require routers
  */
 
-const authRouter = require('./routes/auth');
-const translateRouter = require('./routes/translate');
+const authRouter = require('./routes/authRouter');
+const translateRouter = require('./routes/translateRouter');
 
 /**
  * handle parsing request body
@@ -89,12 +89,12 @@ app.post('/dictionary', (req, res, next) => {
         }
         // console.log('inside the try',definition);
         // console.log('here the array',data.results[0].lexicalEntries);
-        const dictionaryResults = {definition: data.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0], partOfSpeech: data.results[0].lexicalEntries[0].lexicalCategory['id']};
+        const dictionaryResults = { definition: data.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0], partOfSpeech: data.results[0].lexicalEntries[0].lexicalCategory['id'] };
         console.log(dictionaryResults);
         return res.status(200).json(dictionaryResults);
-      } catch(err) {
+      } catch (err) {
         return next({
-          message: { err: 'An error occurred while searching for this word'},
+          message: { err: 'An error occurred while searching for this word' },
         })
       }
     });
