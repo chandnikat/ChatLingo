@@ -1,32 +1,50 @@
-CREATE TABLE "profiles" (
-	"userID" serial NOT NULL,
-	"username" VARCHAR(255) NOT NULL UNIQUE,
-	"passkey" VARCHAR(255) NOT NULL,
-	"date_created" DATE,
-	"country" VARCHAR(255),
-	"email" TEXT,
-	CONSTRAINT "profiles_pk" PRIMARY KEY ("userID")
+CREATE TABLE "Users" (
+	"id" uuid DEFAULT uuid_generate_v4() NOT NULL,
+	"user_name" varchar(255) NOT NULL UNIQUE,
+	"password" varchar(255) NOT NULL,
+	"registration_date" DATE NOT NULL,
+	"email" varchar(255) NOT NULL UNIQUE,
+	CONSTRAINT "Users_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
-CREATE TABLE "messages" (
-	"messageID" serial NOT NULL,
-	"message_body" TEXT NOT NULL,
-	"date_posted" DATE NOT NULL,
-	"time_posted" TIME NOT NULL,
-	"userID_fk" integer NOT NULL UNIQUE,
-	"chatroomID_fk" integer NOT NULL UNIQUE,
-	CONSTRAINT "messages_pk" PRIMARY KEY ("messageID")
+
+
+CREATE TABLE "SavedConversations" (
+	"chatroom_id" serial NOT NULL,
+	"messages" varchar ARRAY NOT NULL,
+	"participants" varchar ARRAY NOT NULL,
+	"conversation_id" varchar(255) NOT NULL,
+	"language" varchar(255) NOT NULL,
+	"user_id" uuid NOT NULL
 ) WITH (
   OIDS=FALSE
 );
-CREATE TABLE "chatrooms" (
-	"chatroomID" serial NOT NULL,
-	"chatroom_name" VARCHAR(255) NOT NULL,
-	"language" VARCHAR(255) NOT NULL,
-	CONSTRAINT "chatrooms_pk" PRIMARY KEY ("chatroomID")
+
+
+
+CREATE TABLE "Chatrooms" (
+	"chatroom_id" serial NOT NULL,
+	"chatroom_name" varchar(255) NOT NULL,
+	CONSTRAINT "Chatroom_pk" PRIMARY KEY ("chatroom_id")
 ) WITH (
   OIDS=FALSE
 );
-ALTER TABLE "messages" ADD CONSTRAINT "messages_fk0" FOREIGN KEY ("userID_fk") REFERENCES "profiles"("userID");
-ALTER TABLE "messages" ADD CONSTRAINT "messages_fk1" FOREIGN KEY ("chatroomID_fk") REFERENCES "chatrooms"("chatroomID");
+
+
+
+CREATE TABLE "SavedWords" (
+	"word" varchar(255) NOT NULL,
+	"definition" varchar(255) NOT NULL,
+	"translation" varchar(255) NOT NULL,
+	"language_to" varchar(255) NOT NULL,
+	"language_from" varchar(255) NOT NULL,
+	"user_id" uuid NOT NULL
+) WITH (
+  OIDS=FALSE
+);
+
+ALTER TABLE "SavedConversations" ADD CONSTRAINT "SavedConversations_fk0" FOREIGN KEY ("chatroom_id") REFERENCES "Chatrooms"("chatroom_id");
+ALTER TABLE "SavedConversations" ADD CONSTRAINT "SavedConversations_fk1" FOREIGN KEY ("user_id") REFERENCES "Users"("id");
+
+ALTER TABLE "SavedWords" ADD CONSTRAINT "SavedWords_fk0" FOREIGN KEY ("user_id") REFERENCES "Users"("id");
