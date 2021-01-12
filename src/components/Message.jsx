@@ -7,16 +7,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-
 const useStyles = makeStyles({
   messageArea: {
-    height: '71vh',
-    overflowY: 'auto'
+    overflowY: 'auto',
   },
 });
 
 var date = new Date();
-var time = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+var time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
 const Message = ({ message, name }) => {
   const classes = useStyles();
@@ -37,31 +35,37 @@ const Message = ({ message, name }) => {
   // );
   return message.name === name ? (
     <List className={classes.messageArea}>
-        <ListItem key="1">
-            <Grid container>
-                <Grid item xs={12}>
-                    <ListItemText align="right" primary={message.text}></ListItemText>
-                </Grid>
-                <Grid item xs={12}>
-                    <ListItemText align="right" secondary={`${message.name}- ${time}`}></ListItemText>
-                </Grid>
-            </Grid>
-        </ListItem>
-    </List>
-    ) : (   
-      <List className={classes.messageArea}>
-        <ListItem key="2">
-          <Grid container>
-              <Grid item xs={12}>
-                  <ListItemText align="left" primary={message.text}></ListItemText>
-              </Grid>
-              <Grid item xs={12}>
-                  <ListItemText align="left" secondary={`${message.name}- ${time}`}></ListItemText>
-              </Grid>
+      <ListItem key="1">
+        <Grid container>
+          <Grid item xs={12}>
+            <ListItemText align="right" primary={message.text}></ListItemText>
           </Grid>
-        </ListItem>
-      </List>
-)
+          <Grid item xs={12}>
+            <ListItemText
+              align="right"
+              secondary={`${message.name}- ${time}`}
+            ></ListItemText>
+          </Grid>
+        </Grid>
+      </ListItem>
+    </List>
+  ) : (
+    <List className={classes.messageArea}>
+      <ListItem key="2">
+        <Grid container>
+          <Grid item xs={12}>
+            <ListItemText align="left" primary={message.text}></ListItemText>
+          </Grid>
+          <Grid item xs={12}>
+            <ListItemText
+              align="left"
+              secondary={`${message.name}- ${time}`}
+            ></ListItemText>
+          </Grid>
+        </Grid>
+      </ListItem>
+    </List>
+  );
 };
 
 export default Message;
