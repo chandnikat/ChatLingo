@@ -1,143 +1,121 @@
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import Axios from 'axios';
-import { Languages } from './language';
+import { makeStyles } from '@material-ui/core/styles';
+import {Paper, TextField, Button, Grid, Divider, Typography, List, ListItem} from '@material-ui/core';
 
-function VocabAPI() {
-  // React Hooks State (Updating state is async)
-  const [vocab, setVocab] = useState('');
-  const [search, setSearch] = useState('');
-  const [vocabHist, setVocabHist] = useState([]);
-  const [definition, setDefinition] = useState(null);
-  const [sourceLang, setSourceLang] = useState('en');
-  const [targetLang, setTargetLang] = useState('en');
 
-  // React Hooks Functions
-  const handleVocab = (e) => {
-    setVocab(e.target.value);
-    setSearch(e.target.value.replace(/ /gi, '%20'));
-  };
+const useStyles = makeStyles(theme =>({
+dictionarySection: {
+    width: '100%',
+    height: '83vh',
+  },
 
-  const handleSourceLang = (e) => {
-    setSourceLang(e.target.value);
-  };
+  titleBox: {
+    color: '#40637E',
+    fontWeight: 'bold',
+    fontSize: '25px',
+  },
+  definition: {
+    color: '#40637E',
+    fontWeight: 'bold',
+    fontSize: '20px',
+    paddingTop: "17px"
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+}));
 
-  const handleTargetLang = (e) => {
-    setTargetLang(e.target.value);
-  };
 
-  const handleLink = () => {
-    let url = `https://translate.google.com/?sl=${sourceLang}&tl=${targetLang}&text=${search}&op=translate`;
-    if (!vocab == '' && definition !== 'Sorry, we cannot find this word') {
-      window.open(url);
-      handleHistory(vocab);
-    }
-  };
 
-  // API Functionality
-  const handleSubmitVocab = async (e) => {
-    e.preventDefault(); //Prevents hot reload upon submit
+const Dictionary = ({ name, room }) => {
+  const classes = useStyles();
+   const [vocab, setVocab] = useState('');
+   const [search, setSearch] = useState('');
+   const [definition, setDefinition] = useState(null);
+   let [word, setWord] = useState('');
 
-    const currSearch = e.target[0].value;
-    const body = { vocab: currSearch, sl: sourceLang, tl: targetLang };
-    try {
-      console.log('Logged try block for post request');
-      const response = await Axios.post('/dictionary', {
-        header: { 'Content-Type': 'Application/JSON' },
-        body: body,
-      });
-      const newData = JSON.stringify(response.data.definition);
-      console.log(`reponse: ${newData}`);
-      // setDefinition(response.data);
-      setDefinition(newData);
-    } catch (err) {
-      console.log(`Catch block, POST error on /dictionary: ${err}`);
-    }
-    handleHistory(currSearch);
-    console.log('Form Submitted');
-  };
+  //Capitalizes word:
+  word = word.toLowerCase().replace(/\b\w{3,}/g, function (l) {
+    return l.charAt(0).toUpperCase() + l.slice(1);
+  });
+ 
+   // React Hooks Functions
+   const handleVocab = (e) => {
+     setVocab(e.target.value);
+     setSearch(e.target.value.replace(/ /gi, '%20'));
+   };
+ 
+ 
+   // API Functionality
+   const handleSubmitVocab = async (e) => {
+     e.preventDefault(); //Prevents hot reload upon submit
+ 
+     const currSearch = e.target[0].value;
+     const body = { vocab: currSearch};
+     try {
+       console.log('Logged try block for post request');
+       const response = await Axios.post('/dictionary', {
+         header: { 'Content-Type': 'Application/JSON' },
+         body: body,
+       });
+       const newData = JSON.stringify(response.data.definition);
+       console.log(`reponse: ${newData}`);
+       // setDefinition(response.data);
+       setDefinition(newData);
+       setWord(currSearch);
+            setVocab("")
+     } catch (err) {
+       console.log(`Catch block, POST error on /dictionary: ${err}`);
+     }
+     handleHistory(currSearch);
+     console.log('Form Submitted');
 
-  // Vocab History Functionality
-  const handleHistory = (v) => {
-    if (vocabHist.length <= 18) {
-      setVocabHist([' ', v, ...vocabHist]);
-    } else {
-      const vocabHistCopy = vocabHist.slice(0, vocabHist.length - 2);
-      setVocabHist([' ', v, ...vocabHistCopy]);
-    }
-  };
+   };
 
-  //Render
   return (
-    <div className="apiContainer">
-      <div className="tools">Chationary Tools</div>
-      <div className="formContainer">
-        <form onSubmit={handleSubmitVocab}>
-          <label className="apiTextBox">
-            <div>
-              <input
+    <div>
+      <Grid container component={Paper} className={classes.dictionarySection}>
+        <Grid item xs={12} >
+          <List>
+            <ListItem button>
+              <Typography className={classes.titleBox}>Translation</Typography>
+            </ListItem>
+            <Divider />
+            <ListItem style={{paddingTop: "20px"}} alignItems="center">
+       
+            <form className={classes.form} onSubmit={handleSubmitVocab}>
+
+          
+              <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="dictionary"
+              label="Vocabulary Word"
+              autoFocus
                 type="text"
                 name="vocab"
-                placeholder="Vocabulary Word"
                 value={vocab}
                 onChange={handleVocab}
-              ></input>
-              <button>Define</button>
-            </div>
-          </label>
-          <div className="defContainer">
-            <p>Definition</p>
-            <div className="definition">{definition}</div>
-          </div>
-          <div className="langContainer">
-            <p>
-              <label htmlFor="sl">Translate from</label>
-            </p>
-            <select
-              name="sl"
-              id="sl"
-              className="sl"
-              value={sourceLang}
-              onChange={handleSourceLang}
-            >
-              {Languages.map((language) => (
-                <option key={`l-${language.langId}`} value={language.value}>
-                  {language.language}
-                </option>
-              ))}
-            </select>
-            <p>
-              <label htmlFor="tl">Translate to</label>
-            </p>
-            <select
-              name="tl"
-              id="tl"
-              className="tl"
-              value={targetLang}
-              onChange={handleTargetLang}
-            >
-              {Languages.map((language) => (
-                <option key={`l-${language.langId}`} value={language.value}>
-                  {language.language}
-                </option>
-              ))}
-            </select>
-          </div>
+              />
+                <Button fullWidth
+                  variant="contained"
+                  color="primary" style={{ fontWeight: '700' }} type="submit">Define</Button>
+          
+          <Typography className={classes.definition}>{word}</Typography>
+            <Typography>{definition}</Typography>
+       
         </form>
-      </div>
 
-      <div className="transContainer">
-        <div className="translation">
-          <button id="transBtn" onClick={handleLink}>
-            Translate Vocab
-          </button>
-        </div>
-      </div>
-      <div className="vocabHistContainer">
-        <p>Search History</p>
-        <div className="vocabHist"> {vocabHist} </div>
-      </div>
+            </ListItem>
+          </List>
+        </Grid>
+      </Grid>
     </div>
   );
-}
 
-export default VocabAPI;
+};
+export default Dictionary;
+
