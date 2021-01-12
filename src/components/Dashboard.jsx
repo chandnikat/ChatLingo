@@ -235,9 +235,8 @@ const Dashboard = ({ match }) => {
         </Drawer>
         <Grid container style={{ height: '85vh' }}>
           <Grid item xs={12} sm={3} className={classes.content}>
-            <Paper style={{ height: '85vh' }} className={classes.gridItem}>
-              <div className={classes.toolbar} />
-              <Typography paragraph>{tool}</Typography>
+            <Paper style={{ height: '85vh' }} className={classes.gridItem} style={{ backgroundColor: '#3caea3' }}>
+              {/* <div className={classes.toolbar} /> */}
               {tool === 'rooms' && (
                 <Join
                   name={name}
