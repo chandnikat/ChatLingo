@@ -33,7 +33,7 @@ const useStyles = makeStyles({
       borderRight: '1px solid #e0e0e0'
   },
   messageArea: {
-    height: '71vh',
+    height: '100vh',
     overflowY: 'auto'
   },
   roomBox: {
@@ -73,7 +73,7 @@ const Chat = ({name, room}) => {
                   </ListItem>
               </List>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={9} className={classes.messageArea}>
                 <Messages messages={messages} name={name} typeMsg={typeMsg} />
               <Divider />
      
