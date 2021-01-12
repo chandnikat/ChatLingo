@@ -3,7 +3,7 @@ import Axios from 'axios';
 import Messages from './Messages';
 import InputBox from './InputBox';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+import {Paper, TextField, Button} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -14,7 +14,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme =>({
 dictionarySection: {
     width: '100%',
     height: '83vh',
@@ -28,8 +28,21 @@ dictionarySection: {
     fontWeight: 'bold',
     fontSize: '25px',
   },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 
-});
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 const Dictionary = ({ name, room }) => {
   const classes = useStyles();
@@ -78,25 +91,34 @@ const Dictionary = ({ name, room }) => {
               <Typography className={classes.titleBox}>Dictionary</Typography>
             </ListItem>
             <Divider />
-            <ListItem >
-            <form onSubmit={handleSubmitVocab}>
+            <ListItem style={{paddingTop: "40px"}} alignItems="center">
+       
+            <form className={classes.form} onSubmit={handleSubmitVocab}>
           <label className="apiTextBox">
-            <div>
-              <input
+          
+              <TextField
+              variant="outlined"
+              margin="normal"
+              fullWidth
+              id="dictionary"
+              label="Vocabulary Word"
+              autoFocus
                 type="text"
                 name="vocab"
-                placeholder="Vocabulary Word"
                 value={vocab}
                 onChange={handleVocab}
-              ></input>
-              <button>Define</button>
-            </div>
+              />
+                <Button fullWidth
+                  variant="contained"
+                  color="primary" style={{ fontWeight: '700' }} type="submit">Define</Button>
+          
           </label>
           <div className="defContainer">
             <p>Definition</p>
             <div className="definition">{definition}</div>
           </div>
         </form>
+
             </ListItem>
           </List>
         </Grid>
