@@ -54,9 +54,6 @@ const Chat = ({name, room}) => {
     room
   );
 
-  //Get current time:
-  var date = new Date();
-  var time = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
 
   return (
