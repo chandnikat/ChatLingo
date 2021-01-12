@@ -20,7 +20,7 @@ module.exports = {
 
   devServer: {
     proxy: {
-      '/': 'http://localhost:3000',
+      '*': 'http://[::1]:3000',
       // "secure": false,
       // "changeOrigin": true
     },
@@ -84,9 +84,9 @@ module.exports = {
     }),
     // new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
-    }),
+    // new webpack.ProvidePlugin({
+    //   process: 'process/browser',
+    // }),
   ],
 
   resolve: {
