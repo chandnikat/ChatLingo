@@ -6,10 +6,9 @@ function Dictionary() {
   // React Hooks State (Updating state is async)
   const [vocab, setVocab] = useState('');
   const [search, setSearch] = useState('');
-  const [vocabHist, setVocabHist] = useState([]);
+
   const [definition, setDefinition] = useState(null);
-  const [sourceLang, setSourceLang] = useState('en');
-  const [targetLang, setTargetLang] = useState('en');
+
 
   // React Hooks Functions
   const handleVocab = (e) => {
@@ -23,7 +22,7 @@ function Dictionary() {
     e.preventDefault(); //Prevents hot reload upon submit
 
     const currSearch = e.target[0].value;
-    const body = { vocab: currSearch, sl: sourceLang, tl: targetLang };
+    const body = { vocab: currSearch};
     try {
       console.log('Logged try block for post request');
       const response = await Axios.post('/dictionary', {
