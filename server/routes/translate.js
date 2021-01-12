@@ -48,6 +48,7 @@ languageTranslator.translate(translateParams) // whatever we pass needs to be ob
     })
   .catch(err => {
     console.log('error:', err);
+    return next({message:{err: 'error in getting back a translation'}});
   })
 })
 
