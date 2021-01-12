@@ -1,4 +1,4 @@
-@import '_Join';
+/* @import '_Join';
 @import '_MainNav';
 @import '_Chat';
 @import '_InfoBar';
@@ -7,7 +7,7 @@
 @import '_InputBox';
 @import '_VocabAPI';
 @import '_Signup';
-@import '_Signin';
+@import '_Signon';
 @import '_About';
 
 * {
@@ -19,6 +19,7 @@ body {
   font-family: 'Roboto', sans-serif;
   padding: 0;
   margin: 0;
+  background-color: white !important;
 }
 
 input:focus,
@@ -60,4 +61,4 @@ button:hover {
 button:active {
   transform: scale(0.98);
   box-shadow: 0 0 0 1px #f8fafc, 0 0 1px 2px #1c73e7;
-}
+} */

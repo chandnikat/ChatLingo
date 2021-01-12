@@ -4,6 +4,11 @@ import { Smile } from 'react-feather';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Fab from '@material-ui/core/Fab';
+import SendIcon from '@material-ui/icons/Send';
+
 const InputBox = ({ sendNewMessage, sendTypingMsg }) => {
   const [newMessage, setNewMessage] = useState('');
   const [showEmojiPicker, toggleShowEmojiPicker] = useToggle(false);
@@ -33,8 +38,8 @@ const InputBox = ({ sendNewMessage, sendTypingMsg }) => {
   };
 
   return (
-    <div className="inputBoxOuterContainer">
-      <div className="emojiPicker">
+    <div >
+      {/* <div className="emojiPicker">
         {showEmojiPicker && (
           <Picker
             set="apple"
@@ -64,8 +69,20 @@ const InputBox = ({ sendNewMessage, sendTypingMsg }) => {
         />
         <button className="sendButton" onClick={handleSendMessage}>
           Send
-        </button>
-      </div>
+        </button> */}
+        <Grid container style={{padding: '20px'}}>
+          <Grid item xs={11}>
+              <TextField id="outlined-basic-email" label="Type a message..." fullWidth value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            onKeyPress={handleKeyPress}
+            onClick={showEmojiPicker ? toggleShowEmojiPicker : null}
+            autoFocus
+            ref={inputEl}></TextField>
+          </Grid>
+          <Grid xs={1} align="right">
+              <Fab color="primary" aria-label="add" onClick={handleSendMessage}><SendIcon /></Fab>
+          </Grid>
+        </Grid>
     </div>
   );
 };
