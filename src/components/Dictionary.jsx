@@ -1,17 +1,7 @@
-import React, { useState, Component } from 'react';
+import React, { useState } from 'react';
 import Axios from 'axios';
-import Messages from './Messages';
-import InputBox from './InputBox';
 import { makeStyles } from '@material-ui/core/styles';
-import {Paper, TextField, Button} from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
+import {Paper, TextField, Button, Grid, Divider, Typography, List, ListItem} from '@material-ui/core';
 
 
 const useStyles = makeStyles(theme =>({
@@ -19,38 +9,37 @@ dictionarySection: {
     width: '100%',
     height: '83vh',
   },
-  headBG: {
-    backgroundColor: '#e0e0e0',
-  },
 
   titleBox: {
     color: '#40637E',
     fontWeight: 'bold',
     fontSize: '25px',
   },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  definition: {
+    color: '#40637E',
+    fontWeight: 'bold',
+    fontSize: '20px',
+    paddingTop: "17px"
   },
-
   form: {
     width: '100%',
     marginTop: theme.spacing(1),
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
 }));
+
+
 
 const Dictionary = ({ name, room }) => {
   const classes = useStyles();
-   // React Hooks State (Updating state is async)
    const [vocab, setVocab] = useState('');
    const [search, setSearch] = useState('');
    const [definition, setDefinition] = useState(null);
-   const [word, setWord] = useState('');
+   let [word, setWord] = useState('');
+
+  //Capitalizes word:
+  word = word.toLowerCase().replace(/\b\w{3,}/g, function (l) {
+    return l.charAt(0).toUpperCase() + l.slice(1);
+  });
  
    // React Hooks Functions
    const handleVocab = (e) => {
@@ -94,7 +83,7 @@ const Dictionary = ({ name, room }) => {
               <Typography className={classes.titleBox}>Dictionary</Typography>
             </ListItem>
             <Divider />
-            <ListItem style={{paddingTop: "40px"}} alignItems="center">
+            <ListItem style={{paddingTop: "20px"}} alignItems="center">
        
             <form className={classes.form} onSubmit={handleSubmitVocab}>
 
@@ -115,11 +104,9 @@ const Dictionary = ({ name, room }) => {
                   variant="contained"
                   color="primary" style={{ fontWeight: '700' }} type="submit">Define</Button>
           
-    
-          <div className="defContainer">
-            <p>Definition</p>
-            <div className="definition">{word} {definition}</div>
-          </div>
+          <Typography className={classes.definition}>{word}</Typography>
+            <Typography>{definition}</Typography>
+       
         </form>
 
             </ListItem>
