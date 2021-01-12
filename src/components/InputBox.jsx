@@ -71,18 +71,18 @@ const InputBox = ({ sendNewMessage, sendTypingMsg }) => {
           Send
         </button> */}
         <Grid container style={{padding: '20px'}}>
-        <Grid item xs={11}>
-            <TextField id="outlined-basic-email" label="Type a message..." fullWidth value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          onKeyPress={handleKeyPress}
-          onClick={showEmojiPicker ? toggleShowEmojiPicker : null}
-          autoFocus
-          ref={inputEl}></TextField>
-        </Grid>
+          <Grid item xs={11}>
+              <TextField id="outlined-basic-email" label="Type a message..." fullWidth value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            onKeyPress={handleKeyPress}
+            onClick={showEmojiPicker ? toggleShowEmojiPicker : null}
+            autoFocus
+            ref={inputEl}></TextField>
+          </Grid>
           <Grid xs={1} align="right">
               <Fab color="primary" aria-label="add" onClick={handleSendMessage}><SendIcon /></Fab>
           </Grid>
-          </Grid>
+        </Grid>
     </div>
   );
 };

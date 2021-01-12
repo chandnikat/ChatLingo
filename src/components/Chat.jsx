@@ -87,7 +87,6 @@ const Chat = ({name, room}) => {
 );
 
 
-  //       <Messages messages={messages} name={name} typeMsg={typeMsg} />
 
 
 };
