@@ -25,38 +25,34 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+
+
 //NavBar COMPONENT:
-export default function MainNav() {
+const MainNav = ({history}) => {
   const classes = useStyles();
+
+
   return (
     <div className={classes.root}>
       <ThemeProvider theme={theme}>
         <AppBar position="static" color="primary">
           <Toolbar>
             <ChatIcon style={{ marginRight: '10px' }} />
-            <Link to="/" style={{ textDecoration: 'none' }}>
+            {/* <Link to="/" style={{ textDecoration: 'none' }}> */}
               <Typography variant="h6" className={classes.title}>
                 ChatLingo
               </Typography>
-            </Link>
+            {/* </Link> */}
+            <Link to="/team" style={{ textDecoration: 'none' }}>
             <Button color="inherit" className={classes.menuButton}>
-              Login
+              About
             </Button>
+            </Link>
           </Toolbar>
         </AppBar>
       </ThemeProvider>
     </div>
   );
 
-  //     <ul>
-  //       {MenuItems.map((item, idx) => {
-  //         return (
-  //           <li className='MainNav-item' key={`menuitem-${idx}`}>
-  //             <Link to={item.link}>{item.itemName}</Link>
-  //           </li>
-  //         );
-  //       })}
-  //     </ul>
-  //   </nav>
-  // );
 }
+export default MainNav;

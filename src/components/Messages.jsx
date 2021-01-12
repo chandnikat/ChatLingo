@@ -12,6 +12,8 @@ const Messages = ({ messages, name, typeMsg }) => {
         </div>
       ))}
       <p>{typeMsg}</p>
+    
+     
     </ScrollToBottom>
   );
 };
