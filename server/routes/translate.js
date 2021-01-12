@@ -19,25 +19,36 @@ const languageTranslator = new LanguageTranslatorV3({
 console.log(languageTranslator);
 
 
-router.post('/translateWord', (req, res, next) => {
+router.post('/', (req, res, next) => {
   
   // next, we pass in parameters that are variable (from frontend inputs)
 
-const translateParams = {
-  text: 'Hello, how are you today?',
-  modelId: 'en-es',
-};
+// const translateParams = {
+//   text: 'Hello, how are you today?',
+//   modelId: 'en-es',
+// };
 
-languageTranslator.translate(translateParams)
-  .then(translationResult => {
-    console.log(JSON.stringify(translationResult, null, 2));
-    res.locals.translated = translationResult;
-    console.log('translated word',res.locals.translated);
-    return res.status(200).json(res.locals.translated);
-  })
+// send us text, sl, el;
+
+
+  // we need en es fr de 
+  // we have en es fr de
+  console.log(req.body);
+const text = req.body.search;
+const modelId = `${req.body.sourceLang}-${req.body.targetLang}`;
+
+const translateParams = {text, modelId}
+
+languageTranslator.translate(translateParams) // whatever we pass needs to be object with text and modelId keys
+  .then((data) =>  {
+    console.log('data', data);
+    res.locals.translation= data.result.translations[0];
+    console.log('translated word',res.locals.translation);
+    return res.status(200).json(res.locals.translation)
+    })
   .catch(err => {
     console.log('error:', err);
-  });
+  })
 })
 
 module.exports = router;
