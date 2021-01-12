@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-
+require('dotenv').config();
 
 const PG_URI = (process.env.NODE_ENV === 'testing') 
   ? `${process.env.TEST_DATABASE_URL}`
@@ -12,8 +12,9 @@ const pool = new Pool({
 // console.log('pool in db is -> ', pool);
 
 module.exports = {
+  pool,
   query: (text, params, callback) => {
-    console.log('executed query', text);
+    // console.log('executed query', text);
     return pool.query(text, params, callback);
   },
 };
