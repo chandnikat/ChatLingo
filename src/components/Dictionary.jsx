@@ -50,7 +50,7 @@ const Dictionary = ({ name, room }) => {
    const [vocab, setVocab] = useState('');
    const [search, setSearch] = useState('');
    const [definition, setDefinition] = useState(null);
- 
+   const [word, setWord] = useState('');
  
    // React Hooks Functions
    const handleVocab = (e) => {
@@ -75,11 +75,14 @@ const Dictionary = ({ name, room }) => {
        console.log(`reponse: ${newData}`);
        // setDefinition(response.data);
        setDefinition(newData);
+       setWord(currSearch);
+            setVocab("")
      } catch (err) {
        console.log(`Catch block, POST error on /dictionary: ${err}`);
      }
      handleHistory(currSearch);
      console.log('Form Submitted');
+
    };
 
   return (
@@ -94,7 +97,7 @@ const Dictionary = ({ name, room }) => {
             <ListItem style={{paddingTop: "40px"}} alignItems="center">
        
             <form className={classes.form} onSubmit={handleSubmitVocab}>
-          <label className="apiTextBox">
+
           
               <TextField
               variant="outlined"
@@ -112,10 +115,10 @@ const Dictionary = ({ name, room }) => {
                   variant="contained"
                   color="primary" style={{ fontWeight: '700' }} type="submit">Define</Button>
           
-          </label>
+    
           <div className="defContainer">
             <p>Definition</p>
-            <div className="definition">{definition}</div>
+            <div className="definition">{word} {definition}</div>
           </div>
         </form>
 
