@@ -78,10 +78,8 @@ const Dictionary = ({ name, room }) => {
               <Typography className={classes.titleBox}>Dictionary</Typography>
             </ListItem>
             <Divider />
-          </List>
-        </Grid>
-        <Grid item xs={12}>
-          <form onSubmit={handleSubmitVocab}>
+            <ListItem >
+            <form onSubmit={handleSubmitVocab}>
           <label className="apiTextBox">
             <div>
               <input
@@ -99,6 +97,8 @@ const Dictionary = ({ name, room }) => {
             <div className="definition">{definition}</div>
           </div>
         </form>
+            </ListItem>
+          </List>
         </Grid>
       </Grid>
     </div>
