@@ -1,23 +1,18 @@
 const express = require('express');
 // const userController = require('../controllers/userController');
 const router = express.Router();
+require('dotenv').config();
 
 const LanguageTranslatorV3 = require('ibm-watson/language-translator/v3');
 const { IamAuthenticator } = require('ibm-watson/auth');
 
-const url = 'https://api.us-east.language-translator.watson.cloud.ibm.com/instances/98d46fcf-9afc-464b-9aee-ff7f61d25118';
-const version = '2018-05-01';
-const key = 'ijjuSRkIm8qL6LkCARS1ewJfgl2Q7cCbXaoAdIqSWbjm'
-
 const languageTranslator = new LanguageTranslatorV3({
-  version: `${version}`,
+  version: `${process.env.TRANSLATION_VERSION}`,
   authenticator: new IamAuthenticator({
-    apikey: `${key}`,
+    apikey: `${process.env.TRANSLATION_KEY}`,
   }),
-  serviceUrl: `${url}`,
+  serviceUrl: `${process.env.TRANSLATION_URL}`,
 });
-console.log(languageTranslator);
-
 
 router.post('/', (req, res, next) => {
   
