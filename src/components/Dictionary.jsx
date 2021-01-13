@@ -15,11 +15,18 @@ dictionarySection: {
     fontWeight: 'bold',
     fontSize: '25px',
   },
-  definition: {
+  word: {
     color: '#40637E',
     fontWeight: 'bold',
     fontSize: '20px',
-    paddingTop: "17px"
+    paddingTop: "18px"
+  },
+  partOfSpeech:{
+    color: '#3caea3',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    paddingTop: "7px",
+    paddingBottom: "7px"
   },
   form: {
     width: '100%',
@@ -34,6 +41,7 @@ const Dictionary = ({ name, room }) => {
    const [vocab, setVocab] = useState('');
    const [search, setSearch] = useState('');
    const [definition, setDefinition] = useState(null);
+   const [partOfSpeech, setPartOfSpeech] = useState(null)
    let [word, setWord] = useState('');
 
   //Capitalizes word:
@@ -60,17 +68,16 @@ const Dictionary = ({ name, room }) => {
          header: { 'Content-Type': 'Application/JSON' },
          body: body,
        });
-       const newData = JSON.stringify(response.data.definition);
-       console.log(`reponse: ${newData}`);
-       // setDefinition(response.data);
-       setDefinition(newData);
+       const definition = JSON.stringify(response.data.definition);
+       const partOfSpeech = JSON.stringify(response.data.partOfSpeech);
+       setPartOfSpeech(partOfSpeech)
+       setDefinition(definition);
        setWord(currSearch);
-            setVocab("")
+      setVocab("")
      } catch (err) {
        console.log(`Catch block, POST error on /dictionary: ${err}`);
      }
-     handleHistory(currSearch);
-     console.log('Form Submitted');
+    
 
    };
 
@@ -103,8 +110,8 @@ const Dictionary = ({ name, room }) => {
                 <Button fullWidth
                   variant="contained"
                   color="primary" style={{ fontWeight: '700' }} type="submit">Define</Button>
-          
-          <Typography className={classes.definition}>{word}</Typography>
+          <Typography className={classes.word}>{word}</Typography>
+          <Typography className={classes.partOfSpeech}>{partOfSpeech}</Typography>
             <Typography>{definition}</Typography>
        
         </form>

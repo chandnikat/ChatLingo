@@ -29,7 +29,7 @@ dictionarySection: {
 
 
 
-const Translation = ({ name, room }) => {
+const Translation = () => {
   const classes = useStyles();
    
 
