@@ -58,6 +58,35 @@ authController.generateJWT = (req, res, next) => {
   return next();
 }
 
+authController.verifyJWT = (req, res, next) => {
+  console.log(req.headers);
+  let token = req.headers['x-access-token'] || req.headers['authorization'];
+  console.log('token', token);
+
+  if (token.startsWith('Bearer ')) {
+    // Remove Bearer from string
+    token = token.slice(7, token.length);
+  }
+
+  if (!token) {
+    return res.status(403).send({
+      message: { err: 'No token provided!' },
+    });
+  }
+  console.log('token in verifyToken ->', token);
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({
+        message: { err: 'Unauthorized!' },
+      });
+    }
+    console.log('decoded.id in jwt.verify is: ', decoded.id);
+    res.locals.user_id = decoded.id;
+    return next();
+  });
+};
+
 
 
 module.exports = authController;
