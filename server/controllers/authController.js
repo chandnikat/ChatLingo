@@ -21,7 +21,7 @@ authController.verifyUser = (req, res, next) => {
 
   db.query(verifyUserString)
     .then(async response => {
-      console.log(response);
+      // console.log(response);
       if (!response.rows[0]) {
         return next({
           message: { err: 'Username and/or password do not match' },
@@ -57,6 +57,34 @@ authController.generateJWT = (req, res, next) => {
   res.locals.token = token;
   return next();
 }
+
+authController.verifyJWT = (req, res, next) => {
+  let token = req.headers['authorization'];
+  console.log('token in verifyJWT', token);
+
+  if (token.startsWith('Bearer ')) {
+    // Remove Bearer from string
+    token = token.slice(7, token.length);
+  }
+
+  if (!token) {
+    return res.status(403).send({
+      message: { err: 'No token provided!' },
+    });
+  }
+  console.log('token in verifyToken ->', token);
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({
+        message: { err: 'Unauthorized!' },
+      });
+    }
+    console.log('decoded.id in jwt.verify is: ', decoded.id);
+    res.locals.user_id = decoded.id;
+    return next();
+  });
+};
 
 
 

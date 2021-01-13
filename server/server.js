@@ -16,6 +16,7 @@ console.log('process.env.NODE_ENV = ', process.env.NODE_ENV)
 
 const authRouter = require('./routes/authRouter');
 const translateRouter = require('./routes/translateRouter');
+const authController = require('./controllers/authController');
 
 /**
  * handle parsing request body
@@ -42,6 +43,13 @@ app.use(express.static(path.join(__dirname, '../src')));
 
 app.use('/auth', authRouter);
 app.use('/translate', translateRouter);
+app.use('/dictionary', (req, res, next) => {
+  res.header(
+    'Access-Control-Allow-Headers',
+    'x-access-token, Authorization, Origin, Content-Type, Accept'
+  );
+  return next();
+});
 
 app.get('/activerooms', (req, res) => {
   console.log('get request response => usersCountByRoom => ', usersCountByRoom);
@@ -56,7 +64,7 @@ let wordId;
 // const fields = 'definitions';
 const strictMatch = 'false';
 
-app.post('/dictionary', (req, res, next) => {
+app.post('/dictionary', authController.verifyJWT, (req, res, next) => {
   // let definition = 'Sorry, we cannot find this word';
   // console.log('backend request:', req.body);
   wordId = req.body.body.vocab;
