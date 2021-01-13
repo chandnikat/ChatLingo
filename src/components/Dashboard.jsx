@@ -139,6 +139,25 @@ const Dashboard = ({ match }) => {
     setRoom(input);
   };
 
+  const getActiveRooms = () => {
+    async () => {
+      try {
+        const response = await axios.get('/activerooms', {
+          header: { 'Content-Type': 'Application/JSON' },
+        });
+        console.log('response => ', response);
+
+        const usersCountByRoom = response.data;
+
+        console.log('usersCountByRoom => ', usersCountByRoom);
+        return usersCountByRoom;
+        // setUsersCountByRoom([...usersCountByRoom]);
+      } catch (error) {
+        console.log('Error in getActiveRooms of Join component:', error);
+      }
+    };
+  };
+
   return (
     <div className={classes.root}>
       <ThemeProvider theme={theme1}>
@@ -242,6 +261,7 @@ const Dashboard = ({ match }) => {
                   name={name}
                   handleRoomNameChange={handleRoomNameChange}
                   room={room}
+                  usersCountByRoom={getActiveRooms()}
                 />
               )}
               {tool === 'dictionary' && <VocabAPI />}
