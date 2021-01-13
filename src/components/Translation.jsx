@@ -38,16 +38,28 @@ translateSection: {
 
 const Translation = () => {
   const classes = useStyles();
-  const [phrase, handlePhrase] = useInputState("")
-  const [source, handleSource] = useInputState("")
-  const [target, handleTarget] = useInputState("")
+  const [search, handleSearch] = useInputState("")
+  const [sourceLang, handleSourceLang] = useInputState("")
+  const [targetLang, handleTargetLang] = useInputState("")
   const [translation, setTranslation] = useState(null)
    
 const handleSubmitTranslation = async (e) => {
   e.preventDefault();
-  const body = {phrase, source, target}
+  const body = {search, sourceLang, targetLang}
+  console.log("TRANSLATION BODY", body)
+  try {
+    const response = await Axios.post('/translate', {
+      header: { 'Content-Type': 'Application/JSON' },
+      body: body,
+    });
+    const data = JSON.stringify(response.data)
+   console.log("RESPONSE TRANSLATION", data)
  
-
+    handlePhrase("")
+  } catch (err) {
+    console.log(`Catch block, POST error on /translate: ${err}`);
+  }
+ 
 
 }
   return (
@@ -69,8 +81,8 @@ const handleSubmitTranslation = async (e) => {
               label="Word/Phrase"
               name="translation"
               autoFocus
-              value={phrase}
-              onChange={handlePhrase}
+              value={search}
+              onChange={handleSearch}
             />
           
           <ListItem>
@@ -80,8 +92,8 @@ const handleSubmitTranslation = async (e) => {
             <InputLabel >Source</InputLabel>
             <Select
               native
-              value={source}
-              onChange={handleSource}
+              value={sourceLang}
+              onChange={handleSourceLang}
               fullWidth
               label="from"    
             >
@@ -97,8 +109,8 @@ const handleSubmitTranslation = async (e) => {
             <InputLabel >Target</InputLabel>
             <Select
               native
-              value={target}
-              onChange={handleTarget}
+              value={targetLang}
+              onChange={handleTargetLang}
               fullWidth
               label="from"   
             >
