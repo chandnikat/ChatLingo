@@ -38,13 +38,16 @@ translateSection: {
 
 const Translation = () => {
   const classes = useStyles();
-  const [search, handleSearch] = useInputState("")
+  let [search, handleSearch] = useInputState("")
   const [sourceLang, handleSourceLang] = useInputState("")
   const [targetLang, handleTargetLang] = useInputState("")
   const [translation, setTranslation] = useState(null)
    
+  search = search.toLowerCase()
+
 const handleSubmitTranslation = async (e) => {
   e.preventDefault();
+
   const body = {search, sourceLang, targetLang}
   console.log("TRANSLATION BODY", body)
   try {
