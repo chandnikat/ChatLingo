@@ -5,9 +5,10 @@ import {Paper, TextField, ListItemIcon, ListItemText, Button, Grid, Divider, Typ
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import useInputState from './useInputState';
 
 const useStyles = makeStyles(theme =>({
-dictionarySection: {
+translateSection: {
     width: '100%',
     height: '83vh',
   },
@@ -17,7 +18,7 @@ dictionarySection: {
     fontWeight: 'bold',
     fontSize: '25px',
   },
-  definition: {
+  translate: {
     color: '#40637E',
     fontWeight: 'bold',
     fontSize: '20px',
@@ -37,17 +38,21 @@ dictionarySection: {
 
 const Translation = () => {
   const classes = useStyles();
-  const [phrase, setPhrase] = useState("")
-  const [source, setSource] = useState("")
-  const [target, setTarget] = useState("")
-
+  const [phrase, handlePhrase] = useInputState("")
+  const [source, handleSource] = useInputState("")
+  const [target, handleTarget] = useInputState("")
+  const [translation, setTranslation] = useState(null)
    
 const handleSubmitTranslation = async (e) => {
   e.preventDefault();
+  const body = {phrase, source, target}
+ 
+
+
 }
   return (
     <div>
-      <Grid container component={Paper} className={classes.dictionarySection}>
+      <Grid container component={Paper} className={classes.translateSection}>
         <Grid item xs={12} >
           <List>
             <ListItem button>
@@ -65,18 +70,18 @@ const handleSubmitTranslation = async (e) => {
               name="translation"
               autoFocus
               value={phrase}
-              onChange={setPhrase}
+              onChange={handlePhrase}
             />
           
           <ListItem>
 
       
-          <FormControl variant="outlined" className={classes.formControl}>
+          <FormControl variant="outlined" className={classes.formControl} >
             <InputLabel >Source</InputLabel>
             <Select
               native
               value={source}
-              onChange={e => setSource(e.target.value)}
+              onChange={handleSource}
               fullWidth
               label="from"    
             >
@@ -87,15 +92,15 @@ const handleSubmitTranslation = async (e) => {
               <option value={"de"}>German</option>
             </Select>
             </FormControl>
-            <Typography>To</Typography>
+            <Typography style={{color: '#40637E', fontWeight: "bold"}}>To</Typography>
             <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel >Target</InputLabel>
             <Select
               native
               value={target}
-              onChange={e => setTarget(e.target.value)}
+              onChange={handleTarget}
               fullWidth
-              label="from"    
+              label="from"   
             >
               <option aria-label="None" value="" />
               <option value={"en"}>English</option>
