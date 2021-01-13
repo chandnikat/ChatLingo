@@ -45,8 +45,10 @@ function VocabAPI() {
         header: { 'Content-Type': 'Application/JSON' },
         body: body,
       });
-      console.log(`reponse: ${response}`);
-      setDefinition(response.data);
+      const newData = JSON.stringify(response.data.definition);
+      console.log(`reponse: ${newData}`);
+      // setDefinition(response.data);
+      setDefinition(newData);
     } catch (err) {
       console.log(`Catch block, POST error on /dictionary: ${err}`);
     }

@@ -1,16 +1,22 @@
 const { Pool } = require('pg');
+require('dotenv').config();
 
-console.log(process.env.DBUSER);
-console.log(process.env.DBPASSWORD);
-const PG_URI = `postgres://${process.env.DBUSER}:${process.env.DBPASSWORD}@suleiman.db.elephantsql.com:5432/${process.env.DBUSER}`;
-
+const PG_URI = (process.env.NODE_ENV === 'testing') 
+  ? `${process.env.TEST_DATABASE_URL}`
+  : `${process.env.DATABASE_URL}`;
+ 
 const pool = new Pool({
   connectionString: PG_URI,
 });
 
+// console.log('pool in db is -> ', pool);
+
 module.exports = {
+  pool,
   query: (text, params, callback) => {
-    console.log('executed query', text);
+    // console.log('executed query', text);
     return pool.query(text, params, callback);
   },
 };
+
+
