@@ -1,6 +1,5 @@
 import React from 'react';
 import Messages from './Messages';
-import InfoBar from './InfoBar';
 import InputBox from './InputBox';
 import useSocket from './useSocket';
 import { makeStyles } from '@material-ui/core/styles';
