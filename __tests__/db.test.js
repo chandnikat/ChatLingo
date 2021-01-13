@@ -2,7 +2,6 @@ const db = require('../server/models/chationaryModel');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
 const path = require('path');
-const userController = require('../server/controllers/userController');
 
 require('dotenv').config();
 jest.setTimeout(10000);
