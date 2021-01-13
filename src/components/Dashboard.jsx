@@ -166,7 +166,7 @@ const Dashboard = ({ match }) => {
               ChatLingo
             </Typography>
             <Link to="/" style={{ textDecoration: 'none' }}>
-              <Button color="inherit" className={classes.menuButton}>
+              <Button onClick={() => localStorage.removeItem('currentUser')} color="inherit" className={classes.menuButton}>
                 Logout
               </Button>
             </Link>
@@ -190,8 +190,8 @@ const Dashboard = ({ match }) => {
               {theme.direction === 'rtl' ? (
                 <ChevronRightIcon />
               ) : (
-                <ChevronLeftIcon />
-              )}
+                  <ChevronLeftIcon />
+                )}
             </IconButton>
           </div>
           <Divider />
