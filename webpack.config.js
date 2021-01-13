@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
+require('dotenv').config();
 
 module.exports = {
   mode: 'development',
@@ -19,7 +20,7 @@ module.exports = {
 
   devServer: {
     proxy: {
-      '/': 'http://localhost:3000',
+      '*': 'http://[::1]:3000',
       // "secure": false,
       // "changeOrigin": true
     },
@@ -41,6 +42,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['@babel/plugin-transform-runtime', '@babel/transform-async-to-generator'],
           },
         },
       },
@@ -82,6 +84,9 @@ module.exports = {
     }),
     // new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
   ],
 
   resolve: {
