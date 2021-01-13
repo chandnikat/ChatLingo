@@ -29,50 +29,9 @@ dictionarySection: {
 
 
 
-const Dictionary = ({ name, room }) => {
+const Translation = ({ name, room }) => {
   const classes = useStyles();
-   const [vocab, setVocab] = useState('');
-   const [search, setSearch] = useState('');
-   const [definition, setDefinition] = useState(null);
-   let [word, setWord] = useState('');
-
-  //Capitalizes word:
-  word = word.toLowerCase().replace(/\b\w{3,}/g, function (l) {
-    return l.charAt(0).toUpperCase() + l.slice(1);
-  });
- 
-   // React Hooks Functions
-   const handleVocab = (e) => {
-     setVocab(e.target.value);
-     setSearch(e.target.value.replace(/ /gi, '%20'));
-   };
- 
- 
-   // API Functionality
-   const handleSubmitVocab = async (e) => {
-     e.preventDefault(); //Prevents hot reload upon submit
- 
-     const currSearch = e.target[0].value;
-     const body = { vocab: currSearch};
-     try {
-       console.log('Logged try block for post request');
-       const response = await Axios.post('/dictionary', {
-         header: { 'Content-Type': 'Application/JSON' },
-         body: body,
-       });
-       const newData = JSON.stringify(response.data.definition);
-       console.log(`reponse: ${newData}`);
-       // setDefinition(response.data);
-       setDefinition(newData);
-       setWord(currSearch);
-            setVocab("")
-     } catch (err) {
-       console.log(`Catch block, POST error on /dictionary: ${err}`);
-     }
-     handleHistory(currSearch);
-     console.log('Form Submitted');
-
-   };
+   
 
   return (
     <div>
@@ -85,7 +44,7 @@ const Dictionary = ({ name, room }) => {
             <Divider />
             <ListItem style={{paddingTop: "20px"}} alignItems="center">
        
-            <form className={classes.form} onSubmit={handleSubmitVocab}>
+            {/* <form className={classes.form} onSubmit={handleSubmitVocab}>
 
           
               <TextField
@@ -107,7 +66,7 @@ const Dictionary = ({ name, room }) => {
           <Typography className={classes.definition}>{word}</Typography>
             <Typography>{definition}</Typography>
        
-        </form>
+        </form> */}
 
             </ListItem>
           </List>
@@ -117,5 +76,5 @@ const Dictionary = ({ name, room }) => {
   );
 
 };
-export default Dictionary;
+export default Translation;
 
