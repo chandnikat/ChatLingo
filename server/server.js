@@ -44,12 +44,10 @@ app.use(express.static(path.join(__dirname, '../src')));
 app.use('/auth', authRouter);
 app.use('/translate', translateRouter);
 app.use('/dictionary', (req, res, next) => {
-  console.log('hello from dictionary');
   res.header(
     'Access-Control-Allow-Headers',
     'x-access-token, Authorization, Origin, Content-Type, Accept'
   );
-  console.log('res headers', res);
   return next();
 });
 
