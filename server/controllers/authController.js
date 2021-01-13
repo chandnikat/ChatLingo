@@ -21,7 +21,7 @@ authController.verifyUser = (req, res, next) => {
 
   db.query(verifyUserString)
     .then(async response => {
-      console.log(response);
+      // console.log(response);
       if (!response.rows[0]) {
         return next({
           message: { err: 'Username and/or password do not match' },
@@ -59,9 +59,8 @@ authController.generateJWT = (req, res, next) => {
 }
 
 authController.verifyJWT = (req, res, next) => {
-  console.log(req.headers);
-  let token = req.headers['x-access-token'] || req.headers['authorization'];
-  console.log('token', token);
+  let token = req.headers['authorization'];
+  console.log('token in verifyJWT', token);
 
   if (token.startsWith('Bearer ')) {
     // Remove Bearer from string
