@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import {Paper, TextField, Button, Grid, Divider, Typography, List, ListItem} from '@material-ui/core';
-
+import {Paper, TextField, ListItemIcon, ListItemText, Button, Grid, Divider, Typography, List, ListItem} from '@material-ui/core';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles(theme =>({
 dictionarySection: {
@@ -25,14 +27,24 @@ dictionarySection: {
     width: '100%',
     marginTop: theme.spacing(1),
   },
+  formControl: {
+    margin: theme.spacing(2),
+  },
+
 }));
 
 
 
 const Translation = () => {
   const classes = useStyles();
-   
+  const [phrase, setPhrase] = useState("")
+  const [source, setSource] = useState("")
+  const [target, setTarget] = useState("")
 
+   
+const handleSubmitTranslation = async (e) => {
+  e.preventDefault();
+}
   return (
     <div>
       <Grid container component={Paper} className={classes.dictionarySection}>
@@ -43,30 +55,60 @@ const Translation = () => {
             </ListItem>
             <Divider />
             <ListItem style={{paddingTop: "20px"}} alignItems="center">
-       
-            {/* <form className={classes.form} onSubmit={handleSubmitVocab}>
-
-          
-              <TextField
+            <form className={classes.form} onSubmit={handleSubmitTranslation}>
+            <TextField
               variant="outlined"
               margin="normal"
               fullWidth
-              id="dictionary"
-              label="Vocabulary Word"
+              id="translation"
+              label="Word/Phrase"
+              name="translation"
               autoFocus
-                type="text"
-                name="vocab"
-                value={vocab}
-                onChange={handleVocab}
-              />
-                <Button fullWidth
-                  variant="contained"
-                  color="primary" style={{ fontWeight: '700' }} type="submit">Define</Button>
+              value={phrase}
+              onChange={setPhrase}
+            />
           
-          <Typography className={classes.definition}>{word}</Typography>
-            <Typography>{definition}</Typography>
-       
-        </form> */}
+          <ListItem>
+
+      
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel >Source</InputLabel>
+            <Select
+              native
+              value={source}
+              onChange={e => setSource(e.target.value)}
+              fullWidth
+              label="from"    
+            >
+              <option aria-label="None" value="" />
+              <option value={"en"}>English</option>
+              <option value={"es"}>Spanish</option>
+              <option value={"fr"}>French</option>
+              <option value={"de"}>German</option>
+            </Select>
+            </FormControl>
+            <Typography>To</Typography>
+            <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel >Target</InputLabel>
+            <Select
+              native
+              value={target}
+              onChange={e => setTarget(e.target.value)}
+              fullWidth
+              label="from"    
+            >
+              <option aria-label="None" value="" />
+              <option value={"en"}>English</option>
+              <option value={"es"}>Spanish</option>
+              <option value={"fr"}>French</option>
+              <option value={"de"}>German</option>
+            </Select>
+            </FormControl>
+            </ListItem>
+            <Button fullWidth
+                  variant="contained"
+                  color="primary" style={{ fontWeight: '700' }} type="submit">Translate</Button>
+        </form> 
 
             </ListItem>
           </List>

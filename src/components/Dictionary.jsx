@@ -39,7 +39,6 @@ dictionarySection: {
 const Dictionary = ({ name, room }) => {
   const classes = useStyles();
    const [vocab, setVocab] = useState('');
-   const [search, setSearch] = useState('');
    const [definition, setDefinition] = useState(null);
    const [partOfSpeech, setPartOfSpeech] = useState(null)
    let [word, setWord] = useState('');
