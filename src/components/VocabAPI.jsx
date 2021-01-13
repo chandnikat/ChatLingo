@@ -45,7 +45,7 @@ function VocabAPI() {
         header: { 'Content-Type': 'Application/JSON' },
         body: body,
       });
-      const newData = JSON.stringify(response);
+      const newData = JSON.stringify(response.data.definition);
       console.log(`reponse: ${newData}`);
       // setDefinition(response.data);
       setDefinition(newData);

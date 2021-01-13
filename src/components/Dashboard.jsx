@@ -27,7 +27,8 @@ import HistoryIcon from '@material-ui/icons/History';
 import LanguageIcon from '@material-ui/icons/Language';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import Join from './Join';
-import VocabAPI from './VocabAPI';
+import Dictionary from './Dictionary';
+import Translation from './Translation';
 import Chat from './Chat';
 import theme1 from '../styles/theme.js';
 
@@ -234,9 +235,8 @@ const Dashboard = ({ match }) => {
         </Drawer>
         <Grid container style={{ height: '85vh' }}>
           <Grid item xs={12} sm={3} className={classes.content}>
-            <Paper style={{ height: '85vh' }} className={classes.gridItem}>
-              <div className={classes.toolbar} />
-              <Typography paragraph>{tool}</Typography>
+            <Paper style={{ height: '85vh' }} className={classes.gridItem} style={{ backgroundColor: '#3caea3' }}>
+              {/* <div className={classes.toolbar} /> */}
               {tool === 'rooms' && (
                 <Join
                   name={name}
@@ -244,7 +244,8 @@ const Dashboard = ({ match }) => {
                   room={room}
                 />
               )}
-              {tool === 'dictionary' && <VocabAPI />}
+              {tool === 'dictionary' && <Dictionary />}
+              {tool === 'translation' && <Translation />}
             </Paper>
           </Grid>
           <Divider orientation="vertical" />

@@ -9,6 +9,7 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT;
 
+console.log('process.env.NODE_ENV = ', process.env.NODE_ENV)
 /**
  * require routers
  */
@@ -58,8 +59,8 @@ app.get('/activerooms', (req, res) => {
 });
 
 // Oxford Dictionaries API
-const APPID = process.env.APIID;
-const APPKEY = process.env.APIKEY;
+const APIID = process.env.APIID;
+const APIKEY = process.env.APIKEY;
 const language = 'en-us';
 let wordId;
 // const fields = 'definitions';
@@ -77,8 +78,8 @@ app.post('/dictionary', authController.verifyJWT, (req, res, next) => {
     path: `/api/v2/entries/${language}/${wordId.toLowerCase()}?fields=definitions&strictMatch=${strictMatch}`,
     method: 'GET',
     headers: {
-      app_id: process.env.APIID,
-      app_key: process.env.APIKEY,
+      app_id: APIID,
+      app_key: APIKEY,
     },
   };
 
@@ -224,4 +225,4 @@ io.on('connection', socket => {
   });
 });
 
-module.exports = app;
+module.exports = server;
