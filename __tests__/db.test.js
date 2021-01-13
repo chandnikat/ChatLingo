@@ -59,7 +59,6 @@ describe('database unit tests', () => {
 
 afterAll((done) => {
   const dropScript = fs.readFileSync(path.resolve(__dirname, '../server/models/chat_drop_script.sql')).toString();
-  console.log('db.pool -> ', db.pool)
   db.query(dropScript)
     .then(results => {
       db.pool.end().then(() => console.log('pool has ended'))
