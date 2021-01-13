@@ -49,16 +49,16 @@ const handleSubmitTranslation = async (e) => {
   e.preventDefault();
 
   const body = {search, sourceLang, targetLang}
-  console.log("TRANSLATION BODY", body)
+  console.log("TRANSLATION BODY->", body)
   try {
     const response = await Axios.post('/translate', {
       header: { 'Content-Type': 'Application/JSON' },
       body: body,
     });
     const data = JSON.stringify(response.data)
-   console.log("RESPONSE TRANSLATION", data)
+   console.log("RESPONSE TRANSLATION->", data)
  
-    handlePhrase("")
+
   } catch (err) {
     console.log(`Catch block, POST error on /translate: ${err}`);
   }
