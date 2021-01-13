@@ -84,9 +84,9 @@ module.exports = {
     }),
     // new CleanWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    // new webpack.ProvidePlugin({
-    //   process: 'process/browser',
-    // }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
   ],
 
   resolve: {
