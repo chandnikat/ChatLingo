@@ -70,7 +70,7 @@ const Chat = ({ name, room }) => {
             </ListItem>
           </List>
         </Grid>
-        <Grid container xs={9} direction="column">
+        <Grid item xs={9} >
           <Grid item className={classes.messageArea}>
             <Messages
               // style={{ height: '25vh' }}

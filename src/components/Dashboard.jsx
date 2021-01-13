@@ -119,9 +119,9 @@ const Dashboard = ({ match }) => {
   const [tool, setTool] = useState('rooms');
   const [room, setRoom] = useState('English');
 
-  console.log('TOOL ->', tool);
-  console.log('NAME ->', name);
-  console.log('ROOMS ->', room);
+  // console.log('TOOL ->', tool);
+  // console.log('NAME ->', name);
+  // console.log('ROOMS ->', room);
 
   //Capitalizes username:
   name = name.toLowerCase().replace(/\b\w{3,}/g, function (l) {
