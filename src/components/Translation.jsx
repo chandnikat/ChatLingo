@@ -48,14 +48,15 @@ const Translation = () => {
 const handleSubmitTranslation = async (e) => {
   e.preventDefault();
 
+  let token = localStorage.getItem('currentUser');
   const body = {search, sourceLang, targetLang}
   console.log("TRANSLATION BODY->", body)
   try {
     const response = await Axios.post('/translate', 
       body
     , {headers: {
-        'Content-Type': 'application/json',
-      }
+      'Content-Type': 'Application/JSON', 'Authorization': `${token}`,
+    }
     });
     const data = JSON.stringify(response.data)
    console.log("RESPONSE TRANSLATION->", data)
