@@ -66,7 +66,10 @@ const Signon = ({ history }) => {
 
       if (!data.err) {
         console.log(hasAccount ? 'Signed In!' : 'Signed Up!');
+        console.log('data in sign up', data);
         //redirect to Home
+        //set the token in local storage
+        localStorage.setItem('currentUser', data.token);
         history.push(`/dashboard/${user_name}`);
       } else {
         setWarn(true);
@@ -177,8 +180,8 @@ const Signon = ({ history }) => {
               ) : nameExists ? (
                 <Alert severity="error">Username Already Exist!</Alert>
               ) : (
-                <Alert severity="success">Username Is Available!</Alert>
-              ))}
+                    <Alert severity="success">Username Is Available!</Alert>
+                  ))}
 
             {!hasAccount && (
               <TextField
@@ -221,19 +224,18 @@ const Signon = ({ history }) => {
                 Sign In
               </Button>
             ) : (
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                style={{ fontWeight: '700' }}
-              >
-                {' '}
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  style={{ fontWeight: '700' }}
+                >
+                  {' '}
                 Sign Up
-              </Button>
-            )}
-           
+                </Button>
+              )}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
