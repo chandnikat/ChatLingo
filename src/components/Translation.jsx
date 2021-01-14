@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#40637E",
     fontWeight: "bold",
     fontSize: "20px",
-    paddingTop: "10px",
+    paddingTop: "7px",
     paddingBottom: "7px",
   },
   form: {
@@ -170,12 +170,12 @@ const Translation = () => {
                   Translate
                 </Button>
                 {translation ? (
-                <Container>
+                <>
                   <Typography className={classes.source}>English:</Typography>
-                  <Typography className={classes.translate}>{searchCopy}</Typography>
+                  <Typography className={classes.translate}>"{searchCopy}"</Typography>
                   <Typography className={classes.source}>Spanish:</Typography>
                   <Typography className={classes.translate}>{translation}</Typography>
-                </Container>
+                </>
                   ) : null}
               </form>
             </ListItem>
