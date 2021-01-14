@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import clsx from 'clsx';
-import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import clsx from "clsx";
+import { makeStyles, useTheme, ThemeProvider } from "@material-ui/core/styles";
 import {
   Drawer,
   Grid,
@@ -17,30 +17,30 @@ import {
   ListItemIcon,
   ListItemText,
   Button,
-} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import ChatIcon from '@material-ui/icons/Chat';
-import HistoryIcon from '@material-ui/icons/History';
-import LanguageIcon from '@material-ui/icons/Language';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import Join from './Join';
-import Dictionary from './Dictionary';
-import Translation from './Translation';
-import Chat from './Chat';
-import theme1 from '../styles/theme.js';
+} from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
+import ChatIcon from "@material-ui/icons/Chat";
+import HistoryIcon from "@material-ui/icons/History";
+import LanguageIcon from "@material-ui/icons/Language";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
+import Join from "./Join";
+import Dictionary from "./Dictionary";
+import Translation from "./Translation";
+import Chat from "./Chat";
+import theme1 from "../styles/theme.js";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
+    transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -57,35 +57,35 @@ const useStyles = makeStyles(theme => ({
     marginRight: 36,
   },
   hide: {
-    display: 'none',
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    whiteSpace: 'nowrap',
+    whiteSpace: "nowrap",
   },
   drawerOpen: {
     width: drawerWidth,
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawerClose: {
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    overflowX: 'hidden',
+    overflowX: "hidden",
     width: theme.spacing(7) + 1,
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       width: theme.spacing(9) + 1,
     },
   },
   toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
@@ -93,21 +93,21 @@ const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    width: '100%',
-    padding: '7px',
+    width: "100%",
+    padding: "7px",
   },
   title: {
     flexGrow: 1,
-    color: 'white',
-    fontWeight: '800',
+    color: "white",
+    fontWeight: "800",
   },
   gridItem: {
-    padding: '10px',
+    padding: "10px",
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    color: 'white',
-    fontWeight: '800',
+    color: "white",
+    fontWeight: "800",
   },
 }));
 
@@ -116,8 +116,8 @@ const Dashboard = ({ match }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [tool, setTool] = useState('rooms');
-  const [room, setRoom] = useState('English');
+  const [tool, setTool] = useState("rooms");
+  const [room, setRoom] = useState("English");
 
   // console.log('TOOL ->', tool);
   // console.log('NAME ->', name);
@@ -136,7 +136,7 @@ const Dashboard = ({ match }) => {
     setOpen(false);
   };
 
-  const handleRoomNameChange = input => {
+  const handleRoomNameChange = (input) => {
     setRoom(input);
   };
 
@@ -162,12 +162,16 @@ const Dashboard = ({ match }) => {
             >
               <MenuIcon />
             </IconButton>
-            <ChatIcon style={{ marginRight: '10px' }} />
+            <ChatIcon style={{ marginRight: "10px" }} />
             <Typography variant="h6" noWrap className={classes.title}>
               ChatLingo
             </Typography>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <Button onClick={() => localStorage.removeItem('currentUser')} color="inherit" className={classes.menuButton}>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <Button
+                onClick={() => localStorage.removeItem("currentUser")}
+                color="inherit"
+                className={classes.menuButton}
+              >
                 Logout
               </Button>
             </Link>
@@ -188,72 +192,76 @@ const Dashboard = ({ match }) => {
         >
           <div className={classes.toolbar}>
             <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'rtl' ? (
+              {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
-                  <ChevronLeftIcon />
-                )}
+                <ChevronLeftIcon />
+              )}
             </IconButton>
           </div>
           <Divider />
           <List>
             <ListItem
               button
-              onClick={() => setTool('dictionary')}
-              key={'Dictionary'}
+              onClick={() => setTool("dictionary")}
+              key={"Dictionary"}
             >
               <ListItemIcon>{<MenuBookIcon color="secondary" />}</ListItemIcon>
-              <ListItemText primary={'Dictionary'} />
+              <ListItemText primary={"Dictionary"} />
             </ListItem>
             <ListItem
               button
-              onClick={() => setTool('translation')}
-              key={'Translation'}
+              onClick={() => setTool("translation")}
+              key={"Translation"}
             >
               <ListItemIcon>{<LanguageIcon color="secondary" />}</ListItemIcon>
-              <ListItemText primary={'Translation'} />
+              <ListItemText primary={"Translation"} />
             </ListItem>
             <ListItem
               button
               button
-              onClick={() => setTool('history')}
-              key={'History'}
+              onClick={() => setTool("history")}
+              key={"History"}
             >
               <ListItemIcon>{<HistoryIcon color="secondary" />}</ListItemIcon>
-              <ListItemText primary={'History'} />
+              <ListItemText primary={"History"} />
             </ListItem>
             <ListItem
               button
               button
-              onClick={() => setTool('rooms')}
-              key={'Rooms'}
+              onClick={() => setTool("rooms")}
+              key={"Rooms"}
             >
               <ListItemIcon>{<PeopleAltIcon color="secondary" />}</ListItemIcon>
-              <ListItemText primary={'Rooms'} />
+              <ListItemText primary={"Rooms"} />
             </ListItem>
           </List>
         </Drawer>
-        <Grid container style={{ height: '85vh' }}>
+        <Grid container style={{ height: "85vh" }}>
           <Grid item xs={12} sm={3} className={classes.content}>
-            <Paper style={{ height: '85vh' }} className={classes.gridItem} style={{ backgroundColor: '#3caea3' }}>
+            <Paper
+              style={{ height: "85vh" }}
+              className={classes.gridItem}
+              style={{ backgroundColor: "#3caea3" }}
+            >
               {/* <div className={classes.toolbar} /> */}
-              {tool === 'rooms' && (
+              {tool === "rooms" && (
                 <Join
                   name={name}
                   handleRoomNameChange={handleRoomNameChange}
                   room={room}
                 />
               )}
-              {tool === 'dictionary' && <Dictionary />}
-              {tool === 'translation' && <Translation />}
+              {tool === "dictionary" && <Dictionary />}
+              {tool === "translation" && <Translation />}
             </Paper>
           </Grid>
           <Divider orientation="vertical" />
           <Grid item xs={12} sm={8} className={classes.content}>
             <Paper
-              style={{ height: '85vh' }}
+              style={{ height: "85vh" }}
               className={classes.gridItem}
-              style={{ backgroundColor: '#3caea3' }}
+              style={{ backgroundColor: "#3caea3" }}
             >
               {/* <div className={classes.toolbar} /> */}
               <Chat name={name} room={room} />
