@@ -46,12 +46,14 @@ const useStyles = makeStyles((theme) => ({
 
 const Translation = () => {
   const classes = useStyles();
-  let [search, handleSearch] = useInputState("");
-  const [sourceLang, handleSourceLang] = useInputState("");
-  const [targetLang, handleTargetLang] = useInputState("");
+  let [search, setSearch] = useState("");
+  const [sourceLang, setSourceLang] = useState("");
+  const [targetLang, setTargetLang] = useState("");
   const [translation, setTranslation] = useState(null);
 
   search = search.toLowerCase();
+
+
 
   const handleSubmitTranslation = async (e) => {
     e.preventDefault();
@@ -69,6 +71,7 @@ const Translation = () => {
       const data = JSON.stringify(response.data.translation);
       console.log("RESPONSE TRANSLATION->", data);
       setTranslation(data)
+      setSearch("")
 
     } catch (err) {
       console.log(`Catch block, POST error on /translate: ${err}`);
@@ -95,7 +98,7 @@ const Translation = () => {
                   name="translation"
                   autoFocus
                   value={search}
-                  onChange={handleSearch}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
 
                 <ListItem>
@@ -107,7 +110,7 @@ const Translation = () => {
                     <Select
                       native
                       value={sourceLang}
-                      onChange={handleSourceLang}
+                      onChange={(e) => setSourceLang(e.target.value)}
                       fullWidth
                       label="from"
                     >
@@ -129,7 +132,7 @@ const Translation = () => {
                     <Select
                       native
                       value={targetLang}
-                      onChange={handleTargetLang}
+                      onChange={(e) => setTargetLang(e.target.value)}
                       fullWidth
                       label="from"
                     >
