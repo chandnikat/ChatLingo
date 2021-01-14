@@ -10,12 +10,10 @@ import {
   Typography,
   List,
   ListItem,
-  Container,
 } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-
 
 const useStyles = makeStyles((theme) => ({
   translateSection: {
@@ -47,8 +45,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     fontSize: "16px",
     paddingTop: "20px",
-
-  }
+  },
 }));
 
 const Translation = () => {
@@ -61,18 +58,18 @@ const Translation = () => {
   const [startLang, setStartLang] = useState("");
   const [endLang, setEndLang] = useState("");
 
-  const languageTermStart = () =>{
-    if(sourceLang === "fr") setStartLang("French")
-    if(sourceLang === "en") setStartLang("English")
-    if(sourceLang === "es") setStartLang("Spanish")
-    if(sourceLang === "de") setStartLang("German")
-  }
-  const languageTermEnd = () =>{
-    if(targetLang === "en") setEndLang("English")
-    if(targetLang === "fr") setEndLang("French")
-    if(targetLang === "es") setEndLang("Spanish")
-    if(targetLang === "de") setEndLang("German")
-  }
+  const languageTermStart = () => {
+    if (sourceLang === "fr") setStartLang("French");
+    if (sourceLang === "en") setStartLang("English");
+    if (sourceLang === "es") setStartLang("Spanish");
+    if (sourceLang === "de") setStartLang("German");
+  };
+  const languageTermEnd = () => {
+    if (targetLang === "en") setEndLang("English");
+    if (targetLang === "fr") setEndLang("French");
+    if (targetLang === "es") setEndLang("Spanish");
+    if (targetLang === "de") setEndLang("German");
+  };
 
   search = search.toLowerCase();
   searchCopy = searchCopy.toLowerCase();
@@ -87,9 +84,8 @@ const Translation = () => {
 
     let token = localStorage.getItem("currentUser");
     const body = { search, sourceLang, targetLang };
-    console.log("TRANSLATION BODY->", body);
+    // console.log("TRANSLATION BODY->", body);
     try {
-      
       const response = await Axios.post("/translate", body, {
         headers: {
           "Content-Type": "Application/JSON",
@@ -98,17 +94,13 @@ const Translation = () => {
       });
       const data = JSON.stringify(response.data.translation);
       console.log("RESPONSE TRANSLATION->", data);
-      setTranslation(data)
-      languageTermStart()
-      languageTermEnd()
-      setSearch("")
-      
+      setTranslation(data);
+      languageTermStart();
+      languageTermEnd();
+      setSearch("");
     } catch (err) {
       console.log(`Catch block, POST error on /translate: ${err}`);
     }
-    
-   
-
   };
   return (
     <div>
@@ -147,10 +139,18 @@ const Translation = () => {
                       label="from"
                     >
                       <option aria-label="None" value="" />
-                      <option value={"en"} name="English">English</option>
-                      <option value={"es"} name="Spanish">Spanish</option>
-                      <option value={"fr"} name="French">French</option>
-                      <option value={"de"} name="German">German</option>
+                      <option value={"en"} name="English">
+                        English
+                      </option>
+                      <option value={"es"} name="Spanish">
+                        Spanish
+                      </option>
+                      <option value={"fr"} name="French">
+                        French
+                      </option>
+                      <option value={"de"} name="German">
+                        German
+                      </option>
                     </Select>
                   </FormControl>
                   <Typography style={{ color: "#40637E", fontWeight: "bold" }}>
@@ -169,10 +169,18 @@ const Translation = () => {
                       label="from"
                     >
                       <option aria-label="None" value="" />
-                      <option value={"en"} name="English">English</option>
-                      <option value={"es"} name="Spanish">Spanish</option>
-                      <option value={"fr"} name="French">French</option>
-                      <option value={"de"} name="German">German</option>
+                      <option value={"en"} name="English">
+                        English
+                      </option>
+                      <option value={"es"} name="Spanish">
+                        Spanish
+                      </option>
+                      <option value={"fr"} name="French">
+                        French
+                      </option>
+                      <option value={"de"} name="German">
+                        German
+                      </option>
                     </Select>
                   </FormControl>
                 </ListItem>
@@ -186,13 +194,21 @@ const Translation = () => {
                   Translate
                 </Button>
                 {translation ? (
-                <>
-                  <Typography className={classes.source}>{startLang}:</Typography>
-                  <Typography className={classes.translate}>"{searchCopy}"</Typography>
-                  <Typography className={classes.source}>{endLang}:</Typography>
-                  <Typography className={classes.translate}>{translation}</Typography>
-                </>
-                  ) : null}
+                  <>
+                    <Typography className={classes.source}>
+                      {startLang}:
+                    </Typography>
+                    <Typography className={classes.translate}>
+                      "{searchCopy}"
+                    </Typography>
+                    <Typography className={classes.source}>
+                      {endLang}:
+                    </Typography>
+                    <Typography className={classes.translate}>
+                      {translation}
+                    </Typography>
+                  </>
+                ) : null}
               </form>
             </ListItem>
           </List>
