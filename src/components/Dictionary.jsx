@@ -68,9 +68,8 @@ const Dictionary = ({ name, room }) => {
     try {
       console.log('Logged try block for post request');
       //add authorization header
-      const response = await Axios.post('/dictionary', {
-        body: body,
-      }, {
+      const response = await Axios.post('/dictionary',
+        body, {
         headers: {
           'Content-Type': 'Application/JSON', 'Authorization': `${token}`,
         }
