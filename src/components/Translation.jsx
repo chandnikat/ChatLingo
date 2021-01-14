@@ -4,19 +4,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
   TextField,
-  ListItemIcon,
-  ListItemText,
   Button,
   Grid,
   Divider,
   Typography,
   List,
   ListItem,
+  Container,
 } from "@material-ui/core";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import useInputState from "./useInputState";
+
 
 const useStyles = makeStyles((theme) => ({
   translateSection: {
@@ -33,7 +32,8 @@ const useStyles = makeStyles((theme) => ({
     color: "#40637E",
     fontWeight: "bold",
     fontSize: "20px",
-    paddingTop: "17px",
+    paddingTop: "10px",
+    paddingBottom: "7px",
   },
   form: {
     width: "100%",
@@ -42,18 +42,32 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(2),
   },
+  source: {
+    color: "#3caea3",
+    fontWeight: "bold",
+    fontSize: "16px",
+    paddingTop: "20px",
+
+  }
 }));
 
 const Translation = () => {
   const classes = useStyles();
   let [search, setSearch] = useState("");
+  let [searchCopy, setSearchCopy] = useState("");
   const [sourceLang, setSourceLang] = useState("");
   const [targetLang, setTargetLang] = useState("");
   const [translation, setTranslation] = useState(null);
+  const [startLang, setStartLang] = useState("");
+  const [endLang, setEndLang] = useState("");
 
   search = search.toLowerCase();
+  searchCopy = searchCopy.toLowerCase();
 
-
+  const handleVocab = (e) => {
+    setSearch(e.target.value);
+    setSearchCopy(e.target.value);
+  };
 
   const handleSubmitTranslation = async (e) => {
     e.preventDefault();
@@ -77,6 +91,8 @@ const Translation = () => {
       console.log(`Catch block, POST error on /translate: ${err}`);
     }
     
+
+    
   };
   return (
     <div>
@@ -98,7 +114,7 @@ const Translation = () => {
                   name="translation"
                   autoFocus
                   value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                  onChange={handleVocab}
                 />
 
                 <ListItem>
@@ -115,10 +131,10 @@ const Translation = () => {
                       label="from"
                     >
                       <option aria-label="None" value="" />
-                      <option value={"en"}>English</option>
-                      <option value={"es"}>Spanish</option>
-                      <option value={"fr"}>French</option>
-                      <option value={"de"}>German</option>
+                      <option value={"en"} name="English">English</option>
+                      <option value={"es"} name="Spanish">Spanish</option>
+                      <option value={"fr"} name="French">French</option>
+                      <option value={"de"} name="German">German</option>
                     </Select>
                   </FormControl>
                   <Typography style={{ color: "#40637E", fontWeight: "bold" }}>
@@ -137,10 +153,10 @@ const Translation = () => {
                       label="from"
                     >
                       <option aria-label="None" value="" />
-                      <option value={"en"}>English</option>
-                      <option value={"es"}>Spanish</option>
-                      <option value={"fr"}>French</option>
-                      <option value={"de"}>German</option>
+                      <option value={"en"} name="English">English</option>
+                      <option value={"es"} name="Spanish">Spanish</option>
+                      <option value={"fr"} name="French">French</option>
+                      <option value={"de"} name="German">German</option>
                     </Select>
                   </FormControl>
                 </ListItem>
@@ -153,7 +169,14 @@ const Translation = () => {
                 >
                   Translate
                 </Button>
-                <Typography>{translation}</Typography>
+                {translation ? (
+                <Container>
+                  <Typography className={classes.source}>English:</Typography>
+                  <Typography className={classes.translate}>{searchCopy}</Typography>
+                  <Typography className={classes.source}>Spanish:</Typography>
+                  <Typography className={classes.translate}>{translation}</Typography>
+                </Container>
+                  ) : null}
               </form>
             </ListItem>
           </List>
