@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
 const Dictionary = ({ name, room }) => {
   const classes = useStyles();
   const [vocab, setVocab] = useState("");
-  const [search, setSearch] = useState("");
   const [definition, setDefinition] = useState(null);
   const [partOfSpeech, setPartOfSpeech] = useState(null);
   let [word, setWord] = useState("");
@@ -58,7 +57,6 @@ const Dictionary = ({ name, room }) => {
   // React Hooks Functions
   const handleVocab = (e) => {
     setVocab(e.target.value);
-    setSearch(e.target.value.replace(/ /gi, "%20"));
   };
 
   // API Functionality

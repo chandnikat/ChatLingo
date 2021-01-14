@@ -66,11 +66,14 @@ const Translation = () => {
           Authorization: `${token}`,
         },
       });
-      const data = JSON.stringify(response.data);
+      const data = JSON.stringify(response.data.translation);
       console.log("RESPONSE TRANSLATION->", data);
+      setTranslation(data)
+
     } catch (err) {
       console.log(`Catch block, POST error on /translate: ${err}`);
     }
+    
   };
   return (
     <div>
@@ -147,6 +150,7 @@ const Translation = () => {
                 >
                   Translate
                 </Button>
+                <Typography>{translation}</Typography>
               </form>
             </ListItem>
           </List>
