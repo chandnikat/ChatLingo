@@ -13,6 +13,7 @@ import { Chatrooms } from './Chatrooms';
 import useInputState from './useInputState';
 import axios from 'axios';
 import Badge from '@material-ui/core/Badge';
+import useSocket from './useSocket';
 
 const useStyles = makeStyles({
   joinSection: {
@@ -27,9 +28,11 @@ const useStyles = makeStyles({
   },
 });
 
-const Join = ({ name, room, handleRoomNameChange, ucbr }) => {
-  console.log('file: Join.jsx ~ line 21 ~ Join ~ ucbr', ucbr);
+const Join = ({ name, room, handleRoomNameChange }) => {
+  const {usersCountByRoom} = useSocket();
 
+  console.log("usersCountByRoom - > ", usersCountByRoom);
+  
   // const { name } = match.params;
   // const [room, handleChangeRoom] = useInputState('');
   // const [usersCountByRoom, setUsersCountByRoom] = useState([]);
@@ -68,9 +71,10 @@ const Join = ({ name, room, handleRoomNameChange, ucbr }) => {
           >
             <ListItemIcon>
               <Badge
-                badgeContent={
-                  ucbr.find(rm => rm.roomName == room.roomName).userCount
-                }
+                badgeContent={usersCountByRoom.length > 0
+                  ? usersCountByRoom.find(rm => rm.roomName == room.roomName)
+                      .userCount
+                  : null}
                 color="primary"
               >
                 <SendIcon fontSize="small" />
@@ -78,10 +82,10 @@ const Join = ({ name, room, handleRoomNameChange, ucbr }) => {
             </ListItemIcon>
             <Typography variant="inherit">
               {room.roomName}
-              {/* {usersCountByRoom.length > 0
+              {usersCountByRoom.length > 0
                 ? usersCountByRoom.find(rm => rm.roomName == room.roomName)
                     .userCount
-                : null} */}
+                : null}
             </Typography>
           </MenuItem>
         ))}

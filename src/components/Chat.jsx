@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 
 const Chat = ({ name, room }) => {
   const classes = useStyles();
-  const [messages, typeMsg, sendNewMessage, sendTypingMsg] = useSocket(
+  const {messages, typeMsg, sendNewMessage, sendTypingMsg} = useSocket(
     name,
     room
   );

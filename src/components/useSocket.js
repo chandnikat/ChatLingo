@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import io from 'socket.io-client';
 
 let socket;
@@ -7,12 +7,8 @@ const endpoint = 'localhost:8080';
 const useSocket = (name, room) => {
   const [messages, setMessages] = useState([]);
   const [typeMsg, setTypeMsg] = useState(``);
-  const [usersCountByRoom, setUsersCountByRoom] = useState([
-    { roomName: 'English', userCount: 0 },
-    { roomName: 'French', userCount: 0 },
-    { roomName: 'Spanish', userCount: 0 },
-    { roomName: 'German', userCount: 0 },
-  ]);
+  // const [usersCountByRoom, setUsersCountByRoom] = useState([]);
+  let usersCountByRoom = useRef([]);
 
   useEffect(() => {
     console.log('useSocket fired!');
@@ -24,14 +20,21 @@ const useSocket = (name, room) => {
 
     // Listens for incoming messages
     socket.on('message', message => {
-      // setTypeMsg('');
-      // console.log(message);
+      console.log('in ON message -> ', message);
       setMessages(messages => [...messages, message]);
     });
-    // console.log('receiving message from the backend socket');
+
+    socket.on('getAllRooms', activeUsers => {
+      console.log("🚀 ~ file: useSocket.js ~ line 28 ~ useSocket ~ activeUsers", activeUsers)
+        // setUsersCountByRoom([...activeUsers])
+        usersCountByRoom =[...activeUsers];
+
+        Object.keys(activeUsers).forEach(roomName => {
+          console.log(roomName, activeUsers[roomName]);
+        });
+      }),
 
     socket.on('sendTypingMsg', data => {
-      // console.log(message);
       setTypeMsg(data);
 
       setTimeout(() => {
@@ -44,17 +47,15 @@ const useSocket = (name, room) => {
     return () => {
       socket.close();
     };
-  }, [name, room, usersCountByRoom]);
+  }, [name, room]);
+
+  
 
   useEffect(
-    () =>
-      socket.on('getAllRooms', activeUsers => {
-        Object.keys(activeUsers).forEach(roomName => {
-          console.log(roomName, activeUsers[roomName]);
-        });
-      }),
-    [usersCountByRoom]
-  );
+    () => {
+      console.log('in useEffect userCountByRooms -> ', usersCountByRoom);
+      socket.emit('getAllRooms');
+    },[usersCountByRoom]);
 
   // client sends a message to the server
   // Server forwards it to all users in the same room
@@ -73,31 +74,8 @@ const useSocket = (name, room) => {
     socket.emit('sendTypingMsg', `${name} is typing...`);
   };
 
-  // const ucbr = useRef(usersCountByRoom);
 
-  // useEffect(async () => {
-  //   console.log('in useEffect');
-  //   console.log(
-  //     'file: Dashboard.jsx ~ line 174 ~ Dashboard ~ tool, room, open,',
-  //     tool,
-  //     room,
-  //     open
-  //   );
-  //   try {
-  //     const response = await axios.get('/activerooms', {
-  //       header: { 'Content-Type': 'Application/JSON' },
-  //     });
-  //     console.log('response => ', response);
-
-  //     ucbr.current = response.data;
-
-  //     console.log('file: Dashboard.jsx ~ line 158 ~ Dashboard ~ ucbr', ucbr);
-  //   } catch (error) {
-  //     console.log('Error in getActiveRooms of Join component:', error);
-  //   }
-  // }, [name, tool, room, open, ucbr]);
-
-  return [messages, typeMsg, sendNewMessage, sendTypingMsg, getActiveUsers];
+  return {messages, typeMsg, usersCountByRoom, sendNewMessage, sendTypingMsg};
 };
 
 export default useSocket;

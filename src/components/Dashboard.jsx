@@ -1,9 +1,6 @@
 import React, {
   useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useRef,
+  useEffect
 } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
@@ -126,16 +123,7 @@ const Dashboard = ({ match }) => {
   const [open, setOpen] = useState(false);
   const [tool, setTool] = useState('rooms');
   const [room, setRoom] = useState('English');
-  const [usersCountByRoom, setUsersCountByRoom] = useState([
-    { roomName: 'English', userCount: 0 },
-    { roomName: 'French', userCount: 0 },
-    { roomName: 'Spanish', userCount: 0 },
-    { roomName: 'German', userCount: 0 },
-  ]);
-
-  console.log('TOOL ->', tool);
-  console.log('NAME ->', name);
-  console.log('ROOMS ->', room);
+  // const [usersCountByRoom] = useSocket();
 
   //Capitalizes username:
   name = name.toLowerCase().replace(/\b\w{3,}/g, function (l) {
@@ -154,29 +142,7 @@ const Dashboard = ({ match }) => {
     setRoom(input);
   };
 
-  const ucbr = useRef(usersCountByRoom);
-
-  useEffect(async () => {
-    console.log('in useEffect');
-    console.log(
-      'file: Dashboard.jsx ~ line 174 ~ Dashboard ~ tool, room, open,',
-      tool,
-      room,
-      open
-    );
-    try {
-      const response = await axios.get('/activerooms', {
-        header: { 'Content-Type': 'Application/JSON' },
-      });
-      console.log('response => ', response);
-
-      ucbr.current = response.data;
-
-      console.log('file: Dashboard.jsx ~ line 158 ~ Dashboard ~ ucbr', ucbr);
-    } catch (error) {
-      console.log('Error in getActiveRooms of Join component:', error);
-    }
-  }, [name, tool, room, open, ucbr]);
+  // const ucbr = useRef(usersCountByRoom);
 
   return (
     <div className={classes.root}>
@@ -285,7 +251,6 @@ const Dashboard = ({ match }) => {
                   handleRoomNameChange={handleRoomNameChange}
                   room={room}
                   // usersCountByRoom={usersCountByRoom}
-                  ucbr={ucbr.current}
                 />
               )}
               {tool === 'dictionary' && <Dictionary />}

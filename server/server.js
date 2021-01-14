@@ -194,10 +194,10 @@ io.on('connection', socket => {
     text: `${name}, welcome to ${room} chatroom.`,
   });
 
-  socket.emit('getAllRooms', {
-    usersCountByRoom,
-  });
+  socket.emit('getAllRooms',
+    usersCountByRoom);
 
+  console.log('EMITTED getAllRooms ')
   socket.to(room).emit('message', {
     id: socket.id,
     name: 'Admin',
@@ -208,6 +208,11 @@ io.on('connection', socket => {
   socket.on('sendNewMessage', message => {
     io.in(room).emit('message', message);
   });
+  
+  socket.on('getAllRooms', () => 
+    socket.emit('getAllRooms',
+    usersCountByRoom)
+    );
 
   socket.on('sendTypingMsg', data => {
     // console.log('data-->', data);
