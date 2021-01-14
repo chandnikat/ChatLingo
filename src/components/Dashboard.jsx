@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -148,23 +154,29 @@ const Dashboard = ({ match }) => {
     setRoom(input);
   };
 
+  const ucbr = useRef(usersCountByRoom);
+
   useEffect(async () => {
     console.log('in useEffect');
+    console.log(
+      'file: Dashboard.jsx ~ line 174 ~ Dashboard ~ tool, room, open,',
+      tool,
+      room,
+      open
+    );
     try {
       const response = await axios.get('/activerooms', {
         header: { 'Content-Type': 'Application/JSON' },
       });
       console.log('response => ', response);
 
-      setUsersCountByRoom([...response.data]);
-      console.log(
-        'file: Dashboard.jsx ~ line 198 ~ getActiveRooms ~ response.data',
-        response.data
-      );
+      ucbr.current = response.data;
+
+      console.log('file: Dashboard.jsx ~ line 158 ~ Dashboard ~ ucbr', ucbr);
     } catch (error) {
       console.log('Error in getActiveRooms of Join component:', error);
     }
-  }, [name, tool, room, open]);
+  }, [name, tool, room, open, ucbr]);
 
   return (
     <div className={classes.root}>
@@ -272,7 +284,8 @@ const Dashboard = ({ match }) => {
                   name={name}
                   handleRoomNameChange={handleRoomNameChange}
                   room={room}
-                  usersCountByRoom={usersCountByRoom}
+                  // usersCountByRoom={usersCountByRoom}
+                  ucbr={ucbr.current}
                 />
               )}
               {tool === 'dictionary' && <Dictionary />}

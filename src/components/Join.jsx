@@ -15,14 +15,20 @@ import axios from 'axios';
 import Badge from '@material-ui/core/Badge';
 
 const useStyles = makeStyles({
-  join: {},
+  joinSection: {
+    width: '100%',
+    height: '83vh',
+  },
+
+  titleBox: {
+    color: '#40637E',
+    fontWeight: 'bold',
+    fontSize: '25px',
+  },
 });
 
-const Join = ({ name, room, handleRoomNameChange, usersCountByRoom }) => {
-  console.log(
-    'file: Join.jsx ~ line 21 ~ Join ~ usersCountByRoom',
-    usersCountByRoom
-  );
+const Join = ({ name, room, handleRoomNameChange, ucbr }) => {
+  console.log('file: Join.jsx ~ line 21 ~ Join ~ ucbr', ucbr);
 
   // const { name } = match.params;
   // const [room, handleChangeRoom] = useInputState('');
@@ -63,10 +69,7 @@ const Join = ({ name, room, handleRoomNameChange, usersCountByRoom }) => {
             <ListItemIcon>
               <Badge
                 badgeContent={
-                  usersCountByRoom.length > 0
-                    ? usersCountByRoom.find(rm => rm.roomName == room.roomName)
-                        .userCount
-                    : null
+                  ucbr.find(rm => rm.roomName == room.roomName).userCount
                 }
                 color="primary"
               >

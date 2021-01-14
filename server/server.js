@@ -186,6 +186,10 @@ io.on('connection', socket => {
     text: `${name}, welcome to ${room} chatroom.`,
   });
 
+  socket.emit('getAllRooms', {
+    usersCountByRoom,
+  });
+
   socket.to(room).emit('message', {
     id: socket.id,
     name: 'Admin',
