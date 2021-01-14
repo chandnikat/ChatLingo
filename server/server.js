@@ -9,7 +9,7 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT;
 
-console.log('process.env.NODE_ENV = ', process.env.NODE_ENV)
+console.log('process.env.NODE_ENV = ', process.env.NODE_ENV);
 /**
  * require routers
  */
@@ -98,18 +98,22 @@ app.post('/dictionary', authController.verifyJWT, (req, res, next) => {
         }
         // console.log('inside the try',definition);
         // console.log('here the array',data.results[0].lexicalEntries);
-        const dictionaryResults = { definition: data.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0], partOfSpeech: data.results[0].lexicalEntries[0].lexicalCategory['id'] };
+        const dictionaryResults = {
+          definition:
+            data.results[0].lexicalEntries[0].entries[0].senses[0]
+              .definitions[0],
+          partOfSpeech: data.results[0].lexicalEntries[0].lexicalCategory['id'],
+        };
         console.log(dictionaryResults);
         return res.status(200).json(dictionaryResults);
       } catch (err) {
         return next({
           message: { err: 'An error occurred while searching for this word' },
-        })
+        });
       }
     });
   });
-})
-
+});
 
 // catch-all route handler for any requests to an unknown route
 app.use('*', (req, res) => {
@@ -188,6 +192,10 @@ io.on('connection', socket => {
     name: 'Admin',
     room,
     text: `${name}, welcome to ${room} chatroom.`,
+  });
+
+  socket.emit('getAllRooms', {
+    usersCountByRoom,
   });
 
   socket.to(room).emit('message', {
