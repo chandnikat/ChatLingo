@@ -67,7 +67,7 @@ const strictMatch = 'false';
 app.post('/dictionary', authController.verifyJWT, (req, res, next) => {
   // let definition = 'Sorry, we cannot find this word';
   // console.log('backend request:', req.body);
-  wordId = req.body.body.vocab;
+  wordId = req.body.vocab;
   console.log('wordId', wordId);
 
   const options = {
