@@ -61,6 +61,19 @@ const Translation = () => {
   const [startLang, setStartLang] = useState("");
   const [endLang, setEndLang] = useState("");
 
+  const languageTermStart = () =>{
+    if(sourceLang === "fr") setStartLang("French")
+    if(sourceLang === "en") setStartLang("English")
+    if(sourceLang === "es") setStartLang("Spanish")
+    if(sourceLang === "de") setStartLang("German")
+  }
+  const languageTermEnd = () =>{
+    if(targetLang === "en") setEndLang("English")
+    if(targetLang === "fr") setEndLang("French")
+    if(targetLang === "es") setEndLang("Spanish")
+    if(targetLang === "de") setEndLang("German")
+  }
+
   search = search.toLowerCase();
   searchCopy = searchCopy.toLowerCase();
 
@@ -76,6 +89,7 @@ const Translation = () => {
     const body = { search, sourceLang, targetLang };
     console.log("TRANSLATION BODY->", body);
     try {
+      
       const response = await Axios.post("/translate", body, {
         headers: {
           "Content-Type": "Application/JSON",
@@ -85,14 +99,16 @@ const Translation = () => {
       const data = JSON.stringify(response.data.translation);
       console.log("RESPONSE TRANSLATION->", data);
       setTranslation(data)
+      languageTermStart()
+      languageTermEnd()
       setSearch("")
-
+      
     } catch (err) {
       console.log(`Catch block, POST error on /translate: ${err}`);
     }
     
+   
 
-    
   };
   return (
     <div>
@@ -171,9 +187,9 @@ const Translation = () => {
                 </Button>
                 {translation ? (
                 <>
-                  <Typography className={classes.source}>English:</Typography>
+                  <Typography className={classes.source}>{startLang}:</Typography>
                   <Typography className={classes.translate}>"{searchCopy}"</Typography>
-                  <Typography className={classes.source}>Spanish:</Typography>
+                  <Typography className={classes.source}>{endLang}:</Typography>
                   <Typography className={classes.translate}>{translation}</Typography>
                 </>
                   ) : null}
