@@ -12,18 +12,22 @@ import { Link } from 'react-router-dom';
 import { Chatrooms } from './Chatrooms';
 import useInputState from './useInputState';
 import axios from 'axios';
+import Badge from '@material-ui/core/Badge';
 
 const useStyles = makeStyles({
   join: {},
 });
 
 const Join = ({ name, room, handleRoomNameChange, usersCountByRoom }) => {
-  const classes = useStyles();
+  console.log(
+    'file: Join.jsx ~ line 21 ~ Join ~ usersCountByRoom',
+    usersCountByRoom
+  );
 
   // const { name } = match.params;
   // const [room, handleChangeRoom] = useInputState('');
   // const [usersCountByRoom, setUsersCountByRoom] = useState([]);
-
+  // const usersCountByRoom = getActiveRooms();
   // const getActiveRooms = () => {
   //   async () => {
   //     try {
@@ -49,7 +53,7 @@ const Join = ({ name, room, handleRoomNameChange, usersCountByRoom }) => {
   // }, []);
 
   return (
-    <Paper className={classes.join}>
+    <Paper>
       <MenuList>
         {Chatrooms.map((room, idx) => (
           <MenuItem
@@ -57,13 +61,24 @@ const Join = ({ name, room, handleRoomNameChange, usersCountByRoom }) => {
             onClick={e => handleRoomNameChange(room.roomName)}
           >
             <ListItemIcon>
-              <SendIcon fontSize="small" />
+              <Badge
+                badgeContent={
+                  usersCountByRoom.length > 0
+                    ? usersCountByRoom.find(rm => rm.roomName == room.roomName)
+                        .userCount
+                    : null
+                }
+                color="primary"
+              >
+                <SendIcon fontSize="small" />
+              </Badge>
             </ListItemIcon>
             <Typography variant="inherit">
               {room.roomName}
-              {usersCountByRoom.some(room => room.userCount !== 0)
-                ? 'Active Chatrooms'
-                : null}
+              {/* {usersCountByRoom.length > 0
+                ? usersCountByRoom.find(rm => rm.roomName == room.roomName)
+                    .userCount
+                : null} */}
             </Typography>
           </MenuItem>
         ))}

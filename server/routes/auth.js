@@ -4,13 +4,13 @@ const router = express.Router();
 
 router.post('/signup', userController.createUser, (req, res) => {
   return res.status(200).json({
-    user: res.locals.user
+    user: res.locals.user,
   });
 });
 
 router.post('/signin', userController.verifyUser, (req, res) => {
   return res.status(200).json({
-    user: res.locals.user
+    user: res.locals.user,
   });
 });
 

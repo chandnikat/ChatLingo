@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -17,6 +17,7 @@ import {
   ListItemIcon,
   ListItemText,
   Button,
+  Badge,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -31,6 +32,7 @@ import Dictionary from './Dictionary';
 import Translation from './Translation';
 import Chat from './Chat';
 import theme1 from '../styles/theme.js';
+import axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -118,6 +120,12 @@ const Dashboard = ({ match }) => {
   const [open, setOpen] = useState(false);
   const [tool, setTool] = useState('rooms');
   const [room, setRoom] = useState('English');
+  const [usersCountByRoom, setUsersCountByRoom] = useState([
+    { roomName: 'English', userCount: 0 },
+    { roomName: 'French', userCount: 0 },
+    { roomName: 'Spanish', userCount: 0 },
+    { roomName: 'German', userCount: 0 },
+  ]);
 
   console.log('TOOL ->', tool);
   console.log('NAME ->', name);
@@ -140,24 +148,23 @@ const Dashboard = ({ match }) => {
     setRoom(input);
   };
 
-  const getActiveRooms = () => {
-    async () => {
-      try {
-        const response = await axios.get('/activerooms', {
-          header: { 'Content-Type': 'Application/JSON' },
-        });
-        console.log('response => ', response);
+  useEffect(async () => {
+    console.log('in useEffect');
+    try {
+      const response = await axios.get('/activerooms', {
+        header: { 'Content-Type': 'Application/JSON' },
+      });
+      console.log('response => ', response);
 
-        const usersCountByRoom = response.data;
-
-        console.log('usersCountByRoom => ', usersCountByRoom);
-        return usersCountByRoom;
-        // setUsersCountByRoom([...usersCountByRoom]);
-      } catch (error) {
-        console.log('Error in getActiveRooms of Join component:', error);
-      }
-    };
-  };
+      setUsersCountByRoom([...response.data]);
+      console.log(
+        'file: Dashboard.jsx ~ line 198 ~ getActiveRooms ~ response.data',
+        response.data
+      );
+    } catch (error) {
+      console.log('Error in getActiveRooms of Join component:', error);
+    }
+  }, [name, tool, room, open]);
 
   return (
     <div className={classes.root}>
@@ -254,14 +261,18 @@ const Dashboard = ({ match }) => {
         </Drawer>
         <Grid container style={{ height: '85vh' }}>
           <Grid item xs={12} sm={3} className={classes.content}>
-            <Paper style={{ height: '85vh' }} className={classes.gridItem} style={{ backgroundColor: '#3caea3' }}>
+            <Paper
+              style={{ height: '85vh' }}
+              className={classes.gridItem}
+              style={{ backgroundColor: '#3caea3' }}
+            >
               {/* <div className={classes.toolbar} /> */}
               {tool === 'rooms' && (
                 <Join
                   name={name}
                   handleRoomNameChange={handleRoomNameChange}
                   room={room}
-                  usersCountByRoom={getActiveRooms()}
+                  usersCountByRoom={usersCountByRoom}
                 />
               )}
               {tool === 'dictionary' && <Dictionary />}
