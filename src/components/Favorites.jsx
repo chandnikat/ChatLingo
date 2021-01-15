@@ -86,8 +86,8 @@ const Favorites = ({ name, room }) => {
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
                   <ListItemText>
                     <Typography style={{ fontSize: "15px" }}>
-                      House:"a building for human habitation, especially one
-                      that is lived in by a family or small group of people"
+                      House: "a building for human habitation, especially one
+                      that"
                     </Typography>
                   </ListItemText>
                   <DeleteOutlineIcon
@@ -124,7 +124,7 @@ const Favorites = ({ name, room }) => {
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
                   <ListItemText>
                     <Typography style={{ fontSize: "15px" }}>
-                      House:"a building for human habitation, especially one
+                      House: "a building for human habitation, especially one
                       that is lived in by a family or small group of people"
                     </Typography>
                   </ListItemText>
@@ -132,7 +132,7 @@ const Favorites = ({ name, room }) => {
                     style={{ padding: "2px", color: "#40637E" }}
                   />
                 </ListItem>
-                
+
               </Paper>
             </ListItem>
           </List>
