@@ -33,13 +33,22 @@ historyController.saveDefinition = (req, res, next) => {
       return next();
     })
     .catch(err => {
+      console.log('error in createDefinition', err);
+      if (err.constraint === 'SavedDefinitions_word_key') {
+        return next({
+          message: { err: 'This word has already been saved to the database' },
+        });
+      }
       return next({
         message: { err: 'Error adding definition to database' },
       });
     });
 };
 
-historyController.deleteDefinition = (req, res, next) => { };
+historyController.deleteDefinition = (req, res, next) => {
+
+
+};
 
 
 //translations
