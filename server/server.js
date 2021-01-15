@@ -14,8 +14,9 @@ console.log('process.env.NODE_ENV = ', process.env.NODE_ENV);
  * require routers
  */
 
-const authRouter = require('./routes/auth');
-const translateRouter = require('./routes/translate');
+const authRouter = require('./routes/authRouter');
+const translateRouter = require('./routes/translateRouter');
+const authController = require('./controllers/authController');
 
 /**
  * handle parsing request body
@@ -42,6 +43,13 @@ app.use(express.static(path.join(__dirname, '../src')));
 
 app.use('/auth', authRouter);
 app.use('/translate', translateRouter);
+app.use('/dictionary', (req, res, next) => {
+  res.header(
+    'Access-Control-Allow-Headers',
+    'x-access-token, Authorization, Origin, Content-Type, Accept'
+  );
+  return next();
+});
 
 app.get('/activerooms', (req, res) => {
   console.log('get request response => usersCountByRoom => ', usersCountByRoom);
@@ -56,10 +64,10 @@ let wordId;
 // const fields = 'definitions';
 const strictMatch = 'false';
 
-app.post('/dictionary', (req, res, next) => {
+app.post('/dictionary', authController.verifyJWT, (req, res, next) => {
   // let definition = 'Sorry, we cannot find this word';
   // console.log('backend request:', req.body);
-  wordId = req.body.body.vocab;
+  wordId = req.body.vocab;
   console.log('wordId', wordId);
 
   const options = {
@@ -90,18 +98,26 @@ app.post('/dictionary', (req, res, next) => {
         }
         // console.log('inside the try',definition);
         // console.log('here the array',data.results[0].lexicalEntries);
+<<<<<<< HEAD
         const dictionaryResults = {
           definition:
             data.results[0].lexicalEntries[0].entries[0].senses[0]
               .definitions[0],
           partOfSpeech: data.results[0].lexicalEntries[0].lexicalCategory['id'],
         };
+=======
+        const dictionaryResults = { definition: data.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0], partOfSpeech: data.results[0].lexicalEntries[0].lexicalCategory['id'] };
+>>>>>>> main
         console.log(dictionaryResults);
         return res.status(200).json(dictionaryResults);
       } catch (err) {
         return next({
           message: { err: 'An error occurred while searching for this word' },
+<<<<<<< HEAD
         });
+=======
+        })
+>>>>>>> main
       }
     });
   });
