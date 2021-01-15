@@ -112,7 +112,7 @@ const Favorites = ({ name, room }) => {
                   <StarIcon style={{ padding: "2px" }} />
                   <ListItemText style={{ fontSize: "13px" }}>
                     House:"a building for human habitation, especially one that
-                    is lived in by a family or small group of people"
+                    is lived in y a family or small group of people"
                   </ListItemText>
                 </ListItem>
 
