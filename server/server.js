@@ -1,10 +1,10 @@
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const https = require('https');
+
 require('dotenv').config();
-const fetch = require('node-fetch');
-// import languageTranslator from './ibm'
+
+
 
 const app = express();
 const PORT = process.env.PORT;
@@ -16,8 +16,8 @@ console.log('process.env.NODE_ENV = ', process.env.NODE_ENV);
 
 const authRouter = require('./routes/authRouter');
 const translateRouter = require('./routes/translateRouter');
-const authController = require('./controllers/authController');
-
+const historyRouter = require('./routes/historyRouter');
+const dictionaryRouter = require('./routes/dictionaryRouter');
 /**
  * handle parsing request body
  */
@@ -49,70 +49,12 @@ app.use('*', (req, res, next) => {
 });
 app.use('/auth', authRouter);
 app.use('/translate', translateRouter);
-
+app.use('/history', historyRouter);
+app.use('/dictionary', dictionaryRouter);
 
 app.get('/activerooms', (req, res) => {
   console.log('get request response => usersCountByRoom => ', usersCountByRoom);
   res.status(200).json(usersCountByRoom);
-});
-
-// Oxford Dictionaries API
-const APIID = process.env.APIID;
-const APIKEY = process.env.APIKEY;
-const language = 'en-us';
-let wordId;
-// const fields = 'definitions';
-const strictMatch = 'false';
-
-app.post('/dictionary', authController.verifyJWT, (req, res, next) => {
-  // let definition = 'Sorry, we cannot find this word';
-  // console.log('backend request:', req.body);
-  wordId = req.body.vocab;
-  console.log('wordId', wordId);
-
-  const options = {
-    host: 'od-api.oxforddictionaries.com',
-    port: '443',
-    path: `/api/v2/entries/${language}/${wordId.toLowerCase()}?fields=definitions&strictMatch=${strictMatch}`,
-    method: 'GET',
-    headers: {
-      app_id: APIID,
-      app_key: APIKEY,
-    },
-  };
-
-  https.get(options, resp => {
-    // console.log('in https get request');
-    let body = '';
-    resp.on('data', d => {
-      // console.log('d',d);
-      body += d;
-    });
-    resp.on('end', () => {
-      try {
-        const data = JSON.parse(body);
-        // console.log('end data',
-        // data);
-        if (data.error) {
-          return res.status(200).json(data.error);
-        }
-        // console.log('inside the try',definition);
-        // console.log('here the array',data.results[0].lexicalEntries);
-        const dictionaryResults = {
-          definition:
-            data.results[0].lexicalEntries[0].entries[0].senses[0]
-              .definitions[0],
-          partOfSpeech: data.results[0].lexicalEntries[0].lexicalCategory['id'],
-        };
-        console.log(dictionaryResults);
-        return res.status(200).json(dictionaryResults);
-      } catch (err) {
-        return next({
-          message: { err: 'An error occurred while searching for this word' },
-        });
-      }
-    });
-  });
 });
 
 // catch-all route handler for any requests to an unknown route
