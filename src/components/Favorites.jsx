@@ -59,6 +59,8 @@ const Favorites = ({ name, room }) => {
               <Typography className={classes.titleBox}>Favorites</Typography>
             </ListItem>
             <Divider />
+
+            {/* Translation: */}
             <ListItem>
               <Paper style={{ padding: "5px", height: "35vh", width: "100%" }}>
                 <Typography style={{ color: "#3caea3", fontWeight: "bold" }}>
@@ -67,6 +69,8 @@ const Favorites = ({ name, room }) => {
                 <Divider />
               </Paper>
             </ListItem>
+
+            {/* Dictionary: */}
             <ListItem>
               <Paper
                 style={{
@@ -80,30 +84,39 @@ const Favorites = ({ name, room }) => {
                   Dictionary:
                 </Typography>
                 <Divider />
-                <ListItem>
-                  <StarIcon style={{ fontSize: "medium", padding: "0px" }} />
-                  <ListItemText style={{ fontSize: "15px" }}>
+                <ListItem style={{padding: "0px", margin:"0px"}}>
+                  <StarIcon style={{ padding: "2px" }} />
+                  <ListItemText style={{ fontSize: "13px" }}>
                     House:"a building for human habitation, especially one that
                     is lived in by a family or small group of people"
                   </ListItemText>
                 </ListItem>
 
-                <ListItem>
-                  <StarIcon style={{ fontSize: "medium", padding: "0px" }} />
-                  <ListItemText style={{ fontSize: "15px" }}>
+                <ListItem style={{padding: "0px", margin:"0px"}}>
+                  <StarIcon style={{ padding: "2px" }} />
+                  <ListItemText style={{ fontSize: "13px" }}>
                     House:"a building for human habitation, especially one that
                     is lived in by a family or small group of people"
                   </ListItemText>
                 </ListItem>
 
-                <ListItem>
-                  <StarIcon style={{ fontSize: "medium", padding: "0px" }} />
-                  <ListItemText style={{ fontSize: "15px" }}>
+                <ListItem style={{padding: "0px", margin:"0px"}}>
+                  <StarIcon style={{ padding: "2px" }} />
+                  <ListItemText style={{ fontSize: "13px" }}>
                     House:"a building for human habitation, especially one that
                     is lived in by a family or small group of people"
                   </ListItemText>
                 </ListItem>
-                
+
+                <ListItem style={{padding: "0px", margin:"0px"}}>
+                  <StarIcon style={{ padding: "2px" }} />
+                  <ListItemText style={{ fontSize: "13px" }}>
+                    House:"a building for human habitation, especially one that
+                    is lived in by a family or small group of people"
+                  </ListItemText>
+                </ListItem>
+
+
               </Paper>
             </ListItem>
           </List>
