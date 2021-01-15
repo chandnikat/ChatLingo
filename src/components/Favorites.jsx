@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Favorites = ({ name, room }) => {
-    const classes = useStyles();
+  const classes = useStyles();
 
   return (
     <div>
@@ -54,10 +54,15 @@ const Favorites = ({ name, room }) => {
               <Typography className={classes.titleBox}>Favorites</Typography>
             </ListItem>
             <Divider />
-            <ListItem style={{ paddingTop: "20px" }} alignItems="center">
-              <form className={classes.form} >
-       
-              </form>
+            <ListItem>
+              <Paper style={{ padding: "5px", height: "35vh", width: "100%" }}>
+                Translation Favorites:
+              </Paper>
+            </ListItem>
+            <ListItem>
+              <Paper style={{ padding: "5px", height: "35vh", width: "100%" }}>
+                Dictionary Favorties:
+              </Paper>
             </ListItem>
           </List>
         </Grid>
