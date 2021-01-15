@@ -1,10 +1,9 @@
-import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import SendIcon from '@material-ui/icons/Send';
-import React from 'react';
-import { Chatrooms } from './Chatrooms';
+import { makeStyles } from "@material-ui/core/styles";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import SendIcon from "@material-ui/icons/Send";
+import React from "react";
+import { Chatrooms } from "./Chatrooms";
 
 import {
   Paper,
@@ -13,18 +12,18 @@ import {
   Typography,
   List,
   ListItem,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
   joinSection: {
-    width: '100%',
-    height: '83vh',
+    width: "100%",
+    height: "83vh",
   },
 
   titleBox: {
-    color: '#40637E',
-    fontWeight: 'bold',
-    fontSize: '25px',
+    color: "#40637E",
+    fontWeight: "bold",
+    fontSize: "25px",
   },
 });
 
@@ -40,21 +39,19 @@ const Join = ({ name, room, handleRoomNameChange }) => {
             </Typography>
           </ListItem>
           <Divider />
-          <ListItem style={{ paddingTop: '20px' }} alignItems="center">
-            <MenuList>
-              {Chatrooms.map((room, idx) => (
-                <MenuItem
-                  key={`room-${idx}`}
-                  onClick={e => handleRoomNameChange(room.roomName)}
-                >
-                  <ListItemIcon>
-                    <SendIcon fontSize="small" />
-                  </ListItemIcon>
-                  <Typography variant="inherit">{room.roomName}</Typography>
-                </MenuItem>
-              ))}
-            </MenuList>
-          </ListItem>
+
+          {Chatrooms.map((room, idx) => (
+            <ListItem
+              button
+              key={`room-${idx}`}
+              onClick={(e) => handleRoomNameChange(room.roomName)}
+            >
+              <ListItemIcon>
+                <SendIcon fontSize="small" />
+              </ListItemIcon>
+              <ListItemText variant="inherit">{room.roomName}</ListItemText>
+            </ListItem>
+          ))}
         </List>
       </Grid>
     </Grid>
