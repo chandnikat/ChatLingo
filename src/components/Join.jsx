@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 
 
 const Join = ({ name, room, handleRoomNameChange }) => {
-  const {usersCountByRoom} = useSocket();
+  const {usersCountByRoom, emitGetRooms} = useSocket();
 
   console.log("usersCountByRoom - > ", usersCountByRoom);
   // const { name } = match.params;
@@ -61,6 +61,11 @@ const Join = ({ name, room, handleRoomNameChange }) => {
   //   console.log('useEffect in Join Component fired');
   //   getActiveRooms();
   // }, []);
+
+  useEffect(() => {
+    console.log("🚀 ~ file: Join.jsx ~ line 66 ~ Join ~ usersCountByRoom", usersCountByRoom)
+    emitGetRooms();
+  }, [usersCountByRoom])
 
   return (
     <Paper>
