@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -49,10 +49,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Favorites = ({ name, room }) => {
+const Favorites = ({room}) => {
   const classes = useStyles();
   const [definitionArray, setDefinitionArray] =  useState([])
   const [translationArray, setTranslationArray] =  useState([])
+
+useEffect(async ()=>{
+  let token = localStorage.getItem("currentUser");
+
+  try {
+    const response = await Axios.get("/history/getAllDefinitions",{
+      headers: {
+        "Content-Type": "Application/JSON",
+        Authorization: `${token}`,
+      },
+    });
+    const data = JSON.stringify(response.data)
+    setDefinitionArray(data)
+    console.log("GET DICTIONARY DATA->", data)
+  } catch (err) {
+    console.log(`Catch block, GET error on /history/getAllDefinitions: ${err}`);
+  }
+}, [])
+
+
 
   return (
     <div>
@@ -123,7 +143,7 @@ const Favorites = ({ name, room }) => {
                   </Typography>
                   <Divider />
                 </ListSubheader>
-
+{/* 
                 {definitionArray.map((vocab) => (
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
                   <ListItemText>
@@ -135,7 +155,7 @@ const Favorites = ({ name, room }) => {
                     style={{ padding: "2px", color: "#40637E" }}
                   />
                 </ListItem>
-                ))}
+                ))} */}
 
               </Paper>
             </ListItem>
