@@ -43,7 +43,7 @@ CREATE TABLE "SavedTranslations" (
 
 
 CREATE TABLE "SavedDefinitions" (
-	"word" varchar(255) NOT NULL,
+	"word" varchar(255) NOT NULL UNIQUE,
 	"definition" varchar(255) NOT NULL,
 	"part_of_speech" varchar(255) NOT NULL,
 	"user_id" uuid NOT NULL
