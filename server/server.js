@@ -4,8 +4,6 @@ const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
-
-
 const app = express();
 const PORT = process.env.PORT;
 
@@ -43,7 +41,7 @@ app.use(express.static(path.join(__dirname, '../src')));
 app.use('*', (req, res, next) => {
   res.header(
     'Access-Control-Allow-Headers',
-    'x-access-token, Authorization, Origin, Content-Type, Accept'
+    'x-access-token, Authorization, Origin, Content-Type, Accept',
   );
   return next();
 });
@@ -57,69 +55,6 @@ app.get('/activerooms', (req, res) => {
   res.status(200).json(usersCountByRoom);
 });
 
-<<<<<<< HEAD
-// Oxford Dictionaries API
-const APIID = process.env.APIID;
-const APIKEY = process.env.APIKEY;
-const language = 'en-us';
-let wordId;
-// const fields = 'definitions';
-const strictMatch = 'false';
-
-app.post('/dictionary', authController.verifyJWT, (req, res, next) => {
-  // let definition = 'Sorry, we cannot find this word';
-  // console.log('backend request:', req.body);
-  wordId = req.body.vocab;
-  console.log('wordId', wordId);
-
-  const options = {
-    host: 'od-api.oxforddictionaries.com',
-    port: '443',
-    path: `/api/v2/entries/${language}/${wordId.toLowerCase()}?fields=definitions&strictMatch=${strictMatch}`,
-    method: 'GET',
-    headers: {
-      app_id: APIID,
-      app_key: APIKEY,
-    },
-  };
-
-  https.get(options, resp => {
-    // console.log('in https get request');
-    let body = '';
-    resp.on('data', d => {
-      // console.log('d',d);
-      body += d;
-    });
-    resp.on('end', () => {
-      try {
-        const data = JSON.parse(body);
-        // console.log('end data',
-        // data);
-        if (data.error) {
-          return res.status(200).json(data.error);
-        }
-        // console.log('inside the try',definition);
-        // console.log('here the array',data.results[0].lexicalEntries);
-        const dictionaryResults = {
-          definition:
-            data.results[0].lexicalEntries[0].entries[0].senses[0]
-              .definitions[0],
-          partOfSpeech: data.results[0].lexicalEntries[0].lexicalCategory['id'],
-        };
-        console.log(dictionaryResults);
-        return res.status(200).json(dictionaryResults);
-      } catch (err) {
-        return next({
-          message: { err: 'An error occurred while searching for this word' },
-        });
-      }
-    });
-  });
-});
-
-=======
->>>>>>> main
-// catch-all route handler for any requests to an unknown route
 app.use('*', (req, res) => {
   return res.sendStatus(404);
 });
@@ -156,14 +91,14 @@ const usersCountByRoom = [
 ];
 
 // usersCountByRoom Helper functions
-const incrementCount = roomName => {
-  usersCountByRoom.forEach(room => {
+const incrementCount = (roomName) => {
+  usersCountByRoom.forEach((room) => {
     if (room.roomName === roomName) room.userCount++;
   });
 };
 
-const decrementCount = roomName => {
-  usersCountByRoom.forEach(room => {
+const decrementCount = (roomName) => {
+  usersCountByRoom.forEach((room) => {
     if (room.roomName === roomName) room.userCount--;
   });
 };
@@ -180,7 +115,7 @@ const checkActiveRoom = (roomName, status) => {
 const socketio = require('socket.io');
 const io = socketio(server);
 
-io.on('connection', socket => {
+io.on('connection', (socket) => {
   console.log('socket.id => ', socket.id);
   const { name, room } = socket.handshake.query;
 
@@ -209,11 +144,11 @@ io.on('connection', socket => {
     text: `${name} has joined!`,
   });
 
-  socket.on('sendNewMessage', message => {
+  socket.on('sendNewMessage', (message) => {
     io.in(room).emit('message', message);
   });
 
-  socket.on('sendTypingMsg', data => {
+  socket.on('sendTypingMsg', (data) => {
     // console.log('data-->', data);
     socket.to(room).emit('sendTypingMsg', data);
     //socket.broadcast.to().emit has the same effect!!!
