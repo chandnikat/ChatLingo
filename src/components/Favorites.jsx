@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Favorites = ({ name, room }) => {
   const classes = useStyles();
+  const [definitionArray, setDefinitionArray] =  useState([])
 
   return (
     <div>
@@ -84,18 +85,18 @@ const Favorites = ({ name, room }) => {
                   <Divider />
                 </ListSubheader>
 
+                {definitionArray.map((vocab) => (
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
                   <ListItemText>
                     <Typography style={{ fontSize: "13px" }}>
-                      House: <span style={{fontStyle:"italic"}}>(noun)</span> "a building for human habitation, especially one
-                      that is lived in by a family or small group of people"
+                      Word: <span style={{fontStyle:"italic"}}>partOfSpeech</span> "definition"
                     </Typography>
                   </ListItemText>
                   <DeleteOutlineIcon
                     style={{ padding: "2px", color: "#40637E" }}
-                  />  
+                  />
                 </ListItem>
-
+                ))}
               </Paper>
             </ListItem>
 
@@ -125,8 +126,7 @@ const Favorites = ({ name, room }) => {
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
                   <ListItemText>
                     <Typography style={{ fontSize: "13px" }}>
-                      House: <span style={{fontStyle:"italic"}}>(noun)</span> "a building for human habitation, especially one
-                      that is lived in by a family or small group of people"
+                      Word: <span style={{fontStyle:"italic"}}>partOfSpeech</span> "definition"
                     </Typography>
                   </ListItemText>
                   <DeleteOutlineIcon
