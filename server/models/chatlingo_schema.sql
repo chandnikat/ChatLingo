@@ -14,7 +14,6 @@ CREATE TABLE "SavedConversations" (
 	"chatroom_id" serial NOT NULL,
 	"messages" varchar ARRAY NOT NULL,
 	"participants" varchar ARRAY NOT NULL,
-	"conversation_id" varchar(255) NOT NULL,
 	"language" varchar(255) NOT NULL,
 	"user_id" uuid NOT NULL
 ) WITH (
