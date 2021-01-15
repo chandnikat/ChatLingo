@@ -31,6 +31,8 @@ import Dictionary from "./Dictionary";
 import Translation from "./Translation";
 import Chat from "./Chat";
 import theme1 from "../styles/theme.js";
+import useSocket from "./useSocket";
+
 
 const drawerWidth = 240;
 
@@ -118,10 +120,9 @@ const Dashboard = ({ match }) => {
   const [open, setOpen] = useState(false);
   const [tool, setTool] = useState("rooms");
   const [room, setRoom] = useState("English");
+  const socket = useSocket(name, room);
+  const {emitGetRooms} = socket;
 
-  // console.log('TOOL ->', tool);
-  // console.log('NAME ->', name);
-  // console.log('ROOMS ->', room);
 
   //Capitalizes username:
   name = name.toLowerCase().replace(/\b\w{3,}/g, function (l) {
@@ -137,6 +138,7 @@ const Dashboard = ({ match }) => {
   };
 
   const handleRoomNameChange = (input) => {
+    emitGetRooms();
     setRoom(input);
   };
 
@@ -250,7 +252,7 @@ const Dashboard = ({ match }) => {
                   name={name}
                   handleRoomNameChange={handleRoomNameChange}
                   room={room}
-                  // usersCountByRoom={usersCountByRoom}
+                  socket={socket}
                 />
               )}
               {tool === "dictionary" && <Dictionary />}
@@ -265,7 +267,7 @@ const Dashboard = ({ match }) => {
               style={{ backgroundColor: "#3caea3" }}
             >
               {/* <div className={classes.toolbar} /> */}
-              <Chat name={name} room={room} />
+              <Chat name={name} room={room} socket={socket}/>
             </Paper>
           </Grid>
         </Grid>

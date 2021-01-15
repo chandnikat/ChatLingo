@@ -7,27 +7,29 @@ const endpoint = 'localhost:8080';
 const useSocket = (name, room) => {
   const [messages, setMessages] = useState([]);
   const [typeMsg, setTypeMsg] = useState(``);
+  const [userJoined, setUserJoined] = useState(false)
   const [usersCountByRoom, setUsersCountByRoom] = useState([]);
   
   useEffect(() => {
-    console.log('useSocket fired!');
+    console.log('USE EFFECT FOR MESSAGING fired!');
     
     // Creates a WebSocket connection
     socket = io(endpoint, {
       query: { name, room },
     });
+
+    socket.on('userJoined', () => {
+      setUserJoined(true);
+      setTimeout(() => {
+        setUserJoined(false);
+      }, 500);
+    })
     
     // Listens for incoming messages
     socket.on('message', message => {
       setMessages(messages => [...messages, message]);
     });
     
-    socket.on('getAllRooms', activeUsers => {
-      console.log("🚀 ~ file: useSocket.js ~ line 26 ~ useEffect ~ activeUsers", activeUsers)
-      setUsersCountByRoom([...activeUsers.usersCountByRoom]);
-      console.log("🚀 ~ file: useSocket.js ~ line 28 ~ socket.on ~ usersCountByRoom", usersCountByRoom)
-      
-      }),
 
     socket.on('sendTypingMsg', data => {
       setTypeMsg(data);
@@ -43,6 +45,17 @@ const useSocket = (name, room) => {
       socket.close();
     };
   }, [name, room]);
+
+  useEffect(() => {
+    console.log('USE EFFECT FOR ACTIVE USERS fired!');
+
+    socket.on('getAllRooms', activeUsers => {
+      console.count("🚀 ~ file: useSocket.js ~ line 45 ~ useEffect ~ activeUsers", activeUsers)
+      setUsersCountByRoom(activeUsers => [...activeUsers]) 
+      console.count("🚀 ~ file: useSocket.js ~ line 47 ~ socket.on ~ usersCountByRoom", usersCountByRoom)
+      
+      })
+  }, [activeUsers])
 
   
 
@@ -67,7 +80,7 @@ const useSocket = (name, room) => {
     socket.emit('getAllRooms')
   }
 
-  return {messages, typeMsg, usersCountByRoom, sendNewMessage, sendTypingMsg, emitGetRooms};
+  return {messages, typeMsg, usersCountByRoom, userJoined, sendNewMessage, sendTypingMsg, emitGetRooms};
 };
 
 export default useSocket;

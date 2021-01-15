@@ -13,7 +13,6 @@ import { Chatrooms } from './Chatrooms';
 import useInputState from './useInputState';
 import axios from 'axios';
 import Badge from '@material-ui/core/Badge';
-import useSocket from './useSocket';
 
 const useStyles = makeStyles({
   joinSection: {
@@ -30,10 +29,9 @@ const useStyles = makeStyles({
 
 
 
-const Join = ({ name, room, handleRoomNameChange }) => {
-  const {usersCountByRoom, emitGetRooms} = useSocket();
+const Join = ({ name, room, handleRoomNameChange, socket }) => {
+  const {emitGetRooms, userJoined, usersCountByRoom} = socket;
 
-  console.log("usersCountByRoom - > ", usersCountByRoom);
   // const { name } = match.params;
   // const [room, handleChangeRoom] = useInputState('');
   // const [usersCountByRoom, setUsersCountByRoom] = useState([]);
@@ -57,15 +55,11 @@ const Join = ({ name, room, handleRoomNameChange }) => {
   //   };
   // };
 
-  // useEffect(() => {
-  //   console.log('useEffect in Join Component fired');
-  //   getActiveRooms();
-  // }, []);
 
   useEffect(() => {
-    console.log("🚀 ~ file: Join.jsx ~ line 66 ~ Join ~ usersCountByRoom", usersCountByRoom)
-    emitGetRooms();
-  }, [usersCountByRoom])
+    console.log("🚀 ~ file: Join.jsx ~ line 66 ~ Join ~ userJoined", userJoined)
+    if (userJoined) emitGetRooms();
+  }, [userJoined])
 
   return (
     <Paper>

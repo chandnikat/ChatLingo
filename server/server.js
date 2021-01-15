@@ -136,8 +136,11 @@ io.on('connection', socket => {
     text: `${name}, welcome to ${room} chatroom.`,
   });
 
+  socket.emit('userJoined');
+  socket.broadcast.emit('userJoined');
+
   socket.emit('getAllRooms',
-    {usersCountByRoom});
+    usersCountByRoom);
 
   
   socket.to(room).emit('message', {
@@ -153,7 +156,7 @@ io.on('connection', socket => {
   
   socket.on('getAllRooms', () => 
     socket.emit('getAllRooms',
-    {usersCountByRoom})
+    usersCountByRoom)
     );
 
   socket.on('sendTypingMsg', data => {
