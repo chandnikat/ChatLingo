@@ -6,7 +6,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import SendIcon from '@material-ui/icons/Send';
 import React from 'react';
+
 import { Chatrooms } from './Chatrooms';
+
 import Badge from '@material-ui/core/Badge';
 
 const useStyles = makeStyles({
@@ -24,7 +26,7 @@ const useStyles = makeStyles({
 
 
 
-const Join = ({ handleRoomNameChange, socket }) => {
+const Join = ({ name, room, handleRoomNameChange, socket }) => {
   const {usersCountByRoom} = socket;
 
   return (
@@ -58,5 +60,6 @@ const Join = ({ handleRoomNameChange, socket }) => {
       </MenuList>
     </Paper>
   );
+};
 
 export default Join;
