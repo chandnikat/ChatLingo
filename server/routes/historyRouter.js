@@ -31,14 +31,6 @@ router.post(
     return res.status(200).json('translation saved!');
   }
 );
-// no api
 
-// saving word
-
-// we verify token before we create route for saving history
-
-// when we generated token, we use our database user id. The decoded token is the user id.
-
-// saving conversation
 
 module.exports = router;

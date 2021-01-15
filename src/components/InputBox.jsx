@@ -79,7 +79,7 @@ const InputBox = ({ sendNewMessage, sendTypingMsg }) => {
             autoFocus
             ref={inputEl}></TextField>
           </Grid>
-          <Grid xs={1} align="right">
+          <Grid item xs={1} align="right">
               <Fab color="primary" aria-label="add" onClick={handleSendMessage}><SendIcon /></Fab>
           </Grid>
         </Grid>
