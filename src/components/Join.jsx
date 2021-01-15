@@ -56,10 +56,10 @@ const Join = ({ name, room, handleRoomNameChange, socket }) => {
   // };
 
 
-  useEffect(() => {
-    console.log("🚀 ~ file: Join.jsx ~ line 66 ~ Join ~ userJoined", userJoined)
-    if (userJoined) emitGetRooms();
-  }, [userJoined])
+  // useEffect(() => {
+  //   console.log("🚀 ~ file: Join.jsx ~ line 66 ~ Join ~ userJoined", userJoined)
+  //   if (userJoined) emitGetRooms();
+  // }, [])
 
   return (
     <Paper>

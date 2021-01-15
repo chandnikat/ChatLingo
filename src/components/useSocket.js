@@ -7,7 +7,7 @@ const endpoint = 'localhost:8080';
 const useSocket = (name, room) => {
   const [messages, setMessages] = useState([]);
   const [typeMsg, setTypeMsg] = useState(``);
-  const [userJoined, setUserJoined] = useState(false)
+  // const [userJoined, setUserJoined] = useState(true)
   const [usersCountByRoom, setUsersCountByRoom] = useState([]);
   
   useEffect(() => {
@@ -18,12 +18,11 @@ const useSocket = (name, room) => {
       query: { name, room },
     });
 
-    socket.on('userJoined', () => {
-      setUserJoined(true);
-      setTimeout(() => {
-        setUserJoined(false);
-      }, 500);
-    })
+    // socket.on('userJoined', () => {
+    //   setTimeout(() => {
+    //     setUserJoined(false);
+    //   }, 500);
+    // })
     
     // Listens for incoming messages
     socket.on('message', message => {
@@ -39,23 +38,25 @@ const useSocket = (name, room) => {
       }, 1000);
     });
 
-    // Destroys the socket reference
-    // when the connection is closed
-    return () => {
+    socket.on('getAllRooms', activeUsers => {
+      console.log("🚀 ~ file: useSocket.js ~ line 45 ~ useEffect ~ activeUsers", activeUsers)
+      setUsersCountByRoom([...activeUsers])       
+      })
+      
+    socket.emit('getAllRooms')
+      // Destroys the socket reference
+      // when the connection is closed
+      return () => {
       socket.close();
     };
-  }, [name, room]);
-
-  useEffect(() => {
-    console.log('USE EFFECT FOR ACTIVE USERS fired!');
-
-    socket.on('getAllRooms', activeUsers => {
-      console.count("🚀 ~ file: useSocket.js ~ line 45 ~ useEffect ~ activeUsers", activeUsers)
-      setUsersCountByRoom(activeUsers => [...activeUsers]) 
-      console.count("🚀 ~ file: useSocket.js ~ line 47 ~ socket.on ~ usersCountByRoom", usersCountByRoom)
-      
-      })
-  }, [activeUsers])
+  }, [room]);
+  
+  // useEffect(() => {
+  //   console.log('USE EFFECT FOR ACTIVE USERS fired!');
+  //   console.log("🚀 ~ file: Join.jsx ~ line 66 ~ Join ~ userJoined", userJoined)
+  //   if (userJoined) emitGetRooms();
+  //   return () => console.log('usersCountByRoom --> ', usersCountByRoom )
+  // }, [userJoined])
 
   
 
@@ -80,7 +81,7 @@ const useSocket = (name, room) => {
     socket.emit('getAllRooms')
   }
 
-  return {messages, typeMsg, usersCountByRoom, userJoined, sendNewMessage, sendTypingMsg, emitGetRooms};
+  return {messages, typeMsg, usersCountByRoom, sendNewMessage, sendTypingMsg, emitGetRooms};
 };
 
 export default useSocket;
