@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 const Favorites = ({ name, room }) => {
   const classes = useStyles();
   const [definitionArray, setDefinitionArray] =  useState([])
+  const [translationArray, setTranslationArray] =  useState([])
 
   return (
     <div>
@@ -85,7 +86,7 @@ const Favorites = ({ name, room }) => {
                   <Divider />
                 </ListSubheader>
 
-                {definitionArray.map((vocab) => (
+                {translationArray.map((vocab) => (
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
                   <ListItemText>
                     <Typography style={{ fontSize: "13px" }}>
@@ -123,6 +124,7 @@ const Favorites = ({ name, room }) => {
                   <Divider />
                 </ListSubheader>
 
+                {definitionArray.map((vocab) => (
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
                   <ListItemText>
                     <Typography style={{ fontSize: "13px" }}>
@@ -133,6 +135,7 @@ const Favorites = ({ name, room }) => {
                     style={{ padding: "2px", color: "#40637E" }}
                   />
                 </ListItem>
+                ))}
 
               </Paper>
             </ListItem>
