@@ -1,10 +1,10 @@
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const https = require('https');
+
 require('dotenv').config();
-const fetch = require('node-fetch');
-// import languageTranslator from './ibm'
+
+
 
 const app = express();
 const PORT = process.env.PORT;
@@ -16,8 +16,8 @@ console.log('process.env.NODE_ENV = ', process.env.NODE_ENV);
 
 const authRouter = require('./routes/authRouter');
 const translateRouter = require('./routes/translateRouter');
-const authController = require('./controllers/authController');
-
+const historyRouter = require('./routes/historyRouter');
+const dictionaryRouter = require('./routes/dictionaryRouter');
 /**
  * handle parsing request body
  */
@@ -40,22 +40,24 @@ app.use(express.static(path.join(__dirname, '../src')));
 /**
  * define route handlers
  */
-
-app.use('/auth', authRouter);
-app.use('/translate', translateRouter);
-app.use('/dictionary', (req, res, next) => {
+app.use('*', (req, res, next) => {
   res.header(
     'Access-Control-Allow-Headers',
     'x-access-token, Authorization, Origin, Content-Type, Accept'
   );
   return next();
 });
+app.use('/auth', authRouter);
+app.use('/translate', translateRouter);
+app.use('/history', historyRouter);
+app.use('/dictionary', dictionaryRouter);
 
 app.get('/activerooms', (req, res) => {
   console.log('get request response => usersCountByRoom => ', usersCountByRoom);
   res.status(200).json(usersCountByRoom);
 });
 
+<<<<<<< HEAD
 // Oxford Dictionaries API
 const APIID = process.env.APIID;
 const APIKEY = process.env.APIKEY;
@@ -115,6 +117,8 @@ app.post('/dictionary', authController.verifyJWT, (req, res, next) => {
   });
 });
 
+=======
+>>>>>>> main
 // catch-all route handler for any requests to an unknown route
 app.use('*', (req, res) => {
   return res.sendStatus(404);

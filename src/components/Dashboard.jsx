@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -23,7 +17,6 @@ import {
   ListItemIcon,
   ListItemText,
   Button,
-  Badge,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -38,11 +31,10 @@ import Dictionary from './Dictionary';
 import Translation from './Translation';
 import Chat from './Chat';
 import theme1 from '../styles/theme.js';
-import axios from 'axios';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
@@ -126,16 +118,10 @@ const Dashboard = ({ match }) => {
   const [open, setOpen] = useState(false);
   const [tool, setTool] = useState('rooms');
   const [room, setRoom] = useState('English');
-  // const [usersCountByRoom, setUsersCountByRoom] = useState([
-  //   { roomName: 'English', userCount: 0 },
-  //   { roomName: 'French', userCount: 0 },
-  //   { roomName: 'Spanish', userCount: 0 },
-  //   { roomName: 'German', userCount: 0 },
-  // ]);
 
-  console.log('TOOL ->', tool);
-  console.log('NAME ->', name);
-  console.log('ROOMS ->', room);
+  // console.log('TOOL ->', tool);
+  // console.log('NAME ->', name);
+  // console.log('ROOMS ->', room);
 
   //Capitalizes username:
   name = name.toLowerCase().replace(/\b\w{3,}/g, function (l) {
@@ -150,50 +136,26 @@ const Dashboard = ({ match }) => {
     setOpen(false);
   };
 
-  const handleRoomNameChange = input => {
+  const handleRoomNameChange = (input) => {
     setRoom(input);
   };
-
-  // const ucbr = useRef(usersCountByRoom);
-
-  // useEffect(async () => {
-  //   console.log('in useEffect');
-  //   console.log(
-  //     'file: Dashboard.jsx ~ line 174 ~ Dashboard ~ tool, room, open,',
-  //     tool,
-  //     room,
-  //     open
-  //   );
-  //   try {
-  //     const response = await axios.get('/activerooms', {
-  //       header: { 'Content-Type': 'Application/JSON' },
-  //     });
-  //     console.log('response => ', response);
-
-  //     ucbr.current = response.data;
-
-  //     console.log('file: Dashboard.jsx ~ line 158 ~ Dashboard ~ ucbr', ucbr);
-  //   } catch (error) {
-  //     console.log('Error in getActiveRooms of Join component:', error);
-  //   }
-  // }, [name, tool, room, open, ucbr]);
 
   return (
     <div className={classes.root}>
       <ThemeProvider theme={theme1}>
         <CssBaseline />
         <AppBar
-          position="fixed"
+          position='fixed'
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
           })}
         >
           <Toolbar>
             <IconButton
-              color="inherit"
-              aria-label="open drawer"
+              color='inherit'
+              aria-label='open drawer'
               onClick={handleDrawerOpen}
-              edge="start"
+              edge='start'
               className={clsx(classes.menuButton, {
                 [classes.hide]: open,
               })}
@@ -201,13 +163,13 @@ const Dashboard = ({ match }) => {
               <MenuIcon />
             </IconButton>
             <ChatIcon style={{ marginRight: '10px' }} />
-            <Typography variant="h6" noWrap className={classes.title}>
+            <Typography variant='h6' noWrap className={classes.title}>
               ChatLingo
             </Typography>
-            <Link to="/" style={{ textDecoration: 'none' }}>
+            <Link to='/' style={{ textDecoration: 'none' }}>
               <Button
                 onClick={() => localStorage.removeItem('currentUser')}
-                color="inherit"
+                color='inherit'
                 className={classes.menuButton}
               >
                 Logout
@@ -216,7 +178,7 @@ const Dashboard = ({ match }) => {
           </Toolbar>
         </AppBar>
         <Drawer
-          variant="permanent"
+          variant='permanent'
           className={clsx(classes.drawer, {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
@@ -244,7 +206,7 @@ const Dashboard = ({ match }) => {
               onClick={() => setTool('dictionary')}
               key={'Dictionary'}
             >
-              <ListItemIcon>{<MenuBookIcon color="secondary" />}</ListItemIcon>
+              <ListItemIcon>{<MenuBookIcon color='secondary' />}</ListItemIcon>
               <ListItemText primary={'Dictionary'} />
             </ListItem>
             <ListItem
@@ -252,7 +214,7 @@ const Dashboard = ({ match }) => {
               onClick={() => setTool('translation')}
               key={'Translation'}
             >
-              <ListItemIcon>{<LanguageIcon color="secondary" />}</ListItemIcon>
+              <ListItemIcon>{<LanguageIcon color='secondary' />}</ListItemIcon>
               <ListItemText primary={'Translation'} />
             </ListItem>
             <ListItem
@@ -261,7 +223,7 @@ const Dashboard = ({ match }) => {
               onClick={() => setTool('history')}
               key={'History'}
             >
-              <ListItemIcon>{<HistoryIcon color="secondary" />}</ListItemIcon>
+              <ListItemIcon>{<HistoryIcon color='secondary' />}</ListItemIcon>
               <ListItemText primary={'History'} />
             </ListItem>
             <ListItem
@@ -270,7 +232,7 @@ const Dashboard = ({ match }) => {
               onClick={() => setTool('rooms')}
               key={'Rooms'}
             >
-              <ListItemIcon>{<PeopleAltIcon color="secondary" />}</ListItemIcon>
+              <ListItemIcon>{<PeopleAltIcon color='secondary' />}</ListItemIcon>
               <ListItemText primary={'Rooms'} />
             </ListItem>
           </List>
@@ -288,15 +250,13 @@ const Dashboard = ({ match }) => {
                   name={name}
                   handleRoomNameChange={handleRoomNameChange}
                   room={room}
-                  // usersCountByRoom={usersCountByRoom}
-                  // ucbr={ucbr.current}
                 />
               )}
               {tool === 'dictionary' && <Dictionary />}
               {tool === 'translation' && <Translation />}
             </Paper>
           </Grid>
-          <Divider orientation="vertical" />
+          <Divider orientation='vertical' />
           <Grid item xs={12} sm={8} className={classes.content}>
             <Paper
               style={{ height: '85vh' }}
