@@ -10,8 +10,12 @@ import {
   Typography,
   List,
   ListItem,
-  
+  ListItemText,
+  AccordionSummary,
+  AccordionDetails,
+  Accordion,
 } from "@material-ui/core";
+import StarIcon from "@material-ui/icons/Star";
 
 const useStyles = makeStyles((theme) => ({
   dictionarySection: {
@@ -57,14 +61,109 @@ const Favorites = ({ name, room }) => {
             <Divider />
             <ListItem>
               <Paper style={{ padding: "5px", height: "35vh", width: "100%" }}>
-                <Typography style={{ color: "#3caea3", fontWeight: "bold" }}>Translation:</Typography>
-                <Divider/>
+                <Typography style={{ color: "#3caea3", fontWeight: "bold" }}>
+                  Translation:
+                </Typography>
+                <Divider />
               </Paper>
             </ListItem>
-            <ListItem>
-            <Paper style={{ padding: "5px", height: "35vh", width: "100%" }}>
-                <Typography style={{ color: "#3caea3", fontWeight: "bold" }}>Dictionary:</Typography>
-                <Divider/>
+            <ListItem style={{ height: "35vh", width: "100%" }}>
+              <Paper style={{ padding: "5px", height: "35vh", width: "100%" }}>
+                <Typography style={{ color: "#3caea3", fontWeight: "bold" }}>
+                  Dictionary:
+                </Typography>
+                <Divider />
+
+                <Accordion style={{padding: "1px"}}>
+                  <AccordionSummary style={{padding: "1px"}}>
+                    <ListItem>
+                      <StarIcon
+                        style={{ fontSize: "medium", padding: "0px" }}
+                      />
+                      <ListItemText style={{ fontSize: "15px" }}>
+                        House:
+                      </ListItemText>
+                    </ListItem>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      "a building for human habitation, especially one that is
+                      lived in by a family or small group of people"
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion style={{padding: "1px"}}>
+                  <AccordionSummary style={{padding: "1px"}}>
+                    <ListItem>
+                      <StarIcon
+                        style={{ fontSize: "medium", padding: "0px" }}
+                      />
+                      <ListItemText style={{ fontSize: "15px" }}>
+                        House:
+                      </ListItemText>
+                    </ListItem>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      "a building for human habitation, especially one that is
+                      lived in by a family or small group of people"
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion style={{padding: "1px"}}>
+                  <AccordionSummary style={{padding: "1px"}}>
+                    <ListItem>
+                      <StarIcon
+                        style={{ fontSize: "medium", padding: "0px" }}
+                      />
+                      <ListItemText style={{ fontSize: "15px" }}>
+                        House:
+                      </ListItemText>
+                    </ListItem>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      "a building for human habitation, especially one that is
+                      lived in by a family or small group of people"
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion style={{padding: "1px"}}>
+                  <AccordionSummary style={{padding: "1px"}}>
+                    <ListItem>
+                      <StarIcon
+                        style={{ fontSize: "medium", padding: "0px" }}
+                      />
+                      <ListItemText style={{ fontSize: "15px" }}>
+                        House:
+                      </ListItemText>
+                    </ListItem>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      "a building for human habitation, especially one that is
+                      lived in by a family or small group of people"
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion style={{padding: "1px"}}>
+                  <AccordionSummary style={{padding: "1px"}}>
+                    <ListItem>
+                      <StarIcon
+                        style={{ fontSize: "medium", padding: "0px" }}
+                      />
+                      <ListItemText style={{ fontSize: "15px" }}>
+                        House:
+                      </ListItemText>
+                    </ListItem>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      "a building for human habitation, especially one that is
+                      lived in by a family or small group of people"
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
               </Paper>
             </ListItem>
           </List>
