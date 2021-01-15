@@ -36,6 +36,8 @@ import Translation from './Translation';
 import Chat from './Chat';
 import theme1 from '../styles/theme.js';
 import axios from 'axios';
+import useSocket from './useSocket';
+
 
 const drawerWidth = 240;
 
@@ -123,7 +125,7 @@ const Dashboard = ({ match }) => {
   const [open, setOpen] = useState(false);
   const [tool, setTool] = useState('rooms');
   const [room, setRoom] = useState('English');
-  // const [usersCountByRoom] = useSocket();
+  const {usersCountByRoom, emitGetRooms} = useSocket();
 
   //Capitalizes username:
   name = name.toLowerCase().replace(/\b\w{3,}/g, function (l) {
@@ -139,6 +141,7 @@ const Dashboard = ({ match }) => {
   };
 
   const handleRoomNameChange = input => {
+    emitGetRooms()
     setRoom(input);
   };
 

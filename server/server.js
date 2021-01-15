@@ -195,9 +195,9 @@ io.on('connection', socket => {
   });
 
   socket.emit('getAllRooms',
-    usersCountByRoom);
+    {usersCountByRoom});
 
-  console.log('EMITTED getAllRooms ')
+  
   socket.to(room).emit('message', {
     id: socket.id,
     name: 'Admin',
@@ -211,7 +211,7 @@ io.on('connection', socket => {
   
   socket.on('getAllRooms', () => 
     socket.emit('getAllRooms',
-    usersCountByRoom)
+    {usersCountByRoom})
     );
 
   socket.on('sendTypingMsg', data => {
