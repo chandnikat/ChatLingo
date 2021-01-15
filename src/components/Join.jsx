@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 
 
 
-const Join = ({ name, room, handleRoomNameChange, socket }) => {
+const Join = ({ handleRoomNameChange, socket }) => {
   const {usersCountByRoom} = socket;
 
   return (
