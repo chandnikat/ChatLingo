@@ -250,9 +250,10 @@ const Signon = ({ history }) => {
             </Grid>
           </form>
         </div>
-        <Box mt={3}>
+        <Box mt={3} style={{paddingBottom: "10px"}}>
           <Copyright />
         </Box>
+        {warn && (hasAccount ? (<Alert severity="error" >Invalid Username or Password.</Alert>): (<Alert severity="warning" >Sign Up Not Complete. Please Try Again.</Alert>))}
       </ThemeProvider>
     </Container>
   );

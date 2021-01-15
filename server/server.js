@@ -40,16 +40,16 @@ app.use(express.static(path.join(__dirname, '../src')));
 /**
  * define route handlers
  */
-
-app.use('/auth', authRouter);
-app.use('/translate', translateRouter);
-app.use('/dictionary', (req, res, next) => {
+app.use('*', (req, res, next) => {
   res.header(
     'Access-Control-Allow-Headers',
     'x-access-token, Authorization, Origin, Content-Type, Accept'
   );
   return next();
 });
+app.use('/auth', authRouter);
+app.use('/translate', translateRouter);
+
 
 app.get('/activerooms', (req, res) => {
   console.log('get request response => usersCountByRoom => ', usersCountByRoom);

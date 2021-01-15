@@ -1,49 +1,46 @@
-import React from 'react';
-import Messages from './Messages';
-import InfoBar from './InfoBar';
-import InputBox from './InputBox';
-import useSocket from './useSocket';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
-import Fab from '@material-ui/core/Fab';
-import SendIcon from '@material-ui/icons/Send';
+import React from "react";
+import Messages from "./Messages";
+import InputBox from "./InputBox";
+import useSocket from "./useSocket";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Paper,
+  Avatar,
+  Grid,
+  Divider,
+  Typography,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
   table: {
     minWidth: 660,
   },
   chatSection: {
-    width: '100%',
-    height: '83vh',
+    width: "100%",
+    height: "83vh",
   },
   headBG: {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: "#e0e0e0",
   },
   borderRight500: {
-    borderRight: '1px solid #e0e0e0',
+    borderRight: "1px solid #e0e0e0",
   },
   messageArea: {
-    height: '72vh',
-    overflowY: 'auto',
+    height: "72vh",
+    overflowY: "auto",
   },
   roomBox: {
-    color: '#40637E',
-    fontWeight: 'bold',
-    fontSize: '25px',
+    color: "#40637E",
+    fontWeight: "bold",
+    fontSize: "25px",
   },
   avatar: {
-    color: '#fff',
-    backgroundColor: '#40637E',
+    color: "#fff",
+    backgroundColor: "#40637E",
   },
 });
 
@@ -71,7 +68,7 @@ const Chat = ({ name, room }) => {
             </ListItem>
           </List>
         </Grid>
-        <Grid container xs={9} direction="column">
+        <Grid item xs={9}>
           <Grid item className={classes.messageArea}>
             <Messages
               // style={{ height: '25vh' }}
