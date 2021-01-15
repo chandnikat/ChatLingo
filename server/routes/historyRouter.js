@@ -6,7 +6,7 @@ const authController = require('../controllers/authController');
 const historyController = require('../controllers/historyController');
 
 router.get(
-  '/retrieveDefinitions',
+  '/getAllDefinitions',
   authController.verifyJWT,
   historyController.getAllDefinitions,
   (req, res, next) => {
@@ -15,7 +15,7 @@ router.get(
 );
 
 router.get(
-  '/retrieveTranslations',
+  '/getAllTranslations',
   authController.verifyJWT,
   historyController.getAllTranslations,
   (req, res, next) => {
@@ -31,6 +31,10 @@ router.post(
     return res.status(200).json('translation saved!');
   }
 );
+
+router.post('/saveDefinition', authController.verifyJWT, historyController.saveDefinition, (req, res, next) => {
+  return res.status(200).json('definition saved!');
+})
 
 
 module.exports = router;
