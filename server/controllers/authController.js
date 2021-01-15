@@ -56,7 +56,7 @@ authController.generateJWT = (req, res, next) => {
   console.log('jwt', token);
   res.locals.token = token;
   return next();
-}
+};
 
 authController.verifyJWT = (req, res, next) => {
   let token = req.headers['authorization'];
@@ -72,9 +72,9 @@ authController.verifyJWT = (req, res, next) => {
       message: { err: 'No token provided!' },
     });
   }
-  console.log('token in verifyToken ->', token);
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    console.log({ token, decoded });
     if (err) {
       return res.status(401).send({
         message: { err: 'Unauthorized!' },
@@ -85,7 +85,5 @@ authController.verifyJWT = (req, res, next) => {
     return next();
   });
 };
-
-
 
 module.exports = authController;
