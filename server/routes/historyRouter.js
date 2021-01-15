@@ -19,6 +19,10 @@ router.post('/saveDefinition', authController.verifyJWT, historyController.saveD
 }
 );
 
+router.delete('/deleteDefinition', authController.verifyJWT, historyController.deleteDefinition, (req, res, next) => {
+  return res.status(200).json('Definition deleted!')
+})
+
 router.get(
   '/getAllTranslations',
   authController.verifyJWT,

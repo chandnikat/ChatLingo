@@ -27,7 +27,7 @@ historyController.saveDefinition = (req, res, next) => {
   INSERT INTO "public"."SavedDefinitions" (word, definition, part_of_speech, user_id)VALUES (
     $1,$2,$3,$4) RETURNING * ;`;
 
-  const values = [word, definition, partOfSpeech, user_id];
+  const values = [word.toLowerCase(), definition, partOfSpeech, user_id];
   db.query(createDefinitionQuery, values)
     .then(data => {
       return next();
@@ -46,8 +46,28 @@ historyController.saveDefinition = (req, res, next) => {
 };
 
 historyController.deleteDefinition = (req, res, next) => {
+  const user_id = res.locals.user_id;
+  console.log('req.body', req.body);
+  const { word } = req.body;
+  console.log('word', word);
 
+  const deleteDefinitionQuery = `DELETE FROM "public"."SavedDefinitions" WHERE user_id = '${user_id}' AND word = '${word}' RETURNING *;`;
 
+  db.query(deleteDefinitionQuery)
+    .then(data => {
+      console.log(data);
+      if (data.rows[0]) return next();
+      else {
+        return next({
+          message: { err: 'Word does not exist in database' },
+        })
+      }
+    })
+    .catch(err => {
+      return next({
+        message: { err: 'Error deleting definition from database' },
+      });
+    })
 };
 
 
