@@ -67,103 +67,43 @@ const Favorites = ({ name, room }) => {
                 <Divider />
               </Paper>
             </ListItem>
-            <ListItem style={{ height: "35vh", width: "100%" }}>
-              <Paper style={{ padding: "5px", height: "35vh", width: "100%" }}>
+            <ListItem>
+              <Paper
+                style={{
+                  padding: "5px",
+                  height: "35vh",
+                  width: "100%",
+                  overflowY: "auto",
+                }}
+              >
                 <Typography style={{ color: "#3caea3", fontWeight: "bold" }}>
                   Dictionary:
                 </Typography>
                 <Divider />
+                <ListItem>
+                  <StarIcon style={{ fontSize: "medium", padding: "0px" }} />
+                  <ListItemText style={{ fontSize: "15px" }}>
+                    House:"a building for human habitation, especially one that
+                    is lived in by a family or small group of people"
+                  </ListItemText>
+                </ListItem>
 
-                <Accordion style={{padding: "1px"}}>
-                  <AccordionSummary style={{padding: "1px"}}>
-                    <ListItem>
-                      <StarIcon
-                        style={{ fontSize: "medium", padding: "0px" }}
-                      />
-                      <ListItemText style={{ fontSize: "15px" }}>
-                        House:
-                      </ListItemText>
-                    </ListItem>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      "a building for human habitation, especially one that is
-                      lived in by a family or small group of people"
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion style={{padding: "1px"}}>
-                  <AccordionSummary style={{padding: "1px"}}>
-                    <ListItem>
-                      <StarIcon
-                        style={{ fontSize: "medium", padding: "0px" }}
-                      />
-                      <ListItemText style={{ fontSize: "15px" }}>
-                        House:
-                      </ListItemText>
-                    </ListItem>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      "a building for human habitation, especially one that is
-                      lived in by a family or small group of people"
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion style={{padding: "1px"}}>
-                  <AccordionSummary style={{padding: "1px"}}>
-                    <ListItem>
-                      <StarIcon
-                        style={{ fontSize: "medium", padding: "0px" }}
-                      />
-                      <ListItemText style={{ fontSize: "15px" }}>
-                        House:
-                      </ListItemText>
-                    </ListItem>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      "a building for human habitation, especially one that is
-                      lived in by a family or small group of people"
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion style={{padding: "1px"}}>
-                  <AccordionSummary style={{padding: "1px"}}>
-                    <ListItem>
-                      <StarIcon
-                        style={{ fontSize: "medium", padding: "0px" }}
-                      />
-                      <ListItemText style={{ fontSize: "15px" }}>
-                        House:
-                      </ListItemText>
-                    </ListItem>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      "a building for human habitation, especially one that is
-                      lived in by a family or small group of people"
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-                <Accordion style={{padding: "1px"}}>
-                  <AccordionSummary style={{padding: "1px"}}>
-                    <ListItem>
-                      <StarIcon
-                        style={{ fontSize: "medium", padding: "0px" }}
-                      />
-                      <ListItemText style={{ fontSize: "15px" }}>
-                        House:
-                      </ListItemText>
-                    </ListItem>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      "a building for human habitation, especially one that is
-                      lived in by a family or small group of people"
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                <ListItem>
+                  <StarIcon style={{ fontSize: "medium", padding: "0px" }} />
+                  <ListItemText style={{ fontSize: "15px" }}>
+                    House:"a building for human habitation, especially one that
+                    is lived in by a family or small group of people"
+                  </ListItemText>
+                </ListItem>
+
+                <ListItem>
+                  <StarIcon style={{ fontSize: "medium", padding: "0px" }} />
+                  <ListItemText style={{ fontSize: "15px" }}>
+                    House:"a building for human habitation, especially one that
+                    is lived in by a family or small group of people"
+                  </ListItemText>
+                </ListItem>
+                
               </Paper>
             </ListItem>
           </List>
