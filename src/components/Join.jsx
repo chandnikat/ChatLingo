@@ -1,96 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import MenuList from '@material-ui/core/MenuList';
+import MenuItem from '@material-ui/core/MenuItem';
+import { makeStyles } from '@material-ui/core/styles';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import SendIcon from '@material-ui/icons/Send';
+import React from 'react';
 import { Chatrooms } from './Chatrooms';
-import useInputState from './useInputState';
-import axios from 'axios';
+
+import {
+  Paper,
+  Grid,
+  Divider,
+  Typography,
+  List,
+  ListItem,
+} from '@material-ui/core';
+
+const useStyles = makeStyles({
+  joinSection: {
+    width: '100%',
+    height: '83vh',
+  },
+
+  titleBox: {
+    color: '#40637E',
+    fontWeight: 'bold',
+    fontSize: '25px',
+  },
+});
 
 const Join = ({ name, room, handleRoomNameChange }) => {
-  // const { name } = match.params;
-  // const [room, handleChangeRoom] = useInputState('');
-  const [usersCountByRoom, setUsersCountByRoom] = useState([]);
-
-  const getActiveRooms = async () => {
-    try {
-      const response = await axios.get('/activerooms', {
-        header: { 'Content-Type': 'Application/JSON' },
-      });
-      console.log('response => ', response);
-
-      const usersCountByRoom = response.data;
-
-      console.log('usersCountByRoom => ', usersCountByRoom);
-
-      setUsersCountByRoom([...usersCountByRoom]);
-    } catch (error) {
-      console.log('Error in getActiveRooms of Join component:', error);
-    }
-  };
-
-  useEffect(() => {
-    console.log('useEffect in Join Component fired');
-    getActiveRooms();
-  }, []);
-
+  const classes = useStyles();
   return (
-    <div className="joinOuterContainer">
-      <div className="joinInnerContainer">
-        <h1 className="heading">Welcome</h1>
-        <>
-          <select
-            className="joinInput"
-            value={room}
-            onChange={e => handleRoomNameChange(e.target.value)}
-          >
-            <option>Choose A Chatroom</option>
-            {Chatrooms.map((room, idx) => (
-              <option key={`room-${idx}`} value={room.roomName}>
-                {room.roomName}
-              </option>
-            ))}
-          </select>
-        </>
-        <>
-          {/* <Link
-            onClick={(e) =>
-              !name || !room || room === 'Choose A Chatroom'
-                ? e.preventDefault()
-                : null
-            }
-            to={`/chat/${name}/${room}`}
-          >
-            <button className="joinButton" type="submit">
-              Join
-            </button>
-          </Link> */}
-        </>
-        <>
-          <div className="usersCountByRoom">
-            <div className="usersCountByRoom-heading">
-              {usersCountByRoom.some(room => room.userCount !== 0)
-                ? 'Active Chatrooms'
-                : null}
-            </div>
-            <div className="usersCountByRoom-content">
-              {usersCountByRoom.map((room, i) =>
-                room.userCount ? (
-                  <div key={`room-${i}`} className="room">
-                    <img
-                      alt="Online Icon"
-                      src={'../assets/images/onlineIcon.png'}
-                    />
-                    <>
-                      {`${room.roomName}: ${room.userCount} ${
-                        room.userCount === 1 ? 'User' : 'Users'
-                      }`}
-                    </>
-                  </div>
-                ) : null
-              )}
-            </div>
-          </div>
-        </>
-      </div>
-    </div>
+    <Grid container component={Paper} className={classes.joinSection}>
+      <Grid item xs={12}>
+        <List>
+          <ListItem button>
+            <Typography className={classes.titleBox}>
+              Join a Chatroom
+            </Typography>
+          </ListItem>
+          <Divider />
+          <ListItem style={{ paddingTop: '20px' }} alignItems="center">
+            <MenuList>
+              {Chatrooms.map((room, idx) => (
+                <MenuItem
+                  key={`room-${idx}`}
+                  onClick={e => handleRoomNameChange(room.roomName)}
+                >
+                  <ListItemIcon>
+                    <SendIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Typography variant="inherit">{room.roomName}</Typography>
+                </MenuItem>
+              ))}
+            </MenuList>
+          </ListItem>
+        </List>
+      </Grid>
+    </Grid>
   );
 };
 
