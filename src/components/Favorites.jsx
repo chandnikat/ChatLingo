@@ -10,6 +10,7 @@ import {
   Typography,
   List,
   ListItem,
+  
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -56,12 +57,14 @@ const Favorites = ({ name, room }) => {
             <Divider />
             <ListItem>
               <Paper style={{ padding: "5px", height: "35vh", width: "100%" }}>
-                Translation Favorites:
+                <Typography style={{ color: "#3caea3", fontWeight: "bold" }}>Translation:</Typography>
+                <Divider/>
               </Paper>
             </ListItem>
             <ListItem>
-              <Paper style={{ padding: "5px", height: "35vh", width: "100%" }}>
-                Dictionary Favorties:
+            <Paper style={{ padding: "5px", height: "35vh", width: "100%" }}>
+                <Typography style={{ color: "#3caea3", fontWeight: "bold" }}>Dictionary:</Typography>
+                <Divider/>
               </Paper>
             </ListItem>
           </List>
