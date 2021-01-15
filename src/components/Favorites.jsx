@@ -63,7 +63,7 @@ const Favorites = ({ name, room }) => {
 
             {/* Translation: */}
             <ListItem>
-            <Paper
+              <Paper
                 style={{
                   paddingLeft: "5px",
                   height: "35vh",
@@ -71,25 +71,30 @@ const Favorites = ({ name, room }) => {
                   overflowY: "auto",
                 }}
               >
-                <ListSubheader style={{
-                  padding: "0px",
-                  margin: "0px",
-                }}>
+                <ListSubheader
+                  style={{
+                    padding: "0px",
+                    margin: "0px",
+                  }}
+                >
                   <Typography style={{ color: "#3caea3", fontWeight: "bold" }}>
                     Translation:
                   </Typography>
                   <Divider />
                 </ListSubheader>
-                
+
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
-                  <ListItemText style={{ fontSize: "13px" }}>
-                    House:"a building for human habitation, especially one that
-                    is lived in by a family or small group of people"
+                  <ListItemText>
+                    <Typography style={{ fontSize: "15px" }}>
+                      House:"a building for human habitation, especially one
+                      that is lived in by a family or small group of people"
+                    </Typography>
                   </ListItemText>
-                  <DeleteOutlineIcon style={{ padding: "2px" }} />
+                  <DeleteOutlineIcon
+                    style={{ padding: "2px", color: "#40637E" }}
+                  />
                 </ListItem>
 
-                
               </Paper>
             </ListItem>
 
@@ -104,46 +109,30 @@ const Favorites = ({ name, room }) => {
                   overflowY: "auto",
                 }}
               >
-                <ListSubheader style={{
-                  padding: "0px",
-                  margin: "0px",
-                }}>
+                <ListSubheader
+                  style={{
+                    padding: "0px",
+                    margin: "0px",
+                  }}
+                >
                   <Typography style={{ color: "#3caea3", fontWeight: "bold" }}>
                     Dictionary:
                   </Typography>
                   <Divider />
                 </ListSubheader>
-                <ListItem style={{ padding: "0px", margin: "0px" }}>
-                  <ListItemText style={{ fontSize: "13px" }}>
-                    House:"a building for human habitation, especially one that
-                    is lived in by a family or small group of people"
-                  </ListItemText>
-                  <DeleteOutlineIcon style={{ padding: "2px" }} />
-                </ListItem>
 
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
-                  <ListItemText style={{ fontSize: "13px" }}>
-                    House:"a building for human habitation, especially one that
-                    is lived in by a family or small group of people"
+                  <ListItemText>
+                    <Typography style={{ fontSize: "15px" }}>
+                      House:"a building for human habitation, especially one
+                      that is lived in by a family or small group of people"
+                    </Typography>
                   </ListItemText>
-                  <DeleteOutlineIcon style={{ padding: "2px" }} />
+                  <DeleteOutlineIcon
+                    style={{ padding: "2px", color: "#40637E" }}
+                  />
                 </ListItem>
-
-                <ListItem style={{ padding: "0px", margin: "0px" }}>
-                  <ListItemText style={{ fontSize: "13px" }}>
-                    House:"a building for human habitation, especially one that
-                    is lived in by a family or small group of people"
-                  </ListItemText>
-                  <DeleteOutlineIcon style={{ padding: "2px" }} />
-                </ListItem>
-
-                <ListItem style={{ padding: "0px", margin: "0px" }}>
-                  <ListItemText style={{ fontSize: "13px" }}>
-                    House:"a building for human habitation, especially one that
-                    is lived in by a family or small group of people"
-                  </ListItemText>
-                  <DeleteOutlineIcon style={{ padding: "2px" }} />
-                </ListItem>
+                
               </Paper>
             </ListItem>
           </List>
