@@ -140,8 +140,6 @@ const Dashboard = ({ match }) => {
     setRoom(input);
   };
 
-  // const ucbr = useRef(usersCountByRoom);
-
   return (
     <div className={classes.root}>
       <ThemeProvider theme={theme1}>
