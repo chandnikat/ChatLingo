@@ -32,7 +32,6 @@ const Join = ({ name, room, handleRoomNameChange }) => {
   const {usersCountByRoom} = useSocket();
 
   console.log("usersCountByRoom - > ", usersCountByRoom);
-  
   // const { name } = match.params;
   // const [room, handleChangeRoom] = useInputState('');
   // const [usersCountByRoom, setUsersCountByRoom] = useState([]);

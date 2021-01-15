@@ -7,31 +7,26 @@ const endpoint = 'localhost:8080';
 const useSocket = (name, room) => {
   const [messages, setMessages] = useState([]);
   const [typeMsg, setTypeMsg] = useState(``);
-  // const [usersCountByRoom, setUsersCountByRoom] = useState([]);
-  let usersCountByRoom = useRef([]);
-
+  const [usersCountByRoom, setUsersCountByRoom] = useState([]);
+  
   useEffect(() => {
     console.log('useSocket fired!');
-
+    
     // Creates a WebSocket connection
     socket = io(endpoint, {
       query: { name, room },
     });
-
+    
     // Listens for incoming messages
     socket.on('message', message => {
-      console.log('in ON message -> ', message);
       setMessages(messages => [...messages, message]);
     });
-
+    
     socket.on('getAllRooms', activeUsers => {
-      console.log("🚀 ~ file: useSocket.js ~ line 28 ~ useSocket ~ activeUsers", activeUsers)
-        // setUsersCountByRoom([...activeUsers])
-        usersCountByRoom =[...activeUsers];
-
-        Object.keys(activeUsers).forEach(roomName => {
-          console.log(roomName, activeUsers[roomName]);
-        });
+      console.log("🚀 ~ file: useSocket.js ~ line 26 ~ useEffect ~ activeUsers", activeUsers)
+      setUsersCountByRoom([...activeUsers.usersCountByRoom]);
+      console.log("🚀 ~ file: useSocket.js ~ line 28 ~ socket.on ~ usersCountByRoom", usersCountByRoom)
+      
       }),
 
     socket.on('sendTypingMsg', data => {
@@ -51,12 +46,6 @@ const useSocket = (name, room) => {
 
   
 
-  useEffect(
-    () => {
-      console.log('in useEffect userCountByRooms -> ', usersCountByRoom);
-      socket.emit('getAllRooms');
-    },[usersCountByRoom]);
-
   // client sends a message to the server
   // Server forwards it to all users in the same room
   const sendNewMessage = newMessage => {
@@ -73,9 +62,12 @@ const useSocket = (name, room) => {
   const sendTypingMsg = () => {
     socket.emit('sendTypingMsg', `${name} is typing...`);
   };
+  
+  const emitGetRooms = () => {
+    socket.emit('getAllRooms')
+  }
 
-
-  return {messages, typeMsg, usersCountByRoom, sendNewMessage, sendTypingMsg};
+  return {messages, typeMsg, usersCountByRoom, sendNewMessage, sendTypingMsg, emitGetRooms};
 };
 
 export default useSocket;
