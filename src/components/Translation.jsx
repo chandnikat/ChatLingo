@@ -94,7 +94,6 @@ const Translation = () => {
         },
       });
       const data = JSON.stringify(response.data.translation);
-      console.log("RESPONSE TRANSLATION->", data);
       setTranslation(data);
       languageTermStart();
       languageTermEnd();
@@ -103,6 +102,23 @@ const Translation = () => {
       console.log(`Catch block, POST error on /translate: ${err}`);
     }
   };
+
+  const handleSaveTranslation = async (e) => {
+    let token = localStorage.getItem("currentUser");
+    const body = { vocab: searchCopy, sl: sourceLang, tl: targetLang, translation}
+    try {
+      let response = await Axios.post("/history/saveTranslation", body, {
+        headers: {
+          'Content-Type': 'Application/JSON', 'Authorization': `${token}`,
+          } 
+      });
+      response = JSON.stringify(response.data);
+      console.log("handleSaveDictionary response ->", response)
+    } catch (err) {
+      console.log(`Catch block, POST error on /history/saveTranslation: ${err}`);
+    }
+  }
+
   return (
     <div>
       <Grid container component={Paper} className={classes.translateSection}>
@@ -218,6 +234,7 @@ const Translation = () => {
                         color="secondary"
                         style={{ fontWeight: "700" }}
                         type="submit"
+                        onClick={(e)=> handleSaveTranslation()}
                       >
                         <StarIcon style={{ paddingRight: "5px" }} />
                         Favorite

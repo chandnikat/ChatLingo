@@ -99,9 +99,9 @@ const Dictionary = ({ name, room }) => {
           } 
       });
       response = JSON.stringify(response.data);
-      console.log("handleSaveDictionary response ->", response)
+      // console.log("handleSaveDictionary response ->", response)
     } catch (err) {
-      console.log(`Catch block, POST error on /dictionary: ${err}`);
+      console.log(`Catch block, POST error on /history/saveDefinition: ${err}`);
     }
   }
 
