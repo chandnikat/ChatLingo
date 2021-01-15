@@ -46,15 +46,15 @@ const useSocket = (name, room) => {
     };
   }, [name, room, usersCountByRoom]);
 
-  useEffect(
-    () =>
-      socket.on('getAllRooms', activeUsers => {
-        Object.keys(activeUsers).forEach(roomName => {
-          console.log(roomName, activeUsers[roomName]);
-        });
-      }),
-    [usersCountByRoom]
-  );
+  // useEffect(
+  //   () =>
+  //     socket.on('getAllRooms', activeUsers => {
+  //       Object.keys(activeUsers).forEach(roomName => {
+  //         console.log(roomName, activeUsers[roomName]);
+  //       });
+  //     }),
+  //   [usersCountByRoom]
+  // );
 
   // client sends a message to the server
   // Server forwards it to all users in the same room
@@ -97,7 +97,7 @@ const useSocket = (name, room) => {
   //   }
   // }, [name, tool, room, open, ucbr]);
 
-  return [messages, typeMsg, sendNewMessage, sendTypingMsg, getActiveUsers];
+  return [messages, typeMsg, sendNewMessage, sendTypingMsg];
 };
 
 export default useSocket;

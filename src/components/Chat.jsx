@@ -71,24 +71,25 @@ const Chat = ({ name, room }) => {
             </ListItem>
           </List>
         </Grid>
-        <Grid container xs={9} direction="column">
-          <Grid item className={classes.messageArea}>
-            <Messages
-              // style={{ height: '25vh' }}
-              messages={messages}
-              name={name}
-              typeMsg={typeMsg}
-            />
-          </Grid>
-          <Divider />
-          <Grid item>
-            <InputBox
-              // style={{ height: '15vh' }}
-              sendNewMessage={sendNewMessage}
-              sendTypingMsg={sendTypingMsg}
-            />
-          </Grid>
+        {/* <Grid container direction="column"> */}
+        <Grid item xs={9} className={classes.messageArea}>
+          <Messages
+            // style={{ height: '25vh' }}
+            messages={messages}
+            name={name}
+            typeMsg={typeMsg}
+          />
         </Grid>
+
+        <Grid item xs={12}>
+          <Divider />
+          <InputBox
+            // style={{ height: '15vh' }}
+            sendNewMessage={sendNewMessage}
+            sendTypingMsg={sendTypingMsg}
+          />
+        </Grid>
+        {/* </Grid> */}
       </Grid>
     </div>
   );

@@ -126,12 +126,12 @@ const Dashboard = ({ match }) => {
   const [open, setOpen] = useState(false);
   const [tool, setTool] = useState('rooms');
   const [room, setRoom] = useState('English');
-  const [usersCountByRoom, setUsersCountByRoom] = useState([
-    { roomName: 'English', userCount: 0 },
-    { roomName: 'French', userCount: 0 },
-    { roomName: 'Spanish', userCount: 0 },
-    { roomName: 'German', userCount: 0 },
-  ]);
+  // const [usersCountByRoom, setUsersCountByRoom] = useState([
+  //   { roomName: 'English', userCount: 0 },
+  //   { roomName: 'French', userCount: 0 },
+  //   { roomName: 'Spanish', userCount: 0 },
+  //   { roomName: 'German', userCount: 0 },
+  // ]);
 
   console.log('TOOL ->', tool);
   console.log('NAME ->', name);
@@ -154,29 +154,29 @@ const Dashboard = ({ match }) => {
     setRoom(input);
   };
 
-  const ucbr = useRef(usersCountByRoom);
+  // const ucbr = useRef(usersCountByRoom);
 
-  useEffect(async () => {
-    console.log('in useEffect');
-    console.log(
-      'file: Dashboard.jsx ~ line 174 ~ Dashboard ~ tool, room, open,',
-      tool,
-      room,
-      open
-    );
-    try {
-      const response = await axios.get('/activerooms', {
-        header: { 'Content-Type': 'Application/JSON' },
-      });
-      console.log('response => ', response);
+  // useEffect(async () => {
+  //   console.log('in useEffect');
+  //   console.log(
+  //     'file: Dashboard.jsx ~ line 174 ~ Dashboard ~ tool, room, open,',
+  //     tool,
+  //     room,
+  //     open
+  //   );
+  //   try {
+  //     const response = await axios.get('/activerooms', {
+  //       header: { 'Content-Type': 'Application/JSON' },
+  //     });
+  //     console.log('response => ', response);
 
-      ucbr.current = response.data;
+  //     ucbr.current = response.data;
 
-      console.log('file: Dashboard.jsx ~ line 158 ~ Dashboard ~ ucbr', ucbr);
-    } catch (error) {
-      console.log('Error in getActiveRooms of Join component:', error);
-    }
-  }, [name, tool, room, open, ucbr]);
+  //     console.log('file: Dashboard.jsx ~ line 158 ~ Dashboard ~ ucbr', ucbr);
+  //   } catch (error) {
+  //     console.log('Error in getActiveRooms of Join component:', error);
+  //   }
+  // }, [name, tool, room, open, ucbr]);
 
   return (
     <div className={classes.root}>
@@ -205,7 +205,11 @@ const Dashboard = ({ match }) => {
               ChatLingo
             </Typography>
             <Link to="/" style={{ textDecoration: 'none' }}>
-              <Button onClick={() => localStorage.removeItem('currentUser')} color="inherit" className={classes.menuButton}>
+              <Button
+                onClick={() => localStorage.removeItem('currentUser')}
+                color="inherit"
+                className={classes.menuButton}
+              >
                 Logout
               </Button>
             </Link>
@@ -229,8 +233,8 @@ const Dashboard = ({ match }) => {
               {theme.direction === 'rtl' ? (
                 <ChevronRightIcon />
               ) : (
-                  <ChevronLeftIcon />
-                )}
+                <ChevronLeftIcon />
+              )}
             </IconButton>
           </div>
           <Divider />
@@ -285,7 +289,7 @@ const Dashboard = ({ match }) => {
                   handleRoomNameChange={handleRoomNameChange}
                   room={room}
                   // usersCountByRoom={usersCountByRoom}
-                  ucbr={ucbr.current}
+                  // ucbr={ucbr.current}
                 />
               )}
               {tool === 'dictionary' && <Dictionary />}

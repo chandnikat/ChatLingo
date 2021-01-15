@@ -14,7 +14,7 @@ const InputBox = ({ sendNewMessage, sendTypingMsg }) => {
   const [showEmojiPicker, toggleShowEmojiPicker] = useToggle(false);
   const inputEl = useRef(null);
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = e => {
     if (e.key === 'Enter') {
       handleSendMessage(e);
     } else {
@@ -22,7 +22,7 @@ const InputBox = ({ sendNewMessage, sendTypingMsg }) => {
     }
   };
 
-  const handleSendMessage = (e) => {
+  const handleSendMessage = e => {
     // console.log('handleSendMessage!');
     e.preventDefault();
     sendNewMessage(newMessage);
@@ -30,7 +30,7 @@ const InputBox = ({ sendNewMessage, sendTypingMsg }) => {
     inputEl.current.focus();
   };
 
-  const addEmoji = (emoji) => {
+  const addEmoji = emoji => {
     // console.log('emoji => ', emoji);
     setNewMessage(`${newMessage} ${emoji.native} `);
     toggleShowEmojiPicker();
@@ -38,7 +38,7 @@ const InputBox = ({ sendNewMessage, sendTypingMsg }) => {
   };
 
   return (
-    <div >
+    <div>
       {/* <div className="emojiPicker">
         {showEmojiPicker && (
           <Picker
@@ -70,19 +70,26 @@ const InputBox = ({ sendNewMessage, sendTypingMsg }) => {
         <button className="sendButton" onClick={handleSendMessage}>
           Send
         </button> */}
-        <Grid container style={{padding: '20px'}}>
-          <Grid item xs={11}>
-              <TextField id="outlined-basic-email" label="Type a message..." fullWidth value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
+      <Grid container style={{ padding: '20px' }}>
+        <Grid item xs={11}>
+          <TextField
+            id="outlined-basic-email"
+            label="Type a message..."
+            fullWidth
+            value={newMessage}
+            onChange={e => setNewMessage(e.target.value)}
             onKeyPress={handleKeyPress}
             onClick={showEmojiPicker ? toggleShowEmojiPicker : null}
             autoFocus
-            ref={inputEl}></TextField>
-          </Grid>
-          <Grid xs={1} align="right">
-              <Fab color="primary" aria-label="add" onClick={handleSendMessage}><SendIcon /></Fab>
-          </Grid>
+            ref={inputEl}
+          ></TextField>
         </Grid>
+        <Grid item xs={1} align="right">
+          <Fab color="primary" aria-label="add" onClick={handleSendMessage}>
+            <SendIcon />
+          </Fab>
+        </Grid>
+      </Grid>
     </div>
   );
 };

@@ -98,26 +98,18 @@ app.post('/dictionary', authController.verifyJWT, (req, res, next) => {
         }
         // console.log('inside the try',definition);
         // console.log('here the array',data.results[0].lexicalEntries);
-<<<<<<< HEAD
         const dictionaryResults = {
           definition:
             data.results[0].lexicalEntries[0].entries[0].senses[0]
               .definitions[0],
           partOfSpeech: data.results[0].lexicalEntries[0].lexicalCategory['id'],
         };
-=======
-        const dictionaryResults = { definition: data.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0], partOfSpeech: data.results[0].lexicalEntries[0].lexicalCategory['id'] };
->>>>>>> main
         console.log(dictionaryResults);
         return res.status(200).json(dictionaryResults);
       } catch (err) {
         return next({
           message: { err: 'An error occurred while searching for this word' },
-<<<<<<< HEAD
         });
-=======
-        })
->>>>>>> main
       }
     });
   });
@@ -202,9 +194,9 @@ io.on('connection', socket => {
     text: `${name}, welcome to ${room} chatroom.`,
   });
 
-  socket.emit('getAllRooms', {
-    usersCountByRoom,
-  });
+  // socket.emit('getAllRooms', {
+  //   usersCountByRoom,
+  // });
 
   socket.to(room).emit('message', {
     id: socket.id,
