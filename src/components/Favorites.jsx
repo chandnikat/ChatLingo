@@ -15,6 +15,7 @@ import {
   AccordionDetails,
   Accordion,
   ListSubheader,
+  Box
 } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
@@ -85,14 +86,14 @@ const Favorites = ({ name, room }) => {
 
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
                   <ListItemText>
-                    <Typography style={{ fontSize: "15px" }}>
-                      House: "a building for human habitation, especially one
-                      that"
+                    <Typography style={{ fontSize: "13px" }}>
+                      House: <span style={{fontStyle:"italic"}}>(noun)</span> "a building for human habitation, especially one
+                      that is lived in by a family or small group of people"
                     </Typography>
                   </ListItemText>
                   <DeleteOutlineIcon
                     style={{ padding: "2px", color: "#40637E" }}
-                  />
+                  />  
                 </ListItem>
 
               </Paper>
@@ -123,8 +124,8 @@ const Favorites = ({ name, room }) => {
 
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
                   <ListItemText>
-                    <Typography style={{ fontSize: "15px" }}>
-                      House: "a building for human habitation, especially one
+                    <Typography style={{ fontSize: "13px" }}>
+                      House: <span style={{fontStyle:"italic"}}>(noun)</span> "a building for human habitation, especially one
                       that is lived in by a family or small group of people"
                     </Typography>
                   </ListItemText>
