@@ -89,6 +89,24 @@ const Dictionary = ({ name, room }) => {
     }
   };
 
+  const handleSaveDictionary = async (e) => {
+    let token = localStorage.getItem("currentUser");
+    const body = { word, definition, partOfSpeech}
+    try {
+      let response = await Axios.post("/history/saveDefinition", body, {
+        headers: {
+          'Content-Type': 'Application/JSON', 'Authorization': `${token}`,
+          } 
+      });
+      response = JSON.stringify(response.data);
+      console.log("handleSaveDictionary response ->", response)
+    } catch (err) {
+      console.log(`Catch block, POST error on /dictionary: ${err}`);
+    }
+  }
+
+
+
   return (
     <div>
       <Grid container component={Paper} className={classes.dictionarySection}>
@@ -135,6 +153,7 @@ const Dictionary = ({ name, room }) => {
                       color="secondary"
                       style={{ fontWeight: "700" }}
                       type="submit"
+                      onClick={(e)=> handleSaveDictionary()}
                     >
                       <StarIcon style={{ paddingRight: "5px" }} />
                       Favorite
