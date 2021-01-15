@@ -124,6 +124,8 @@ const Translation = () => {
                   autoFocus
                   value={search}
                   onChange={handleVocab}
+                  rows={2}
+                  multiline
                 />
 
                 <ListItem>
