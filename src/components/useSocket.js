@@ -7,7 +7,6 @@ const endpoint = 'localhost:8080';
 const useSocket = (name, room) => {
   const [messages, setMessages] = useState([]);
   const [typeMsg, setTypeMsg] = useState(``);
-  // const [userJoined, setUserJoined] = useState(true)
   const [usersCountByRoom, setUsersCountByRoom] = useState([]);
   
   useEffect(() => {
@@ -17,19 +16,12 @@ const useSocket = (name, room) => {
     socket = io(endpoint, {
       query: { name, room },
     });
-
-    // socket.on('userJoined', () => {
-    //   setTimeout(() => {
-    //     setUserJoined(false);
-    //   }, 500);
-    // })
     
     // Listens for incoming messages
     socket.on('message', message => {
       setMessages(messages => [...messages, message]);
     });
     
-
     socket.on('sendTypingMsg', data => {
       setTypeMsg(data);
 
@@ -50,15 +42,7 @@ const useSocket = (name, room) => {
       socket.close();
     };
   }, [room]);
-  
-  // useEffect(() => {
-  //   console.log('USE EFFECT FOR ACTIVE USERS fired!');
-  //   console.log("🚀 ~ file: Join.jsx ~ line 66 ~ Join ~ userJoined", userJoined)
-  //   if (userJoined) emitGetRooms();
-  //   return () => console.log('usersCountByRoom --> ', usersCountByRoom )
-  // }, [userJoined])
 
-  
 
   // client sends a message to the server
   // Server forwards it to all users in the same room
