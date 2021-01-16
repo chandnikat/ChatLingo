@@ -1,8 +1,7 @@
-import React from 'react';
-import Messages from './Messages';
-import InputBox from './InputBox';
-import useSocket from './useSocket';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import Messages from "./Messages";
+import InputBox from "./InputBox";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
   Avatar,
@@ -44,12 +43,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Chat = ({ name, room }) => {
+const Chat = ({ name, room, socket}) => {
   const classes = useStyles();
-  const [messages, typeMsg, sendNewMessage, sendTypingMsg] = useSocket(
-    name,
-    room,
-  );
+  const {messages, typeMsg, sendNewMessage, sendTypingMsg} = socket
 
   return (
     <div>

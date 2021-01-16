@@ -1,18 +1,15 @@
-import { makeStyles } from "@material-ui/core/styles";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import SendIcon from "@material-ui/icons/Send";
-import React from "react";
-import { Chatrooms } from "./Chatrooms";
+import MenuList from '@material-ui/core/MenuList';
+import MenuItem from '@material-ui/core/MenuItem';
+import { makeStyles } from '@material-ui/core/styles';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import SendIcon from '@material-ui/icons/Send';
+import React from 'react';
 
-import {
-  Paper,
-  Grid,
-  Divider,
-  Typography,
-  List,
-  ListItem,
-} from "@material-ui/core";
+import { Chatrooms } from './Chatrooms';
+
+import Badge from '@material-ui/core/Badge';
 
 const useStyles = makeStyles({
   joinSection: {
@@ -27,34 +24,41 @@ const useStyles = makeStyles({
   },
 });
 
-const Join = ({ name, room, handleRoomNameChange }) => {
-  const classes = useStyles();
-  return (
-    <Grid container component={Paper} className={classes.joinSection}>
-      <Grid item xs={12}>
-        <List>
-          <ListItem button>
-            <Typography className={classes.titleBox}>
-              Join a Chatroom
-            </Typography>
-          </ListItem>
-          <Divider />
 
-          {Chatrooms.map((room, idx) => (
-            <ListItem
-              button
-              key={`room-${idx}`}
-              onClick={(e) => handleRoomNameChange(room.roomName)}
-            >
-              <ListItemIcon>
+
+const Join = ({ handleRoomNameChange, socket }) => {
+  const {usersCountByRoom} = socket;
+
+  return (
+    <Paper>
+      <MenuList>
+        {Chatrooms.map((room, idx) => (
+          <MenuItem
+            key={`room-${idx}`}
+            onClick={e => handleRoomNameChange(room.roomName)}
+          >
+            <ListItemIcon>
+              <Badge
+                badgeContent={usersCountByRoom.length > 0
+                  ? usersCountByRoom.find(rm => rm.roomName == room.roomName)
+                      .userCount
+                  : null}
+                color="primary"
+              >
                 <SendIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText variant="inherit">{room.roomName}</ListItemText>
-            </ListItem>
-          ))}
-        </List>
-      </Grid>
-    </Grid>
+              </Badge>
+            </ListItemIcon>
+            <Typography variant="inherit">
+              {room.roomName}
+              {usersCountByRoom.length > 0
+                ? usersCountByRoom.find(rm => rm.roomName == room.roomName)
+                    .userCount
+                : null}
+            </Typography>
+          </MenuItem>
+        ))}
+      </MenuList>
+    </Paper>
   );
 };
 

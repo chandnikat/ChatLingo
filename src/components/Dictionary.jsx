@@ -52,6 +52,8 @@ const Dictionary = ({ name, room }) => {
   let [word, setWord] = useState("");
   const [add, setAdd] = useState(false);
 
+
+
   //Capitalizes word:
   word = word.toLowerCase().replace(/\b\w{3,}/g, function (l) {
     return l.charAt(0).toUpperCase() + l.slice(1);
