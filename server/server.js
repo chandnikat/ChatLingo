@@ -16,6 +16,7 @@ const authRouter = require('./routes/authRouter');
 const translateRouter = require('./routes/translateRouter');
 const historyRouter = require('./routes/historyRouter');
 const dictionaryRouter = require('./routes/dictionaryRouter');
+const chatroomRouter = require('./routes/chatroomRouter');
 /**
  * handle parsing request body
  */
@@ -49,6 +50,7 @@ app.use('/auth', authRouter);
 app.use('/translate', translateRouter);
 app.use('/history', historyRouter);
 app.use('/dictionary', dictionaryRouter);
+app.use('/chatroom', chatroomRouter);
 
 app.get('/activerooms', (req, res) => {
   console.log('get request response => usersCountByRoom => ', usersCountByRoom);
@@ -135,7 +137,7 @@ io.on('connection', (socket) => {
 
   socket.broadcast.emit('getAllRooms', usersCountByRoom); //all others you
 
-  
+
   socket.to(room).emit('message', {
     id: socket.id,
     name: 'Admin',
@@ -146,11 +148,11 @@ io.on('connection', (socket) => {
   socket.on('sendNewMessage', (message) => {
     io.in(room).emit('message', message);
   });
-  
-  socket.on('getAllRooms', () => 
+
+  socket.on('getAllRooms', () =>
     socket.emit('getAllRooms',
-    usersCountByRoom)
-    );
+      usersCountByRoom)
+  );
 
   socket.on('sendTypingMsg', data => {
     socket.to(room).emit('sendTypingMsg', data);
