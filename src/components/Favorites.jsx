@@ -3,17 +3,13 @@ import Axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
-  TextField,
-  Button,
   Grid,
   Divider,
   Typography,
   List,
   ListItem,
   ListItemText,
-  AccordionSummary,
-  AccordionDetails,
-  Accordion,
+
   ListSubheader,
   Box
 } from "@material-ui/core";
@@ -54,9 +50,9 @@ const Favorites = ({room}) => {
   const [definitionArray, setDefinitionArray] =  useState([])
   const [translationArray, setTranslationArray] =  useState([])
 
+//GET all definition useEffect:
 useEffect(async ()=>{
   let token = localStorage.getItem("currentUser");
-
   try {
     const response = await Axios.get("/history/getAllDefinitions",{
       headers: {
@@ -66,15 +62,13 @@ useEffect(async ()=>{
     });
     const data = response.data
     setDefinitionArray(data)
-    console.log("GET DICTIONARY DATA->", data)
   } catch (err) {
     console.log(`Catch block, GET error on /history/getAllDefinitions: ${err}`);
   }
 }, [])
 
 
-console.log("defArr", definitionArray)
-console.log("defArr1", definitionArray[0])
+//GET all translation useEffect:
 
 
   return (
@@ -110,16 +104,16 @@ console.log("defArr1", definitionArray[0])
                 </ListSubheader>
 
                 {translationArray.map((vocab) => (
-                <ListItem style={{ padding: "0px", margin: "0px" }}>
-                  <ListItemText>
-                    <Typography style={{ fontSize: "13px" }}>
-                      Word: <span style={{fontStyle:"italic"}}>partOfSpeech</span> "definition"
-                    </Typography>
-                  </ListItemText>
-                  <DeleteOutlineIcon
-                    style={{ padding: "2px", color: "#40637E" }}
-                  />
-                </ListItem>
+                   <ListItem style={{ padding: "0px", margin: "0px" }}>
+                   <ListItemText>
+                     <Typography style={{ fontSize: "13px" }}>
+                       <span style={{color: "#40637E", fontWeight:"bold"}}>{vocab.word}</span> <span style={{fontStyle:"italic"}}>({vocab.part_of_speech.replace(/^"(.+(?="$))"$/, '$1')}):</span> {vocab.definition.replace(/^"(.+(?="$))"$/, '$1')}
+                     </Typography>
+                   </ListItemText>
+                   <DeleteOutlineIcon
+                     style={{ padding: "2px", color: "#40637E" }}
+                   />
+                 </ListItem>
                 ))}
               </Paper>
             </ListItem>
