@@ -20,7 +20,7 @@ router.post('/saveDefinition', authController.verifyJWT, historyController.saveD
 );
 
 router.delete('/deleteDefinition', authController.verifyJWT, historyController.deleteDefinition, (req, res, next) => {
-  return res.status(200).json('Definition deleted!')
+  return res.status(200).json('Definition deleted!');
 })
 
 router.get(
@@ -41,6 +41,11 @@ router.post(
   }
 );
 
+router.delete(
+  '/deleteTranslation', authController.verifyJWT, historyController.deleteTranslation, (req, res, next) => {
+    return res.status(200).json('Translation deleted!');
+  }
+)
 
 router.get(
   '/getAllConversations',
@@ -60,7 +65,11 @@ router.post(
   }
 );
 
-
+router.delete(
+  '/deleteConversation', authController.verifyJWT, historyController.deleteConversation, (req, res, next) => {
+    return res.status(200).json('Translation deleted!');
+  }
+)
 
 
 module.exports = router;
