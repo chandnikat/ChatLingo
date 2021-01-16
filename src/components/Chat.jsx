@@ -1,7 +1,7 @@
-import React from "react";
-import Messages from "./Messages";
-import InputBox from "./InputBox";
-import { makeStyles } from "@material-ui/core/styles";
+import React from 'react';
+import Messages from './Messages';
+import InputBox from './InputBox';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
   Avatar,
@@ -12,31 +12,31 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 const useStyles = makeStyles({
   chatSection: {
-    width: "100%",
-    height: "83vh",
+    width: '100%',
+    height: '83vh',
   },
   headBG: {
-    backgroundColor: "#e0e0e0",
+    backgroundColor: '#e0e0e0',
   },
   borderRight500: {
-    borderRight: "1px solid #e0e0e0",
+    borderRight: '1px solid #e0e0e0',
   },
   messageArea: {
-    height: "72vh",
-    overflowY: "auto",
+    height: '72vh',
+    overflowY: 'auto',
   },
   roomBox: {
-    color: "#40637E",
-    fontWeight: "bold",
-    fontSize: "25px",
+    color: '#40637E',
+    fontWeight: 'bold',
+    fontSize: '25px',
   },
   avatar: {
-    color: "#fff",
-    backgroundColor: "#40637E",
+    color: '#fff',
+    backgroundColor: '#40637E',
   },
 });
 
@@ -64,16 +64,21 @@ const Chat = ({ name, room, socket, toUpperFirst }) => {
 
         <Grid item xs={9}>
           <Grid item className={classes.messageArea}>
-            <Messages messages={messages} name={name} typeMsg={typeMsg} toUpperFirst={toUpperFirst}/>
-          </Grid>
-
-          <Divider />
-          <Grid item>
-            <InputBox
-              sendNewMessage={sendNewMessage}
-              sendTypingMsg={sendTypingMsg}
+            <Messages
+              messages={messages}
+              name={name}
+              typeMsg={typeMsg}
+              toUpperFirst={toUpperFirst}
             />
           </Grid>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Divider />
+          <InputBox
+            sendNewMessage={sendNewMessage}
+            sendTypingMsg={sendTypingMsg}
+          />
         </Grid>
       </Grid>
     </div>

@@ -29,7 +29,7 @@ const useSocket = (name, room, toUpperFirst) => {
 
       setTimeout(() => {
         setTypeMsg('');
-      }, 500);
+      }, 750);
     });
 
     socket.on('getAllRooms', activeUsers => {
