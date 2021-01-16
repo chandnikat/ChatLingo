@@ -119,7 +119,7 @@ const Favorites = ({ room }) => {
                 </ListSubheader>
 
                 {translationArray.map((phrase, idx) => (
-                  <ListItem style={{ padding: "0px", margin: "0px" }} key={idx}>
+                  <ListItem button style={{ padding: "0px", margin: "0px" }} key={idx}>
                     <ListItemText>
                       <Typography style={{ fontSize: "13px" }}>
                         <span style={{ color: "#40637E", fontWeight: "bold" }}>
@@ -165,7 +165,7 @@ const Favorites = ({ room }) => {
                 </ListSubheader>
 
                 {definitionArray.map((vocab, idx) => (
-                  <ListItem style={{ padding: "0px", margin: "0px" }} key={idx}>
+                  <ListItem button style={{ padding: "0px", margin: "0px" }} key={idx}>
                     <ListItemText>
                       <Typography style={{ fontSize: "13px" }}>
                         <span style={{ color: "#40637E", fontWeight: "bold" }}>
