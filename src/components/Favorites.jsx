@@ -114,10 +114,10 @@ const Favorites = ({ room }) => {
     }
   };
 
-  const handleDeleteTranslation = async (word) => {
+  const handleDeleteTranslation = async (word, language_to, language_from) => {
     let token = localStorage.getItem("currentUser");
    
-    const body = { word };
+    const body = { word, language_to, language_from };
     console.log(body);
     try {
       let response = await Axios.delete("/history/deleteTranslation", {
@@ -130,7 +130,7 @@ const Favorites = ({ room }) => {
       response = JSON.stringify(response.data);
       console.log(response);
 
-      setTranslationArray(translationArray.filter((item) => item !== body.word));
+      setTranslationArray(translationArray.filter((item) => item !== body.word && body.language_to && body.language_from));
       setToggle(true);
     } catch (err) {
       console.log(
@@ -193,7 +193,7 @@ const Favorites = ({ room }) => {
                     </ListItemText>
                     <DeleteOutlineIcon
                       style={{ padding: "2px", color: "#40637E" }}
-                      // onClick={(e) => handleDeleteTranslation(phrase.)}
+                      onClick={(e) => handleDeleteTranslation(phrase.word, phrase.language_to, phrase.language_from)}
                     />
                   </ListItem>
                 ))}
