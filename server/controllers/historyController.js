@@ -6,6 +6,7 @@ const historyController = {};
 //definitons 
 historyController.getAllDefinitions = (req, res, next) => {
   const user_id = res.locals.user_id;
+  console.log('user id', user_id);
   const retrieveDefinitionsQuery = `SELECT word,definition,part_of_speech FROM "public"."SavedDefinitions" WHERE user_id = '${user_id}';`;
   db.query(retrieveDefinitionsQuery)
     .then(data => {
@@ -22,6 +23,7 @@ historyController.getAllDefinitions = (req, res, next) => {
 historyController.saveDefinition = (req, res, next) => {
   const { word, definition, partOfSpeech } = req.body;
   const user_id = res.locals.user_id;
+  console.log('user_id', user_id);
 
   const createDefinitionQuery = `
   INSERT INTO "public"."SavedDefinitions" (word, definition, part_of_speech, user_id)VALUES (
@@ -47,11 +49,12 @@ historyController.saveDefinition = (req, res, next) => {
 
 historyController.deleteDefinition = (req, res, next) => {
   const user_id = res.locals.user_id;
+  console.log(user_id);
   console.log('req.body', req.body);
   const { word } = req.body;
   console.log('word', word);
 
-  const deleteDefinitionQuery = `DELETE FROM "public"."SavedDefinitions" WHERE user_id = '${user_id}' AND word = '${word}' RETURNING *;`;
+  const deleteDefinitionQuery = `DELETE FROM "public"."SavedDefinitions" WHERE user_id = '${user_id}' AND word = '${word.toLowerCase()}' RETURNING *;`;
 
   db.query(deleteDefinitionQuery)
     .then(data => {
@@ -110,7 +113,29 @@ historyController.saveTranslation = (req, res, next) => {
 };
 
 historyController.deleteTranslation = (req, res, next) => {
+  const user_id = res.locals.user_id;
+  console.log(user_id);
+  console.log('req.body', req.body);
+  const { vocab, tl, sl } = req.body;
+  
+  const deleteTranslationQuery = `DELETE FROM "public"."SavedTranslations" WHERE user_id = '${user_id}' AND word = '${vocab}' AND language_to='${tl}' AND language_from='${sl};'
+  RETURNING *;`;
 
+  db.query(deleteTranslationQuery)
+    .then(data => {
+      console.log(data);
+      if (data.rows[0]) return next();
+      else {
+        return next({
+          message: { err: 'Word does not exist in database' },
+        })
+      }
+    })
+    .catch(err => {
+      return next({
+        message: { err: 'Error deleting translation from database' },
+      });
+    })
 };
 
 //conversations
@@ -222,7 +247,17 @@ historyController.saveConversation = (req, res, next) => {
 
 
 historyController.deleteConversation = (req, res, next) => {
-
+  const deleteConversationsQuery = `DELETE from "public"."savedConversations" WHERE messages AND participants AND language;`;
+  db.query(deleteConversationsQuery)
+    .then(data => {
+      
+      return next();
+    })
+    .catch(err => {
+      return next({
+        message: { err: 'Error getting saved conversations from database' },
+      });
+    });
 };
 
 
