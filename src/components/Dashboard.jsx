@@ -123,7 +123,6 @@ const Dashboard = ({ match }) => {
   const [open, setOpen] = useState(false);
   const [tool, setTool] = useState('rooms');
   const [room, setRoom] = useState('English');
-  const socket = useSocket(name, room);
 
   //Capitalizes username:
   const toUpperFirst = (string) => {
