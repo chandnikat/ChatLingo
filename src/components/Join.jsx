@@ -1,3 +1,5 @@
+const axios = require('axios');
+import { useState, useEffect } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import {
   ListItemIcon,
@@ -10,7 +12,6 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import React from "react";
 
-import { Chatrooms } from "./Chatrooms";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import Badge from "@material-ui/core/Badge";
 import { ListItem } from "@material-ui/core";
@@ -31,6 +32,22 @@ const useStyles = makeStyles({
 const Join = ({ handleRoomNameChange, socket }) => {
   const { usersCountByRoom } = socket;
   const classes = useStyles();
+  const [Chatrooms, setChatrooms] = useState([]);
+
+  // make fetch request to database to get chatrooms and then populate it in an array
+
+
+  useEffect(() => {
+    axios.get('/chatroom/getAllChatrooms')
+      .then(response => {
+        const chatroomArray = [];
+        response.data.forEach(el => {
+          const { chatroom_name: roomName, chatroom_id: roomId } = el;
+          chatroomArray.push({ roomName, roomId });
+        })
+        setChatrooms([...Chatrooms, ...chatroomArray]);
+      })
+  }, []);
 
   return (
     <Grid container component={Paper} className={classes.joinSection}>
@@ -45,7 +62,7 @@ const Join = ({ handleRoomNameChange, socket }) => {
           {Chatrooms.map((room, idx) => (
             <ListItem
               button
-              style={{padding: "15px" }}
+              style={{ padding: "15px" }}
               key={`room-${idx}`}
               onClick={(e) => handleRoomNameChange(room.roomName)}
             >
@@ -55,12 +72,12 @@ const Join = ({ handleRoomNameChange, socket }) => {
                     vertical: "bottom",
                     horizontal: "right",
                   }}
-      
+
                   badgeContent={
                     usersCountByRoom.length > 0
                       ? usersCountByRoom.find(
-                          (rm) => rm.roomName == room.roomName
-                        ).userCount
+                        (rm) => rm.roomName == room.roomName
+                      ).userCount
                       : null
                   }
                   color="primary"
