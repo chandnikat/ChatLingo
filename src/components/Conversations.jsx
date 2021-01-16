@@ -146,9 +146,10 @@ const Conversations = ({ name, socket }) => {
                             >
                               Participants:
                             </span>{' '}
-                            {conversation.participants.reduce((acc, cv) => {
+                            {conversation.participants}
+                            {/* {conversation.participants.reduce((acc, cv) => {
                               acc.concat(`${cv}, `);
-                            })}
+                            })} */}
                           </Typography>
 
                           <Typography>
