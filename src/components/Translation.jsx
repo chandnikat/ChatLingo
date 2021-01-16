@@ -105,7 +105,7 @@ const Translation = () => {
 
   const handleSaveTranslation = async (e) => {
     let token = localStorage.getItem("currentUser");
-    const body = { vocab: searchCopy, sl: sourceLang, tl: targetLang, translation}
+    const body = { vocab: searchCopy, sl: startLang, tl: endLang, translation}
     try {
       let response = await Axios.post("/history/saveTranslation", body, {
         headers: {

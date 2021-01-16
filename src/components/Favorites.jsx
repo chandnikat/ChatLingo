@@ -54,13 +54,13 @@ const Favorites = ({room}) => {
 useEffect(async ()=>{
   let token = localStorage.getItem("currentUser");
   try {
-    const response = await Axios.get("/history/getAllDefinitions",{
+    const defintionResponse = await Axios.get("/history/getAllDefinitions",{
       headers: {
         "Content-Type": "Application/JSON",
         Authorization: `${token}`,
       },
     });
-    const data = response.data
+    const data = defintionResponse.data
     setDefinitionArray(data)
   } catch (err) {
     console.log(`Catch block, GET error on /history/getAllDefinitions: ${err}`);
@@ -69,7 +69,24 @@ useEffect(async ()=>{
 
 
 //GET all translation useEffect:
+useEffect(async ()=>{
+  let token = localStorage.getItem("currentUser");
+  try {
+    const response = await Axios.get("/history/getAllTranslations",{
+      headers: {
+        "Content-Type": "Application/JSON",
+        Authorization: `${token}`,
+      },
+    });
+    const data = response.data
+    console.log("DATA Trans->", data)
+    setTranslationArray(data)
+  } catch (err) {
+    console.log(`Catch block, GET error on /history/getAllDefinitions: ${err}`);
+  }
+}, [])
 
+console.log("TRANS ARRAY->", translationArray)
 
   return (
     <div>
@@ -103,11 +120,14 @@ useEffect(async ()=>{
                   <Divider />
                 </ListSubheader>
 
-                {translationArray.map((vocab) => (
-                   <ListItem style={{ padding: "0px", margin: "0px" }}>
+                {translationArray.map((phrase, idx) => (
+                   <ListItem style={{ padding: "0px", margin: "0px" }} key={idx}>
                    <ListItemText>
                      <Typography style={{ fontSize: "13px" }}>
-                       <span style={{color: "#40637E", fontWeight:"bold"}}>{vocab.word}</span> <span style={{fontStyle:"italic"}}>({vocab.part_of_speech.replace(/^"(.+(?="$))"$/, '$1')}):</span> {vocab.definition.replace(/^"(.+(?="$))"$/, '$1')}
+                       <span style={{color: "#40637E", fontWeight:"bold"}}>{phrase.language_from}:</span>  {phrase.word}
+                     </Typography>
+                     <Typography style={{ fontSize: "13px" }}>
+                       <span style={{color: "#40637E", fontWeight:"bold"}}>{phrase.language_to}:</span>  {phrase.translation.replace(/^"(.+(?="$))"$/, '$1')}
                      </Typography>
                    </ListItemText>
                    <DeleteOutlineIcon
@@ -141,8 +161,8 @@ useEffect(async ()=>{
                   <Divider />
                 </ListSubheader>
 
-               {definitionArray.map((vocab) => (
-                <ListItem style={{ padding: "0px", margin: "0px" }}>
+               {definitionArray.map((vocab, idx) => (
+                <ListItem style={{ padding: "0px", margin: "0px" }} key={idx}>
                   <ListItemText>
                     <Typography style={{ fontSize: "13px" }}>
                       <span style={{color: "#40637E", fontWeight:"bold"}}>{vocab.word}</span> <span style={{fontStyle:"italic"}}>({vocab.part_of_speech.replace(/^"(.+(?="$))"$/, '$1')}):</span> {vocab.definition.replace(/^"(.+(?="$))"$/, '$1')}
