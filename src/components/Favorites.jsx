@@ -179,7 +179,7 @@ const Favorites = ({ room }) => {
                     </ListItemText>
                     <DeleteOutlineIcon
                       style={{ padding: "2px", color: "#40637E" }}
-                      // onClick={(e) => handleDeleteTranslation(vocab.word)}
+                      // onClick={(e) => handleDeleteTranslation(phrase.)}
                     />
                   </ListItem>
                 ))}
