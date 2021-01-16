@@ -23,14 +23,17 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import ChatIcon from "@material-ui/icons/Chat";
+import StarIcon from '@material-ui/icons/Star';
 import HistoryIcon from "@material-ui/icons/History";
 import LanguageIcon from "@material-ui/icons/Language";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import Join from "./Join";
 import Dictionary from "./Dictionary";
 import Translation from "./Translation";
+import Favorites from "./Favorites";
 import Chat from "./Chat";
 import theme1 from "../styles/theme.js";
+import { Favorite } from "@material-ui/icons";
 import useSocket from "./useSocket";
 
 
@@ -220,11 +223,11 @@ const Dashboard = ({ match }) => {
             <ListItem
               button
               button
-              onClick={() => setTool('history')}
-              key={'History'}
+              onClick={() => setTool("favorites")}
+              key={"Favorites"}
             >
-              <ListItemIcon>{<HistoryIcon color='secondary' />}</ListItemIcon>
-              <ListItemText primary={'History'} />
+              <ListItemIcon>{<StarIcon color="secondary" />}</ListItemIcon>
+              <ListItemText primary={"Favorites"} />
             </ListItem>
             <ListItem
               button
@@ -253,8 +256,9 @@ const Dashboard = ({ match }) => {
                   socket={socket}
                 />
               )}
-              {tool === 'dictionary' && <Dictionary />}
-              {tool === 'translation' && <Translation />}
+              {tool === "dictionary" && <Dictionary />}
+              {tool === "translation" && <Translation />}
+              {tool === "favorites" && <Favorites />}
             </Paper>
           </Grid>
           <Divider orientation='vertical' />

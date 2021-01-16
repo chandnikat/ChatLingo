@@ -10,7 +10,9 @@ import {
   Typography,
   List,
   ListItem,
+  Alert,
 } from "@material-ui/core";
+import StarIcon from "@material-ui/icons/Star";
 
 const useStyles = makeStyles((theme) => ({
   dictionarySection: {
@@ -48,6 +50,7 @@ const Dictionary = ({ name, room }) => {
   const [definition, setDefinition] = useState(null);
   const [partOfSpeech, setPartOfSpeech] = useState(null);
   let [word, setWord] = useState("");
+  // const [add, setAdd] = useState(false);
 
 
 
@@ -90,6 +93,24 @@ const Dictionary = ({ name, room }) => {
     }
   };
 
+  const handleSaveDictionary = async (e) => {
+    let token = localStorage.getItem("currentUser");
+    const body = { word, definition, partOfSpeech };
+    try {
+      let response = await Axios.post("/history/saveDefinition", body, {
+        headers: {
+          "Content-Type": "Application/JSON",
+          Authorization: `${token}`,
+        },
+      });
+      response = JSON.stringify(response.data);
+    } catch (err) {
+      console.log(`Catch block, POST error on /history/saveDefinition: ${err}`);
+    }
+  };
+
+
+
   return (
     <div>
       <Grid container component={Paper} className={classes.dictionarySection}>
@@ -99,6 +120,7 @@ const Dictionary = ({ name, room }) => {
               <Typography className={classes.titleBox}>Dictionary</Typography>
             </ListItem>
             <Divider />
+
             <ListItem style={{ paddingTop: "20px" }} alignItems="center">
               <form className={classes.form} onSubmit={handleSubmitVocab}>
                 <TextField
@@ -127,6 +149,23 @@ const Dictionary = ({ name, room }) => {
                   {partOfSpeech}
                 </Typography>
                 <Typography>{definition}</Typography>
+                {word ? (
+                  <ListItem
+                    style={{ justifyContent: "center", paddingTop: "7px" }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      style={{ fontWeight: "700" }}
+                      type="submit"
+                      onClick={(e) => handleSaveDictionary()}
+                    >
+                      <StarIcon style={{ paddingRight: "5px" }} />
+                      Favorite
+                    </Button>
+                  </ListItem>
+                ) : null}
+                {/* {add && (<Alert severity="success">Added!</Alert>)} */}
               </form>
             </ListItem>
           </List>
