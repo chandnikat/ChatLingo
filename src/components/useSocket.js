@@ -10,8 +10,9 @@ const useSocket = (name, room) => {
   const [usersCountByRoom, setUsersCountByRoom] = useState([]);
   
   useEffect(() => {
-    console.log('USE EFFECT FOR MESSAGING fired!');
-    
+    console.log('useEffect fired!');
+    setMessages([]);
+
     // Creates a WebSocket connection
     socket = io(endpoint, {
       query: { name, room },
