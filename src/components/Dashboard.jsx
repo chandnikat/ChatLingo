@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import clsx from "clsx";
-import { makeStyles, useTheme, ThemeProvider } from "@material-ui/core/styles";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import clsx from 'clsx';
+import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
 import {
   Drawer,
   Grid,
@@ -17,25 +17,25 @@ import {
   ListItemIcon,
   ListItemText,
   Button,
-} from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import ChatIcon from "@material-ui/icons/Chat";
+} from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import ChatIcon from '@material-ui/icons/Chat';
 import StarIcon from '@material-ui/icons/Star';
-import HistoryIcon from "@material-ui/icons/History";
-import LanguageIcon from "@material-ui/icons/Language";
-import MenuBookIcon from "@material-ui/icons/MenuBook";
-import Join from "./Join";
-import Dictionary from "./Dictionary";
-import Translation from "./Translation";
-import Favorites from "./Favorites";
-import Chat from "./Chat";
-import theme1 from "../styles/theme.js";
-import { Favorite } from "@material-ui/icons";
-import useSocket from "./useSocket";
-
+import HistoryIcon from '@material-ui/icons/History';
+import LanguageIcon from '@material-ui/icons/Language';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import Join from './Join';
+import Dictionary from './Dictionary';
+import Translation from './Translation';
+import Conversations from './Conversations';
+import Favorites from './Favorites';
+import Chat from './Chat';
+import theme1 from '../styles/theme.js';
+import { Favorite } from '@material-ui/icons';
+import useSocket from './useSocket';
 
 const drawerWidth = 240;
 
@@ -121,10 +121,9 @@ const Dashboard = ({ match }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [tool, setTool] = useState("rooms");
-  const [room, setRoom] = useState("English");
+  const [tool, setTool] = useState('rooms');
+  const [room, setRoom] = useState('English');
   const socket = useSocket(name, room);
-
 
   //Capitalizes username:
   name = name.toLowerCase().replace(/\b\w{3,}/g, function (l) {
@@ -223,11 +222,20 @@ const Dashboard = ({ match }) => {
             <ListItem
               button
               button
-              onClick={() => setTool("favorites")}
-              key={"Favorites"}
+              onClick={() => setTool('favorites')}
+              key={'Favorites'}
             >
-              <ListItemIcon>{<StarIcon color="secondary" />}</ListItemIcon>
-              <ListItemText primary={"Favorites"} />
+              <ListItemIcon>{<StarIcon color='secondary' />}</ListItemIcon>
+              <ListItemText primary={'Favorites'} />
+            </ListItem>
+            <ListItem
+              button
+              button
+              onClick={() => setTool('conversations')}
+              key={'Conversations'}
+            >
+              <ListItemIcon>{<HistoryIcon color='secondary' />}</ListItemIcon>
+              <ListItemText primary={'Conversations'} />
             </ListItem>
             <ListItem
               button
@@ -256,9 +264,10 @@ const Dashboard = ({ match }) => {
                   socket={socket}
                 />
               )}
-              {tool === "dictionary" && <Dictionary />}
-              {tool === "translation" && <Translation />}
-              {tool === "favorites" && <Favorites />}
+              {tool === 'dictionary' && <Dictionary />}
+              {tool === 'translation' && <Translation />}
+              {tool === 'favorites' && <Favorites />}
+              {tool === 'conversations' && <Conversations socket={socket} />}
             </Paper>
           </Grid>
           <Divider orientation='vertical' />
@@ -269,7 +278,7 @@ const Dashboard = ({ match }) => {
               style={{ backgroundColor: '#3caea3' }}
             >
               {/* <div className={classes.toolbar} /> */}
-              <Chat name={name} room={room} socket={socket}/>
+              <Chat name={name} room={room} socket={socket} />
             </Paper>
           </Grid>
         </Grid>

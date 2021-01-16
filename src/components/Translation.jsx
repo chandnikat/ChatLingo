@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Axios from "axios";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from 'react';
+import Axios from 'axios';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
   TextField,
@@ -13,63 +13,63 @@ import {
   Select,
   FormControl,
   InputLabel,
-} from "@material-ui/core";
-import StarIcon from "@material-ui/icons/Star";
+} from '@material-ui/core';
+import StarIcon from '@material-ui/icons/Star';
 
 const useStyles = makeStyles((theme) => ({
   translateSection: {
-    width: "100%",
-    height: "83vh",
+    width: '100%',
+    height: '83vh',
   },
 
   titleBox: {
-    color: "#40637E",
-    fontWeight: "bold",
-    fontSize: "25px",
+    color: '#40637E',
+    fontWeight: 'bold',
+    fontSize: '25px',
   },
   translate: {
-    color: "#40637E",
-    fontWeight: "bold",
-    fontSize: "20px",
-    paddingTop: "7px",
-    paddingBottom: "7px",
+    color: '#40637E',
+    fontWeight: 'bold',
+    fontSize: '20px',
+    paddingTop: '7px',
+    paddingBottom: '7px',
   },
   form: {
-    width: "100%",
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   formControl: {
     margin: theme.spacing(2),
   },
   source: {
-    color: "#3caea3",
-    fontWeight: "bold",
-    fontSize: "16px",
-    paddingTop: "20px",
+    color: '#3caea3',
+    fontWeight: 'bold',
+    fontSize: '16px',
+    paddingTop: '20px',
   },
 }));
 
 const Translation = () => {
   const classes = useStyles();
-  let [search, setSearch] = useState("");
-  let [searchCopy, setSearchCopy] = useState("");
-  const [sourceLang, setSourceLang] = useState("");
-  const [targetLang, setTargetLang] = useState("");
+  let [search, setSearch] = useState('');
+  let [searchCopy, setSearchCopy] = useState('');
+  const [sourceLang, setSourceLang] = useState('');
+  const [targetLang, setTargetLang] = useState('');
   const [translation, setTranslation] = useState(null);
-  const [startLang, setStartLang] = useState("");
-  const [endLang, setEndLang] = useState("");
+  const [startLang, setStartLang] = useState('');
+  const [endLang, setEndLang] = useState('');
 
   const languageTermStart = () => {
-    if (sourceLang === "fr") setStartLang("French");
-    if (sourceLang === "en") setStartLang("English");
-    if (sourceLang === "es") setStartLang("Spanish");
-    if (sourceLang === "de") setStartLang("German");
+    if (sourceLang === 'fr') setStartLang('French');
+    if (sourceLang === 'en') setStartLang('English');
+    if (sourceLang === 'es') setStartLang('Spanish');
+    if (sourceLang === 'de') setStartLang('German');
   };
   const languageTermEnd = () => {
-    if (targetLang === "en") setEndLang("English");
-    if (targetLang === "fr") setEndLang("French");
-    if (targetLang === "es") setEndLang("Spanish");
-    if (targetLang === "de") setEndLang("German");
+    if (targetLang === 'en') setEndLang('English');
+    if (targetLang === 'fr') setEndLang('French');
+    if (targetLang === 'es') setEndLang('Spanish');
+    if (targetLang === 'de') setEndLang('German');
   };
 
   search = search.toLowerCase();
@@ -83,13 +83,13 @@ const Translation = () => {
   const handleSubmitTranslation = async (e) => {
     e.preventDefault();
 
-    let token = localStorage.getItem("currentUser");
+    let token = localStorage.getItem('currentUser');
     const body = { search, sourceLang, targetLang };
     // console.log("TRANSLATION BODY->", body);
     try {
-      const response = await Axios.post("/translate", body, {
+      const response = await Axios.post('/translate', body, {
         headers: {
-          "Content-Type": "Application/JSON",
+          'Content-Type': 'Application/JSON',
           Authorization: `${token}`,
         },
       });
@@ -97,27 +97,27 @@ const Translation = () => {
       setTranslation(data);
       languageTermStart();
       languageTermEnd();
-      setSearch("");
+      setSearch('');
     } catch (err) {
       console.log(`Catch block, POST error on /translate: ${err}`);
     }
   };
 
   const handleSaveTranslation = async (e) => {
-    let token = localStorage.getItem("currentUser");
+    let token = localStorage.getItem('currentUser');
     const body = { vocab: searchCopy, sl: startLang, tl: endLang, translation };
     try {
-      let response = await Axios.post("/history/saveTranslation", body, {
+      let response = await Axios.post('/history/saveTranslation', body, {
         headers: {
-          "Content-Type": "Application/JSON",
+          'Content-Type': 'Application/JSON',
           Authorization: `${token}`,
         },
       });
       response = JSON.stringify(response.data);
-      console.log("handleSaveDictionary response ->", response);
+      console.log('handleSaveDictionary response ->', response);
     } catch (err) {
       console.log(
-        `Catch block, POST error on /history/saveTranslation: ${err}`
+        `Catch block, POST error on /history/saveTranslation: ${err}`,
       );
     }
   };
@@ -131,15 +131,15 @@ const Translation = () => {
               <Typography className={classes.titleBox}>Translation</Typography>
             </ListItem>
             <Divider />
-            <ListItem style={{ paddingTop: "20px" }} alignItems="center">
+            <ListItem style={{ paddingTop: '20px' }} alignItems='center'>
               <form className={classes.form} onSubmit={handleSubmitTranslation}>
                 <TextField
-                  variant="outlined"
-                  margin="normal"
+                  variant='outlined'
+                  margin='normal'
                   fullWidth
-                  id="translation"
-                  label="Word/Phrase"
-                  name="translation"
+                  id='translation'
+                  label='Word/Phrase'
+                  name='translation'
                   autoFocus
                   value={search}
                   onChange={handleVocab}
@@ -147,9 +147,14 @@ const Translation = () => {
                   multiline
                 />
 
-                <ListItem>
+                <Grid
+                  container
+                  direction='column'
+                  justify='flex-start'
+                  alignItems='center'
+                >
                   <FormControl
-                    variant="outlined"
+                    variant='outlined'
                     className={classes.formControl}
                   >
                     <InputLabel>Source</InputLabel>
@@ -158,28 +163,28 @@ const Translation = () => {
                       value={sourceLang}
                       onChange={(e) => setSourceLang(e.target.value)}
                       fullWidth
-                      label="from"
+                      label='from'
                     >
-                      <option aria-label="None" value="" />
-                      <option value={"en"} name="English">
+                      <option aria-label='None' value='' />
+                      <option value={'en'} name='English'>
                         English
                       </option>
-                      <option value={"es"} name="Spanish">
+                      <option value={'es'} name='Spanish'>
                         Spanish
                       </option>
-                      <option value={"fr"} name="French">
+                      <option value={'fr'} name='French'>
                         French
                       </option>
-                      <option value={"de"} name="German">
+                      <option value={'de'} name='German'>
                         German
                       </option>
                     </Select>
                   </FormControl>
-                  <Typography style={{ color: "#40637E", fontWeight: "bold" }}>
+                  <Typography style={{ color: '#40637E', fontWeight: 'bold' }}>
                     To
                   </Typography>
                   <FormControl
-                    variant="outlined"
+                    variant='outlined'
                     className={classes.formControl}
                   >
                     <InputLabel>Target</InputLabel>
@@ -188,30 +193,30 @@ const Translation = () => {
                       value={targetLang}
                       onChange={(e) => setTargetLang(e.target.value)}
                       fullWidth
-                      label="from"
+                      label='from'
                     >
-                      <option aria-label="None" value="" />
-                      <option value={"en"} name="English">
+                      <option aria-label='None' value='' />
+                      <option value={'en'} name='English'>
                         English
                       </option>
-                      <option value={"es"} name="Spanish">
+                      <option value={'es'} name='Spanish'>
                         Spanish
                       </option>
-                      <option value={"fr"} name="French">
+                      <option value={'fr'} name='French'>
                         French
                       </option>
-                      <option value={"de"} name="German">
+                      <option value={'de'} name='German'>
                         German
                       </option>
                     </Select>
                   </FormControl>
-                </ListItem>
+                </Grid>
                 <Button
                   fullWidth
-                  variant="contained"
-                  color="primary"
-                  style={{ fontWeight: "700" }}
-                  type="submit"
+                  variant='contained'
+                  color='primary'
+                  style={{ fontWeight: '700' }}
+                  type='submit'
                 >
                   Translate
                 </Button>
@@ -230,16 +235,16 @@ const Translation = () => {
                       {translation}
                     </Typography>
                     <ListItem
-                      style={{ justifyContent: "center", paddingTop: "7px" }}
+                      style={{ justifyContent: 'center', paddingTop: '7px' }}
                     >
                       <Button
-                        variant="contained"
-                        color="secondary"
-                        style={{ fontWeight: "700" }}
-                        type="submit"
+                        variant='contained'
+                        color='secondary'
+                        style={{ fontWeight: '700' }}
+                        type='submit'
                         onClick={(e) => handleSaveTranslation()}
                       >
-                        <StarIcon style={{ paddingRight: "5px" }} />
+                        <StarIcon style={{ paddingRight: '5px' }} />
                         Favorite
                       </Button>
                     </ListItem>
