@@ -16,19 +16,13 @@ const useStyles = makeStyles({
   userText: {
     backgroundColor: "#40637E",
     color: "white",
-    paddingLeft: "10px",
-    paddingRight: "10px",
+    padding: "5px 10px",
     borderRadius: "10px",
-    paddingTop: "5px",
-    paddingBottom: "5px",
   },
   nonUserText: {
     backgroundColor: "#ebebeb",
-    paddingLeft: "10px",
-    paddingRight: "10px",
+    padding: "5px 10px",
     borderRadius: "10px",
-    paddingTop: "5px",
-    paddingBottom: "5px",
   },
 });
 
