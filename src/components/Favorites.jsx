@@ -86,6 +86,49 @@ const Favorites = ({ room }) => {
     }
   }, []);
 
+  const handleDeleteDictionary = async (word) => {
+    let token = localStorage.getItem("currentUser");
+    const body = {word: word}
+    console.log(body)
+    try {
+      let response = await Axios.delete("/history/deleteDefinition",  {
+        headers: {
+          "Content-Type": "Application/JSON",
+          Authorization: `${token}`,
+        },
+        data : {
+          body
+        }
+      });
+      response = JSON.stringify(response.data);
+      console.log(response)
+    } catch (err) {
+      console.log(`Catch block, POST error on /history/deleteDefinition: ${err}`);
+    }
+  };
+
+  const handleDeleteTranslation = async (word) => {
+    let token = localStorage.getItem("currentUser");
+    const body = {word: word}
+    console.log(body)
+    try {
+      let response = await Axios.delete("/history/deleteDefinition",  {
+        headers: {
+          "Content-Type": "Application/JSON",
+          Authorization: `${token}`,
+        },
+        data : {
+          body
+        }
+      });
+      response = JSON.stringify(response.data);
+      console.log(response)
+    } catch (err) {
+      console.log(`Catch block, POST error on /history/deleteDefinition: ${err}`);
+    }
+  };
+
+
   return (
     <div>
       <Grid container component={Paper} className={classes.dictionarySection}>
@@ -136,6 +179,7 @@ const Favorites = ({ room }) => {
                     </ListItemText>
                     <DeleteOutlineIcon
                       style={{ padding: "2px", color: "#40637E" }}
+                      // onClick={(e) => handleDeleteTranslation(vocab.word)}
                     />
                   </ListItem>
                 ))}
@@ -181,6 +225,7 @@ const Favorites = ({ room }) => {
                     </ListItemText>
                     <DeleteOutlineIcon
                       style={{ padding: "2px", color: "#40637E" }}
+                      onClick={(e) => handleDeleteDictionary(vocab.word)}
                     />
                   </ListItem>
                 ))}
