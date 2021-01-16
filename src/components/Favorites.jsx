@@ -105,8 +105,7 @@ const Favorites = ({ room }) => {
       });
       response = JSON.stringify(response.data);
       console.log(response);
-
-      setTranslationArray(translationArray.filter((item) => item !== body.word));
+      setDefinitionArray(definitionArray.filter((item) => item !== body.word));
       setToggle(true);
     } catch (err) {
       console.log(
@@ -131,7 +130,7 @@ const Favorites = ({ room }) => {
       response = JSON.stringify(response.data);
       console.log(response);
 
-      setDefinitionArray(definitionArray.filter((item) => item !== body.word));
+      setTranslationArray(translationArray.filter((item) => item !== body.word));
       setToggle(true);
     } catch (err) {
       console.log(
