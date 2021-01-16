@@ -14,7 +14,6 @@ CREATE TABLE "SavedConversations" (
 	"chatroom_id" serial NOT NULL,
 	"messages" varchar ARRAY NOT NULL,
 	"participants" varchar ARRAY NOT NULL,
-	"conversation_id" varchar(255) NOT NULL,
 	"language" varchar(255) NOT NULL,
 	"user_id" uuid NOT NULL
 ) WITH (
@@ -44,7 +43,7 @@ CREATE TABLE "SavedTranslations" (
 
 
 CREATE TABLE "SavedDefinitions" (
-	"word" varchar(255) NOT NULL,
+	"word" varchar(255) NOT NULL UNIQUE,
 	"definition" varchar(255) NOT NULL,
 	"part_of_speech" varchar(255) NOT NULL,
 	"user_id" uuid NOT NULL

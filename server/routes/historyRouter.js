@@ -14,6 +14,15 @@ router.get(
   }
 );
 
+router.post('/saveDefinition', authController.verifyJWT, historyController.saveDefinition, (req, res, next) => {
+  return res.status(200).json('Definition saved!');
+}
+);
+
+router.delete('/deleteDefinition', authController.verifyJWT, historyController.deleteDefinition, (req, res, next) => {
+  return res.status(200).json('Definition deleted!')
+})
+
 router.get(
   '/getAllTranslations',
   authController.verifyJWT,
@@ -28,13 +37,30 @@ router.post(
   authController.verifyJWT,
   historyController.saveTranslation,
   (req, res, next) => {
-    return res.status(200).json('translation saved!');
+    return res.status(200).json('Translation saved!');
   }
 );
 
-router.post('/saveDefinition', authController.verifyJWT, historyController.saveDefinition, (req, res, next) => {
-  return res.status(200).json('definition saved!');
-})
+
+router.get(
+  '/getAllConversations',
+  authController.verifyJWT,
+  historyController.getAllConversations,
+  (req, res, next) => {
+    return res.status(200).json(res.locals.conversations);
+  }
+);
+
+router.post(
+  '/saveConversation',
+  authController.verifyJWT,
+  historyController.saveConversation,
+  (req, res, next) => {
+    return res.status(200).json('Conversation saved!');
+  }
+);
+
+
 
 
 module.exports = router;
