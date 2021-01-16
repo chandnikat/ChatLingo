@@ -15,9 +15,6 @@ import {
 } from '@material-ui/core';
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 660,
-  },
   chatSection: {
     width: '100%',
     height: '83vh',
@@ -65,7 +62,8 @@ const Chat = ({ name, room, socket}) => {
           </List>
         </Grid>
         {/* <Grid container direction="column"> */}
-        <Grid item xs={9} className={classes.messageArea}>
+        <Grid item xs={9} >
+          <Grid item className={classes.messageArea}>
           <Messages
             // style={{ height: '25vh' }}
             messages={messages}
@@ -74,15 +72,15 @@ const Chat = ({ name, room, socket}) => {
           />
         </Grid>
 
-        <Grid item xs={12}>
           <Divider />
+        <Grid item >
           <InputBox
             // style={{ height: '15vh' }}
             sendNewMessage={sendNewMessage}
             sendTypingMsg={sendTypingMsg}
           />
         </Grid>
-        {/* </Grid> */}
+        </Grid>
       </Grid>
     </div>
   );
