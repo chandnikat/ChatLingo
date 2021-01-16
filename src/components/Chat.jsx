@@ -44,6 +44,7 @@ const Chat = ({ name, room, socket}) => {
   const classes = useStyles();
   const {messages, typeMsg, sendNewMessage, sendTypingMsg} = socket
 
+ 
   return (
     <div>
       <Grid container component={Paper} className={classes.chatSection}>

@@ -33,7 +33,10 @@ const Message = ({ message, name }) => {
   //     <p className='sentTextUser pl'>{message.name}</p>
   //   </div>
   // );
-  return message.name === name ? (
+
+  console.log("MESSAGE.NAME in MESSAGE", message.name)
+  console.log("NAME in MESSAGE", name)
+  return message.name === name.toLowerCase() ? (
     <List className={classes.messageArea}>
       <ListItem key="1">
         <Grid container>
