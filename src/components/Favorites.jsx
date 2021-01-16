@@ -89,11 +89,10 @@ const Favorites = ({ room }) => {
         `Catch block, GET error on /history/getAllDefinitions: ${err}`
       );
     }
-  }, []);
+  }, [toggle]);
 
   const handleDeleteDictionary = async (word) => {
     let token = localStorage.getItem("currentUser");
-    console.log("DELETEDICTIONARY TOKEN", token);
     const body = { word };
     console.log(body);
     try {
@@ -107,34 +106,36 @@ const Favorites = ({ room }) => {
       response = JSON.stringify(response.data);
       console.log(response);
 
-      setDefinitionArray(definitionArray.filter((item) => item !== body.word));
+      setTranslationArray(translationArray.filter((item) => item !== body.word));
       setToggle(true);
     } catch (err) {
       console.log(
-        `Catch block, POST error on /history/deleteDefinition: ${err}`
+        `Catch block, DELETE error on /history/deleteDefinition: ${err}`
       );
     }
   };
 
   const handleDeleteTranslation = async (word) => {
     let token = localStorage.getItem("currentUser");
-    const body = { word: word };
+   
+    const body = { word };
     console.log(body);
     try {
-      let response = await Axios.delete("/history/deleteDefinition", {
+      let response = await Axios.delete("/history/deleteTranslation", {
         headers: {
           "Content-Type": "Application/JSON",
           Authorization: `${token}`,
         },
-        data: {
-          body,
-        },
+        data: body,
       });
       response = JSON.stringify(response.data);
       console.log(response);
+
+      setDefinitionArray(definitionArray.filter((item) => item !== body.word));
+      setToggle(true);
     } catch (err) {
       console.log(
-        `Catch block, POST error on /history/deleteDefinition: ${err}`
+        `Catch block, DELETE error on /history/deleteTranslation: ${err}`
       );
     }
   };
