@@ -51,13 +51,14 @@ const Favorites = ({ room }) => {
   useEffect(async () => {
     let token = localStorage.getItem("currentUser");
     try {
-      const defintionResponse = await Axios.get("/history/getAllDefinitions", {
+      const response = await Axios.get("/history/getAllDefinitions", {
         headers: {
           "Content-Type": "Application/JSON",
           Authorization: `${token}`,
         },
       });
-      const data = defintionResponse.data;
+      const data = response.data.reverse();
+      console.log("DICTIONARY DATA", data)
       setDefinitionArray(data);
     } catch (err) {
       console.log(
@@ -69,6 +70,7 @@ const Favorites = ({ room }) => {
   //GET all translation useEffect:
   useEffect(async () => {
     let token = localStorage.getItem("currentUser");
+    console.log("USEEFFECT TOKEN", token)
     try {
       const response = await Axios.get("/history/getAllTranslations", {
         headers: {
@@ -76,7 +78,7 @@ const Favorites = ({ room }) => {
           Authorization: `${token}`,
         },
       });
-      const data = response.data;
+      const data = response.data.reverse(); 
       // console.log("DATA Trans->", data)
       setTranslationArray(data);
     } catch (err) {
@@ -88,6 +90,7 @@ const Favorites = ({ room }) => {
 
   const handleDeleteDictionary = async (word) => {
     let token = localStorage.getItem("currentUser");
+    console.log("DELETEDICTIONARY TOKEN", token)
     const body = {word: word}
     console.log(body)
     try {
