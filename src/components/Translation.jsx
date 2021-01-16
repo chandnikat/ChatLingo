@@ -10,10 +10,10 @@ import {
   Typography,
   List,
   ListItem,
+  Select,
+  FormControl,
+  InputLabel,
 } from "@material-ui/core";
-import InputLabel from "@material-ui/core/InputLabel";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import StarIcon from "@material-ui/icons/Star";
 
 const useStyles = makeStyles((theme) => ({
@@ -105,19 +105,22 @@ const Translation = () => {
 
   const handleSaveTranslation = async (e) => {
     let token = localStorage.getItem("currentUser");
-    const body = { vocab: searchCopy, sl: startLang, tl: endLang, translation}
+    const body = { vocab: searchCopy, sl: startLang, tl: endLang, translation };
     try {
       let response = await Axios.post("/history/saveTranslation", body, {
         headers: {
-          'Content-Type': 'Application/JSON', 'Authorization': `${token}`,
-          } 
+          "Content-Type": "Application/JSON",
+          Authorization: `${token}`,
+        },
       });
       response = JSON.stringify(response.data);
-      console.log("handleSaveDictionary response ->", response)
+      console.log("handleSaveDictionary response ->", response);
     } catch (err) {
-      console.log(`Catch block, POST error on /history/saveTranslation: ${err}`);
+      console.log(
+        `Catch block, POST error on /history/saveTranslation: ${err}`
+      );
     }
-  }
+  };
 
   return (
     <div>
@@ -234,7 +237,7 @@ const Translation = () => {
                         color="secondary"
                         style={{ fontWeight: "700" }}
                         type="submit"
-                        onClick={(e)=> handleSaveTranslation()}
+                        onClick={(e) => handleSaveTranslation()}
                       >
                         <StarIcon style={{ paddingRight: "5px" }} />
                         Favorite

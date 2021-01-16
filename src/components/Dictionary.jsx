@@ -10,6 +10,7 @@ import {
   Typography,
   List,
   ListItem,
+  Alert,
 } from "@material-ui/core";
 import StarIcon from "@material-ui/icons/Star";
 
@@ -49,6 +50,7 @@ const Dictionary = ({ name, room }) => {
   const [definition, setDefinition] = useState(null);
   const [partOfSpeech, setPartOfSpeech] = useState(null);
   let [word, setWord] = useState("");
+  const [add, setAdd] = useState(false);
 
   //Capitalizes word:
   word = word.toLowerCase().replace(/\b\w{3,}/g, function (l) {
@@ -91,21 +93,21 @@ const Dictionary = ({ name, room }) => {
 
   const handleSaveDictionary = async (e) => {
     let token = localStorage.getItem("currentUser");
-    const body = { word, definition, partOfSpeech}
+    const body = { word, definition, partOfSpeech };
     try {
       let response = await Axios.post("/history/saveDefinition", body, {
         headers: {
-          'Content-Type': 'Application/JSON', 'Authorization': `${token}`,
-          } 
+          "Content-Type": "Application/JSON",
+          Authorization: `${token}`,
+        },
       });
       response = JSON.stringify(response.data);
-      // console.log("handleSaveDictionary response ->", response)
     } catch (err) {
       console.log(`Catch block, POST error on /history/saveDefinition: ${err}`);
     }
-  }
+  };
 
-
+  console.log("ADD", add);
 
   return (
     <div>
@@ -116,6 +118,7 @@ const Dictionary = ({ name, room }) => {
               <Typography className={classes.titleBox}>Dictionary</Typography>
             </ListItem>
             <Divider />
+
             <ListItem style={{ paddingTop: "20px" }} alignItems="center">
               <form className={classes.form} onSubmit={handleSubmitVocab}>
                 <TextField
@@ -153,13 +156,14 @@ const Dictionary = ({ name, room }) => {
                       color="secondary"
                       style={{ fontWeight: "700" }}
                       type="submit"
-                      onClick={(e)=> handleSaveDictionary()}
+                      onClick={(e) => handleSaveDictionary()}
                     >
                       <StarIcon style={{ paddingRight: "5px" }} />
                       Favorite
                     </Button>
                   </ListItem>
                 ) : null}
+                {/* {add && (<Alert severity="success">Added!</Alert>)} */}
               </form>
             </ListItem>
           </List>
