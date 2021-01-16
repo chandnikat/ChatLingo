@@ -50,7 +50,7 @@ const Dictionary = ({ name, room }) => {
   const [definition, setDefinition] = useState(null);
   const [partOfSpeech, setPartOfSpeech] = useState(null);
   let [word, setWord] = useState("");
-  const [add, setAdd] = useState(false);
+  // const [add, setAdd] = useState(false);
 
 
 
@@ -109,7 +109,7 @@ const Dictionary = ({ name, room }) => {
     }
   };
 
-  console.log("ADD", add);
+
 
   return (
     <div>
