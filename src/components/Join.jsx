@@ -45,6 +45,7 @@ const Join = ({ handleRoomNameChange, socket }) => {
           {Chatrooms.map((room, idx) => (
             <ListItem
               button
+              style={{padding: "15px" }}
               key={`room-${idx}`}
               onClick={(e) => handleRoomNameChange(room.roomName)}
             >
@@ -54,6 +55,7 @@ const Join = ({ handleRoomNameChange, socket }) => {
                     vertical: "bottom",
                     horizontal: "right",
                   }}
+      
                   badgeContent={
                     usersCountByRoom.length > 0
                       ? usersCountByRoom.find(
