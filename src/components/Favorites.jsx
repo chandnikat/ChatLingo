@@ -12,7 +12,7 @@ import {
   ListSubheader,
 } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import { ToggleButtonGroup } from "@material-ui/lab";
+
 
 const useStyles = makeStyles((theme) => ({
   dictionarySection: {
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Favorites = ({ room }) => {
+const Favorites = ({name, room }) => {
   const classes = useStyles();
   const [definitionArray, setDefinitionArray] = useState([]);
   const [translationArray, setTranslationArray] = useState([]);
@@ -51,7 +51,7 @@ const Favorites = ({ room }) => {
 
   //GET all definition useEffect:
   useEffect(async () => {
-    let token = localStorage.getItem("currentUser");
+    let token = localStorage.getItem(name);
     try {
       const response = await Axios.get("/history/getAllDefinitions", {
         headers: {
@@ -71,7 +71,7 @@ const Favorites = ({ room }) => {
 
   //GET all translation useEffect:
   useEffect(async () => {
-    let token = localStorage.getItem("currentUser");
+    let token = localStorage.getItem(name);
     console.log("USEEFFECT TOKEN", token);
     try {
       const response = await Axios.get("/history/getAllTranslations", {
@@ -92,7 +92,7 @@ const Favorites = ({ room }) => {
   }, [toggle]);
 
   const handleDeleteDictionary = async (word) => {
-    let token = localStorage.getItem("currentUser");
+    let token = localStorage.getItem( name);
     const body = { word };
     console.log(body);
     try {
@@ -115,7 +115,7 @@ const Favorites = ({ room }) => {
   };
 
   const handleDeleteTranslation = async (word, language_to, language_from) => {
-    let token = localStorage.getItem("currentUser");
+    let token = localStorage.getItem( name);
 
     const body = { word, language_to, language_from };
     console.log(body);
@@ -186,7 +186,10 @@ const Favorites = ({ room }) => {
                         <span style={{ color: "#40637E", fontWeight: "bold" }}>
                           {phrase.language_from}:
                         </span>{" "}
-                        {phrase.word}
+                        {phrase.word.toLowerCase()
+                            .replace(/\b\w{3,}/g, function (l) {
+                              return l.charAt(0).toUpperCase() + l.slice(1);
+                            })}
                       </Typography>
                       <Typography style={{ fontSize: "13px" }}>
                         <span style={{ color: "#40637E", fontWeight: "bold" }}>

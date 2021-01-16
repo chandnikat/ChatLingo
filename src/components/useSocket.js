@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 let socket;
 const endpoint = 'localhost:8080';
 
-const useSocket = (name, room) => {
+const useSocket = (name, room, toUpperFirst) => {
   const [messages, setMessages] = useState([]);
   const [typeMsg, setTypeMsg] = useState(``);
   const [usersCountByRoom, setUsersCountByRoom] = useState([]);
@@ -20,6 +20,7 @@ const useSocket = (name, room) => {
 
     // Listens for incoming messages
     socket.on('message', message => {
+      message.text = toUpperFirst(message.text);
       setMessages(messages => [...messages, message]);
     });
 
@@ -28,7 +29,7 @@ const useSocket = (name, room) => {
 
       setTimeout(() => {
         setTypeMsg('');
-      }, 1000);
+      }, 750);
     });
 
     socket.on('getAllRooms', activeUsers => {

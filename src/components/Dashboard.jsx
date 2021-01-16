@@ -126,9 +126,11 @@ const Dashboard = ({ match }) => {
   const socket = useSocket(name, room);
 
   //Capitalizes username:
-  name = name.toLowerCase().replace(/\b\w{3,}/g, function (l) {
-    return l.charAt(0).toUpperCase() + l.slice(1);
-  });
+  const toUpperFirst = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  const socket = useSocket(name, room, toUpperFirst);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -141,6 +143,8 @@ const Dashboard = ({ match }) => {
   const handleRoomNameChange = (input) => {
     setRoom(input);
   };
+
+  name = toUpperFirst(name);
 
   return (
     <div className={classes.root}>
@@ -170,7 +174,7 @@ const Dashboard = ({ match }) => {
             </Typography>
             <Link to='/' style={{ textDecoration: 'none' }}>
               <Button
-                onClick={() => localStorage.removeItem('currentUser')}
+                onClick={() => localStorage.removeItem(name)}
                 color='inherit'
                 className={classes.menuButton}
               >
@@ -264,10 +268,12 @@ const Dashboard = ({ match }) => {
                   socket={socket}
                 />
               )}
-              {tool === 'dictionary' && <Dictionary />}
-              {tool === 'translation' && <Translation />}
-              {tool === 'favorites' && <Favorites />}
               {tool === 'conversations' && <Conversations socket={socket} />}
+              {tool === 'dictionary' && (
+                <Dictionary name={name} toUpperFirst={toUpperFirst} />
+              )}
+              {tool === 'translation' && <Translation name={name} />}
+              {tool === 'favorites' && <Favorites name={name} />}
             </Paper>
           </Grid>
           <Divider orientation='vertical' />
@@ -278,7 +284,12 @@ const Dashboard = ({ match }) => {
               style={{ backgroundColor: '#3caea3' }}
             >
               {/* <div className={classes.toolbar} /> */}
-              <Chat name={name} room={room} socket={socket} />
+              <Chat
+                name={name}
+                room={room}
+                socket={socket}
+                toUpperFirst={toUpperFirst}
+              />
             </Paper>
           </Grid>
         </Grid>

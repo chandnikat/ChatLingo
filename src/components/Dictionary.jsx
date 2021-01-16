@@ -55,9 +55,7 @@ const Dictionary = ({ name, room }) => {
 
 
   //Capitalizes word:
-  word = word.toLowerCase().replace(/\b\w{3,}/g, function (l) {
-    return l.charAt(0).toUpperCase() + l.slice(1);
-  });
+  word = word.charAt(0).toUpperCase() + word.slice(1);
 
   // React Hooks Functions
   const handleVocab = (e) => {
@@ -68,7 +66,7 @@ const Dictionary = ({ name, room }) => {
   const handleSubmitVocab = async (e) => {
     e.preventDefault(); //Prevents hot reload upon submit
     //add token
-    let token = localStorage.getItem("currentUser");
+    let token = localStorage.getItem(name);
     console.log("token", token);
 
     const currSearch = e.target[0].value;
@@ -94,15 +92,17 @@ const Dictionary = ({ name, room }) => {
   };
 
   const handleSaveDictionary = async (e) => {
-    let token = localStorage.getItem("currentUser");
+    let token = localStorage.getItem(name); 
     const body = { word, definition, partOfSpeech };
     try {
+      console.log('INSIDE SAVE DEFINITION')
       let response = await Axios.post("/history/saveDefinition", body, {
         headers: {
           "Content-Type": "Application/JSON",
           Authorization: `${token}`,
         },
       });
+      console.log('RESPONSE  ->  ', response.data);
       response = JSON.stringify(response.data);
     } catch (err) {
       console.log(`Catch block, POST error on /history/saveDefinition: ${err}`);
