@@ -33,7 +33,6 @@ import Translation from "./Translation";
 import Favorites from "./Favorites";
 import Chat from "./Chat";
 import theme1 from "../styles/theme.js";
-import { Favorite } from "@material-ui/icons";
 import useSocket from "./useSocket";
 
 

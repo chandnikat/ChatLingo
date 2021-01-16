@@ -12,39 +12,38 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
   chatSection: {
-    width: '100%',
-    height: '83vh',
+    width: "100%",
+    height: "83vh",
   },
   headBG: {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: "#e0e0e0",
   },
   borderRight500: {
-    borderRight: '1px solid #e0e0e0',
+    borderRight: "1px solid #e0e0e0",
   },
   messageArea: {
-    height: '72vh',
-    overflowY: 'auto',
+    height: "72vh",
+    overflowY: "auto",
   },
   roomBox: {
-    color: '#40637E',
-    fontWeight: 'bold',
-    fontSize: '25px',
+    color: "#40637E",
+    fontWeight: "bold",
+    fontSize: "25px",
   },
   avatar: {
-    color: '#fff',
-    backgroundColor: '#40637E',
+    color: "#fff",
+    backgroundColor: "#40637E",
   },
 });
 
-const Chat = ({ name, room, socket}) => {
+const Chat = ({ name, room, socket }) => {
   const classes = useStyles();
-  const {messages, typeMsg, sendNewMessage, sendTypingMsg} = socket
+  const { messages, typeMsg, sendNewMessage, sendTypingMsg } = socket;
 
- 
   return (
     <div>
       <Grid container component={Paper} className={classes.chatSection}>
@@ -62,25 +61,19 @@ const Chat = ({ name, room, socket}) => {
             </ListItem>
           </List>
         </Grid>
-        {/* <Grid container direction="column"> */}
-        <Grid item xs={9} >
+
+        <Grid item xs={9}>
           <Grid item className={classes.messageArea}>
-          <Messages
-            // style={{ height: '25vh' }}
-            messages={messages}
-            name={name}
-            typeMsg={typeMsg}
-          />
-        </Grid>
+            <Messages messages={messages} name={name} typeMsg={typeMsg} />
+          </Grid>
 
           <Divider />
-        <Grid item >
-          <InputBox
-            // style={{ height: '15vh' }}
-            sendNewMessage={sendNewMessage}
-            sendTypingMsg={sendTypingMsg}
-          />
-        </Grid>
+          <Grid item>
+            <InputBox
+              sendNewMessage={sendNewMessage}
+              sendTypingMsg={sendTypingMsg}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </div>

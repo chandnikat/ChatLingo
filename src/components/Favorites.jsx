@@ -12,7 +12,7 @@ import {
   ListSubheader,
 } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import { ToggleButtonGroup } from "@material-ui/lab";
+
 
 const useStyles = makeStyles((theme) => ({
   dictionarySection: {
@@ -186,7 +186,10 @@ const Favorites = ({ room }) => {
                         <span style={{ color: "#40637E", fontWeight: "bold" }}>
                           {phrase.language_from}:
                         </span>{" "}
-                        {phrase.word}
+                        {phrase.word.toLowerCase()
+                            .replace(/\b\w{3,}/g, function (l) {
+                              return l.charAt(0).toUpperCase() + l.slice(1);
+                            })}
                       </Typography>
                       <Typography style={{ fontSize: "13px" }}>
                         <span style={{ color: "#40637E", fontWeight: "bold" }}>
