@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Chat = ({ name, room, socket }) => {
+const Chat = ({ name, room, socket, toUpperFirst }) => {
   const classes = useStyles();
   const { messages, typeMsg, sendNewMessage, sendTypingMsg } = socket;
 
@@ -64,7 +64,7 @@ const Chat = ({ name, room, socket }) => {
 
         <Grid item xs={9}>
           <Grid item className={classes.messageArea}>
-            <Messages messages={messages} name={name} typeMsg={typeMsg} />
+            <Messages messages={messages} name={name} typeMsg={typeMsg} toUpperFirst={toUpperFirst}/>
           </Grid>
 
           <Divider />

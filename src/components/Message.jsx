@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 var date = new Date();
 var time = date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
-const Message = ({ message, name }) => {
+const Message = ({ message, name, toUpperFirst}) => {
   const classes = useStyles();
 
   return message.name === name.toLowerCase() ? (
@@ -64,7 +64,7 @@ const Message = ({ message, name }) => {
           <Grid item xs={12}>
             <ListItemText
               align="left"
-              secondary={`${message.name}- ${time}`}
+              secondary={`${toUpperFirst(message.name)}- ${time}`}
             ></ListItemText>
           </Grid>
         </Grid>
