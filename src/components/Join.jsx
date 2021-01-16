@@ -2,18 +2,14 @@ import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import SendIcon from '@material-ui/icons/Send';
 import React from 'react';
+
 import { Chatrooms } from './Chatrooms';
 
-import {
-  Paper,
-  Grid,
-  Divider,
-  Typography,
-  List,
-  ListItem,
-} from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
 
 const useStyles = makeStyles({
   joinSection: {
@@ -28,36 +24,41 @@ const useStyles = makeStyles({
   },
 });
 
-const Join = ({ name, room, handleRoomNameChange }) => {
-  const classes = useStyles();
+
+
+const Join = ({ handleRoomNameChange, socket }) => {
+  const {usersCountByRoom} = socket;
+
   return (
-    <Grid container component={Paper} className={classes.joinSection}>
-      <Grid item xs={12}>
-        <List>
-          <ListItem button>
-            <Typography className={classes.titleBox}>
-              Join a Chatroom
+    <Paper>
+      <MenuList>
+        {Chatrooms.map((room, idx) => (
+          <MenuItem
+            key={`room-${idx}`}
+            onClick={e => handleRoomNameChange(room.roomName)}
+          >
+            <ListItemIcon>
+              <Badge
+                badgeContent={usersCountByRoom.length > 0
+                  ? usersCountByRoom.find(rm => rm.roomName == room.roomName)
+                      .userCount
+                  : null}
+                color="primary"
+              >
+                <SendIcon fontSize="small" />
+              </Badge>
+            </ListItemIcon>
+            <Typography variant="inherit">
+              {room.roomName}
+              {usersCountByRoom.length > 0
+                ? usersCountByRoom.find(rm => rm.roomName == room.roomName)
+                    .userCount
+                : null}
             </Typography>
-          </ListItem>
-          <Divider />
-          <ListItem style={{ paddingTop: '20px' }} alignItems="center">
-            <MenuList>
-              {Chatrooms.map((room, idx) => (
-                <MenuItem
-                  key={`room-${idx}`}
-                  onClick={e => handleRoomNameChange(room.roomName)}
-                >
-                  <ListItemIcon>
-                    <SendIcon fontSize="small" />
-                  </ListItemIcon>
-                  <Typography variant="inherit">{room.roomName}</Typography>
-                </MenuItem>
-              ))}
-            </MenuList>
-          </ListItem>
-        </List>
-      </Grid>
-    </Grid>
+          </MenuItem>
+        ))}
+      </MenuList>
+    </Paper>
   );
 };
 

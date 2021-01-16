@@ -3,7 +3,6 @@ import ScrollToBottom from 'react-scroll-to-bottom';
 import Message from './Message';
 
 const Messages = ({ messages, name, typeMsg }) => {
-  // console.log('type-->', typeMsg);
   return (
     <ScrollToBottom className='messages'>
       {messages.map((message, i) => (

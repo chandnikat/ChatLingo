@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import clsx from 'clsx';
-import { makeStyles, useTheme, ThemeProvider } from '@material-ui/core/styles';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import clsx from "clsx";
+import { makeStyles, useTheme, ThemeProvider } from "@material-ui/core/styles";
 import {
   Drawer,
   Grid,
@@ -17,20 +17,22 @@ import {
   ListItemIcon,
   ListItemText,
   Button,
-} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import ChatIcon from '@material-ui/icons/Chat';
-import HistoryIcon from '@material-ui/icons/History';
-import LanguageIcon from '@material-ui/icons/Language';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import Join from './Join';
-import Dictionary from './Dictionary';
-import Translation from './Translation';
-import Chat from './Chat';
-import theme1 from '../styles/theme.js';
+} from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
+import ChatIcon from "@material-ui/icons/Chat";
+import HistoryIcon from "@material-ui/icons/History";
+import LanguageIcon from "@material-ui/icons/Language";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
+import Join from "./Join";
+import Dictionary from "./Dictionary";
+import Translation from "./Translation";
+import Chat from "./Chat";
+import theme1 from "../styles/theme.js";
+import useSocket from "./useSocket";
+
 
 const drawerWidth = 240;
 
@@ -116,12 +118,10 @@ const Dashboard = ({ match }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [tool, setTool] = useState('rooms');
-  const [room, setRoom] = useState('English');
+  const [tool, setTool] = useState("rooms");
+  const [room, setRoom] = useState("English");
+  const socket = useSocket(name, room);
 
-  // console.log('TOOL ->', tool);
-  // console.log('NAME ->', name);
-  // console.log('ROOMS ->', room);
 
   //Capitalizes username:
   name = name.toLowerCase().replace(/\b\w{3,}/g, function (l) {
@@ -250,6 +250,7 @@ const Dashboard = ({ match }) => {
                   name={name}
                   handleRoomNameChange={handleRoomNameChange}
                   room={room}
+                  socket={socket}
                 />
               )}
               {tool === 'dictionary' && <Dictionary />}
@@ -264,7 +265,7 @@ const Dashboard = ({ match }) => {
               style={{ backgroundColor: '#3caea3' }}
             >
               {/* <div className={classes.toolbar} /> */}
-              <Chat name={name} room={room} />
+              <Chat name={name} room={room} socket={socket}/>
             </Paper>
           </Grid>
         </Grid>
