@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import io from 'socket.io-client';
-
+​
 let socket;
 const endpoint = 'localhost:8080';
-
+​
 const useSocket = (name, room) => {
   const [messages, setMessages] = useState([]);
   const [typeMsg, setTypeMsg] = useState(``);
@@ -12,7 +12,7 @@ const useSocket = (name, room) => {
   useEffect(() => {
     console.log('useEffect fired!');
     setMessages([]);
-
+​
     // Creates a WebSocket connection
     socket = io(endpoint, {
       query: { name, room },
@@ -25,12 +25,12 @@ const useSocket = (name, room) => {
     
     socket.on('sendTypingMsg', data => {
       setTypeMsg(data);
-
+​
       setTimeout(() => {
         setTypeMsg('');
       }, 1000);
     });
-
+​
     socket.on('getAllRooms', activeUsers => {
       console.log("🚀 ~ file: useSocket.js ~ line 45 ~ useEffect ~ activeUsers", activeUsers)
       setUsersCountByRoom([...activeUsers])       
@@ -43,8 +43,8 @@ const useSocket = (name, room) => {
       socket.close();
     };
   }, [room]);
-
-
+​
+​
   // client sends a message to the server
   // Server forwards it to all users in the same room
   const sendNewMessage = newMessage => {
@@ -57,12 +57,12 @@ const useSocket = (name, room) => {
       });
     }
   };
-
+​
   const sendTypingMsg = () => {
     socket.emit('sendTypingMsg', `${name} is typing...`);
   };
-
+​
   return {messages, typeMsg, usersCountByRoom, sendNewMessage, sendTypingMsg};
 };
-
+​
 export default useSocket;
