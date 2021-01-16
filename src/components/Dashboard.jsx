@@ -126,11 +126,9 @@ const Dashboard = ({ match }) => {
   
   //Capitalizes username:
   const toUpperFirst = (string) => {
-    
-    return string.toLowerCase().replace(/\b\w{3,}/g, function (l) {
-      return l.charAt(0).toUpperCase() + l.slice(1);
-    });
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
+  
   
   const socket = useSocket(name, room, toUpperFirst);
 
@@ -176,7 +174,7 @@ const Dashboard = ({ match }) => {
             </Typography>
             <Link to='/' style={{ textDecoration: 'none' }}>
               <Button
-                onClick={() => localStorage.removeItem('currentUser')}
+                onClick={() => localStorage.removeItem(name)}
                 color='inherit'
                 className={classes.menuButton}
               >
@@ -261,9 +259,9 @@ const Dashboard = ({ match }) => {
                   socket={socket}
                 />
               )}
-              {tool === "dictionary" && <Dictionary toUpperFirst={toUpperFirst}/>}
-              {tool === "translation" && <Translation />}
-              {tool === "favorites" && <Favorites />}
+              {tool === "dictionary" && <Dictionary name={name} toUpperFirst={toUpperFirst}/>}
+              {tool === "translation" && <Translation name={name}/>}
+              {tool === "favorites" && <Favorites name={name}/>}
             </Paper>
           </Grid>
           <Divider orientation='vertical' />

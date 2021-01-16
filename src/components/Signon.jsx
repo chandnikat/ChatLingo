@@ -69,7 +69,7 @@ const Signon = ({ history }) => {
         console.log('data in sign up', data);
         //redirect to Home
         //set the token in local storage
-        localStorage.setItem('currentUser', data.token);
+        localStorage.setItem(`${(user_name.charAt(0).toUpperCase() + user_name.slice(1))}`, data.token);
         history.push(`/dashboard/${user_name}`);
       } else {
         setWarn(true);

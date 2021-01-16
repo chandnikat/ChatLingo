@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Translation = () => {
+const Translation = ({name}) => {
   const classes = useStyles();
   let [search, setSearch] = useState("");
   let [searchCopy, setSearchCopy] = useState("");
@@ -83,7 +83,7 @@ const Translation = () => {
   const handleSubmitTranslation = async (e) => {
     e.preventDefault();
 
-    let token = localStorage.getItem("currentUser");
+    let token = localStorage.getItem( name);
     const body = { search, sourceLang, targetLang };
     // console.log("TRANSLATION BODY->", body);
     try {
@@ -104,7 +104,7 @@ const Translation = () => {
   };
 
   const handleSaveTranslation = async (e) => {
-    let token = localStorage.getItem("currentUser");
+    let token = localStorage.getItem( name);
     const body = { vocab: searchCopy, sl: startLang, tl: endLang, translation };
     try {
       let response = await Axios.post("/history/saveTranslation", body, {

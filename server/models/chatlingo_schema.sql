@@ -16,6 +16,7 @@ CREATE TABLE "SavedConversations" (
 	"participants" varchar ARRAY NOT NULL,
 	"language" varchar(255) NOT NULL,
 	"user_id" uuid NOT NULL
+	"date_saved" varchar(255) NOT NULL
 ) WITH (
   OIDS=FALSE
 );
