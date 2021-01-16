@@ -15,12 +15,8 @@ const useSocket = (name, room) => {
   ]);
 
   useEffect(() => {
-<<<<<<< HEAD
     console.log('useEffect fired!');
     setMessages([]);
-=======
-    console.log('useSocket fired!');
->>>>>>> main
 
     // Creates a WebSocket connection
     socket = io(endpoint, {
