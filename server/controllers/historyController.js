@@ -51,7 +51,7 @@ historyController.deleteDefinition = (req, res, next) => {
   const { word } = req.body;
   console.log('word', word);
 
-  const deleteDefinitionQuery = `DELETE FROM "public"."SavedDefinitions" WHERE user_id = '${user_id}' AND word = '${word}' RETURNING *;`;
+  const deleteDefinitionQuery = `DELETE FROM "public"."SavedDefinitions" WHERE user_id = '${user_id}' AND word = '${word.toLowerCase()}' RETURNING *;`;
 
   db.query(deleteDefinitionQuery)
     .then(data => {

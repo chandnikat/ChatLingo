@@ -12,6 +12,7 @@ import {
   ListSubheader,
 } from "@material-ui/core";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import { ToggleButtonGroup } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   dictionarySection: {
@@ -46,6 +47,7 @@ const Favorites = ({ room }) => {
   const classes = useStyles();
   const [definitionArray, setDefinitionArray] = useState([]);
   const [translationArray, setTranslationArray] = useState([]);
+  const [toggle, setToggle]= useState(false)
 
   //GET all definition useEffect:
   useEffect(async () => {
@@ -65,7 +67,7 @@ const Favorites = ({ room }) => {
         `Catch block, GET error on /history/getAllDefinitions: ${err}`
       );
     }
-  }, []);
+  }, [toggle]);
 
   //GET all translation useEffect:
   useEffect(async () => {
@@ -81,6 +83,7 @@ const Favorites = ({ room }) => {
       const data = response.data.reverse(); 
       // console.log("DATA Trans->", data)
       setTranslationArray(data);
+      setToggle(false)
     } catch (err) {
       console.log(
         `Catch block, GET error on /history/getAllDefinitions: ${err}`
@@ -91,7 +94,7 @@ const Favorites = ({ room }) => {
   const handleDeleteDictionary = async (word) => {
     let token = localStorage.getItem("currentUser");
     console.log("DELETEDICTIONARY TOKEN", token)
-    const body = {word: word}
+    const body = {word}
     console.log(body)
     try {
       let response = await Axios.delete("/history/deleteDefinition",  {
@@ -99,12 +102,15 @@ const Favorites = ({ room }) => {
           "Content-Type": "Application/JSON",
           Authorization: `${token}`,
         },
-        data : {
+        data : 
           body
-        }
+        
       });
       response = JSON.stringify(response.data);
       console.log(response)
+
+      setDefinitionArray(definitionArray.filter(item => item !== body.word))
+      setToggle(true)
     } catch (err) {
       console.log(`Catch block, POST error on /history/deleteDefinition: ${err}`);
     }
