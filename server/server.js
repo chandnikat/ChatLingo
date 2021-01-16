@@ -130,7 +130,9 @@ io.on('connection', (socket) => {
     id: socket.id,
     name: 'Admin',
     room,
-    text: `${name}, welcome to ${room} chatroom.`,
+    text: `${name.toLowerCase().replace(/\b\w{3,}/g, function (l) {
+      return l.charAt(0).toUpperCase() + l.slice(1);
+    })}, welcome to ${room} chatroom.`,
   });
 
   socket.broadcast.emit('getAllRooms', usersCountByRoom); //all others you

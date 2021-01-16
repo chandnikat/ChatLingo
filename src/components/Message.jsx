@@ -1,10 +1,34 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, List, ListItem, ListItemText } from "@material-ui/core";
+import {
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
   messageArea: {
     overflowY: "auto",
+    paddingBottom: "0px",
+  },
+  userText: {
+    backgroundColor: "#40637E",
+    color: "white",
+    paddingLeft: "10px",
+    paddingRight: "10px",
+    borderRadius: "10px",
+    paddingTop: "5px",
+    paddingBottom: "5px",
+  },
+  nonUserText: {
+    backgroundColor: "#ebebeb",
+    paddingLeft: "10px",
+    paddingRight: "10px",
+    borderRadius: "10px",
+    paddingTop: "5px",
+    paddingBottom: "5px",
   },
 });
 
@@ -19,12 +43,15 @@ const Message = ({ message, name }) => {
       <ListItem key="1">
         <Grid container>
           <Grid item xs={12}>
-            <ListItemText align="right" primary={message.text}></ListItemText>
+            {/* <ListItemText align="right" primary={message.text} style={{color: "#40637E"}}></ListItemText> */}
+            <Typography align="right">
+              <span className={classes.userText}>{message.text}</span>
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <ListItemText
               align="right"
-              secondary={`${message.name}- ${time}`}
+              secondary={`${name}- ${time}`}
             ></ListItemText>
           </Grid>
         </Grid>
@@ -35,7 +62,10 @@ const Message = ({ message, name }) => {
       <ListItem key="2">
         <Grid container>
           <Grid item xs={12}>
-            <ListItemText align="left" primary={message.text}></ListItemText>
+            {/* <ListItemText align="left" primary={message.text} ></ListItemText> */}
+            <Typography align="left">
+              <span className={classes.nonUserText}>{message.text}</span>
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <ListItemText
