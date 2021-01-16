@@ -104,7 +104,7 @@ const Favorites = ({ room }) => {
         data: body,
       });
       response = JSON.stringify(response.data);
-      console.log(response);
+      // console.log(response);
       setDefinitionArray(definitionArray.filter((item) => item !== body.word));
       setToggle(true);
     } catch (err) {

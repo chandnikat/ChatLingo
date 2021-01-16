@@ -8,7 +8,7 @@ const useSocket = (name, room) => {
   const [messages, setMessages] = useState([]);
   const [typeMsg, setTypeMsg] = useState(``);
   const [usersCountByRoom, setUsersCountByRoom] = useState([]);
-  
+
   useEffect(() => {
     console.log('useEffect fired!');
     setMessages([]);
@@ -17,12 +17,12 @@ const useSocket = (name, room) => {
     socket = io(endpoint, {
       query: { name, room },
     });
-    
+
     // Listens for incoming messages
     socket.on('message', message => {
       setMessages(messages => [...messages, message]);
     });
-    
+
     socket.on('sendTypingMsg', data => {
       setTypeMsg(data);
 
@@ -35,7 +35,7 @@ const useSocket = (name, room) => {
       console.log("🚀 ~ file: useSocket.js ~ line 45 ~ useEffect ~ activeUsers", activeUsers)
       setUsersCountByRoom([...activeUsers])       
       })
-      
+
     socket.emit('getAllRooms')
       // Destroys the socket reference
       // when the connection is closed
@@ -43,7 +43,6 @@ const useSocket = (name, room) => {
       socket.close();
     };
   }, [room]);
-
 
   // client sends a message to the server
   // Server forwards it to all users in the same room
