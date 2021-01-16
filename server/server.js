@@ -4,8 +4,6 @@ const cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
-
-
 const app = express();
 const PORT = process.env.PORT;
 
@@ -43,7 +41,7 @@ app.use(express.static(path.join(__dirname, '../src')));
 app.use('*', (req, res, next) => {
   res.header(
     'Access-Control-Allow-Headers',
-    'x-access-token, Authorization, Origin, Content-Type, Accept'
+    'x-access-token, Authorization, Origin, Content-Type, Accept',
   );
   return next();
 });
@@ -57,7 +55,6 @@ app.get('/activerooms', (req, res) => {
   res.status(200).json(usersCountByRoom);
 });
 
-// catch-all route handler for any requests to an unknown route
 app.use('*', (req, res) => {
   return res.sendStatus(404);
 });
@@ -94,14 +91,14 @@ const usersCountByRoom = [
 ];
 
 // usersCountByRoom Helper functions
-const incrementCount = roomName => {
-  usersCountByRoom.forEach(room => {
+const incrementCount = (roomName) => {
+  usersCountByRoom.forEach((room) => {
     if (room.roomName === roomName) room.userCount++;
   });
 };
 
-const decrementCount = roomName => {
-  usersCountByRoom.forEach(room => {
+const decrementCount = (roomName) => {
+  usersCountByRoom.forEach((room) => {
     if (room.roomName === roomName) room.userCount--;
   });
 };
@@ -118,7 +115,7 @@ const checkActiveRoom = (roomName, status) => {
 const socketio = require('socket.io');
 const io = socketio(server);
 
-io.on('connection', socket => {
+io.on('connection', (socket) => {
   console.log('socket.id => ', socket.id);
   const { name, room } = socket.handshake.query;
 
@@ -136,6 +133,10 @@ io.on('connection', socket => {
     text: `${name}, welcome to ${room} chatroom.`,
   });
 
+  // socket.emit('getAllRooms', {
+  //   usersCountByRoom,
+  // });
+
   socket.to(room).emit('message', {
     id: socket.id,
     name: 'Admin',
@@ -143,11 +144,11 @@ io.on('connection', socket => {
     text: `${name} has joined!`,
   });
 
-  socket.on('sendNewMessage', message => {
+  socket.on('sendNewMessage', (message) => {
     io.in(room).emit('message', message);
   });
 
-  socket.on('sendTypingMsg', data => {
+  socket.on('sendTypingMsg', (data) => {
     // console.log('data-->', data);
     socket.to(room).emit('sendTypingMsg', data);
     //socket.broadcast.to().emit has the same effect!!!
