@@ -64,7 +64,7 @@ useEffect(async ()=>{
         Authorization: `${token}`,
       },
     });
-    const data = JSON.stringify(response.data)
+    const data = response.data
     setDefinitionArray(data)
     console.log("GET DICTIONARY DATA->", data)
   } catch (err) {
@@ -72,6 +72,9 @@ useEffect(async ()=>{
   }
 }, [])
 
+
+console.log("defArr", definitionArray)
+console.log("defArr1", definitionArray[0])
 
 
   return (
@@ -143,19 +146,19 @@ useEffect(async ()=>{
                   </Typography>
                   <Divider />
                 </ListSubheader>
-{/* 
-                {definitionArray.map((vocab) => (
+
+               {definitionArray.map((vocab) => (
                 <ListItem style={{ padding: "0px", margin: "0px" }}>
                   <ListItemText>
                     <Typography style={{ fontSize: "13px" }}>
-                      Word: <span style={{fontStyle:"italic"}}>partOfSpeech</span> "definition"
+                      <span style={{color: "#40637E", fontWeight:"bold"}}>{vocab.word}</span> <span style={{fontStyle:"italic"}}>({vocab.part_of_speech.replace(/^"(.+(?="$))"$/, '$1')}):</span> {vocab.definition.replace(/^"(.+(?="$))"$/, '$1')}
                     </Typography>
                   </ListItemText>
                   <DeleteOutlineIcon
                     style={{ padding: "2px", color: "#40637E" }}
                   />
                 </ListItem>
-                ))} */}
+                ))}
 
               </Paper>
             </ListItem>
