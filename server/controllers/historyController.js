@@ -116,14 +116,14 @@ historyController.deleteTranslation = (req, res, next) => {
   const user_id = res.locals.user_id;
   console.log(user_id);
   console.log('req.body', req.body);
-  const { vocab, tl, sl } = req.body;
+  const { word,language_to,language_from } = req.body;
   
-  const deleteTranslationQuery = `DELETE FROM "public"."SavedTranslations" WHERE user_id = '${user_id}' AND word = '${vocab}' AND language_to='${tl}' AND language_from='${sl};'
+  const deleteTranslationQuery = `DELETE FROM "public"."SavedTranslations" WHERE user_id = '${user_id}' AND word = '${word}' AND language_to='${language_to}' AND language_from='${language_from}'
   RETURNING *;`;
 
   db.query(deleteTranslationQuery)
     .then(data => {
-      console.log(data);
+      console.log(data.rows);
       if (data.rows[0]) return next();
       else {
         return next({
