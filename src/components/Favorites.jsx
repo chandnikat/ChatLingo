@@ -47,7 +47,7 @@ const Favorites = ({ room }) => {
   const classes = useStyles();
   const [definitionArray, setDefinitionArray] = useState([]);
   const [translationArray, setTranslationArray] = useState([]);
-  const [toggle, setToggle]= useState(false)
+  const [toggle, setToggle] = useState(false);
 
   //GET all definition useEffect:
   useEffect(async () => {
@@ -60,7 +60,7 @@ const Favorites = ({ room }) => {
         },
       });
       const data = response.data.reverse();
-      console.log("DICTIONARY DATA", data)
+      console.log("DICTIONARY DATA", data);
       setDefinitionArray(data);
     } catch (err) {
       console.log(
@@ -72,7 +72,7 @@ const Favorites = ({ room }) => {
   //GET all translation useEffect:
   useEffect(async () => {
     let token = localStorage.getItem("currentUser");
-    console.log("USEEFFECT TOKEN", token)
+    console.log("USEEFFECT TOKEN", token);
     try {
       const response = await Axios.get("/history/getAllTranslations", {
         headers: {
@@ -80,10 +80,10 @@ const Favorites = ({ room }) => {
           Authorization: `${token}`,
         },
       });
-      const data = response.data.reverse(); 
+      const data = response.data.reverse();
       // console.log("DATA Trans->", data)
       setTranslationArray(data);
-      setToggle(false)
+      setToggle(false);
     } catch (err) {
       console.log(
         `Catch block, GET error on /history/getAllDefinitions: ${err}`
@@ -93,50 +93,51 @@ const Favorites = ({ room }) => {
 
   const handleDeleteDictionary = async (word) => {
     let token = localStorage.getItem("currentUser");
-    console.log("DELETEDICTIONARY TOKEN", token)
-    const body = {word}
-    console.log(body)
+    console.log("DELETEDICTIONARY TOKEN", token);
+    const body = { word };
+    console.log(body);
     try {
-      let response = await Axios.delete("/history/deleteDefinition",  {
+      let response = await Axios.delete("/history/deleteDefinition", {
         headers: {
           "Content-Type": "Application/JSON",
           Authorization: `${token}`,
         },
-        data : 
-          body
-        
+        data: body,
       });
       response = JSON.stringify(response.data);
-      console.log(response)
+      console.log(response);
 
-      setDefinitionArray(definitionArray.filter(item => item !== body.word))
-      setToggle(true)
+      setDefinitionArray(definitionArray.filter((item) => item !== body.word));
+      setToggle(true);
     } catch (err) {
-      console.log(`Catch block, POST error on /history/deleteDefinition: ${err}`);
+      console.log(
+        `Catch block, POST error on /history/deleteDefinition: ${err}`
+      );
     }
   };
 
   const handleDeleteTranslation = async (word) => {
     let token = localStorage.getItem("currentUser");
-    const body = {word: word}
-    console.log(body)
+    const body = { word: word };
+    console.log(body);
     try {
-      let response = await Axios.delete("/history/deleteDefinition",  {
+      let response = await Axios.delete("/history/deleteDefinition", {
         headers: {
           "Content-Type": "Application/JSON",
           Authorization: `${token}`,
         },
-        data : {
-          body
-        }
+        data: {
+          body,
+        },
       });
       response = JSON.stringify(response.data);
-      console.log(response)
+      console.log(response);
     } catch (err) {
-      console.log(`Catch block, POST error on /history/deleteDefinition: ${err}`);
+      console.log(
+        `Catch block, POST error on /history/deleteDefinition: ${err}`
+      );
     }
   };
-
 
   return (
     <div>
@@ -171,7 +172,11 @@ const Favorites = ({ room }) => {
                 </ListSubheader>
 
                 {translationArray.map((phrase, idx) => (
-                  <ListItem button style={{ padding: "0px", margin: "0px" }} key={idx}>
+                  <ListItem
+                    button
+                    style={{ padding: "0px", margin: "0px" }}
+                    key={idx}
+                  >
                     <ListItemText>
                       <Typography style={{ fontSize: "13px" }}>
                         <span style={{ color: "#40637E", fontWeight: "bold" }}>
@@ -218,11 +223,19 @@ const Favorites = ({ room }) => {
                 </ListSubheader>
 
                 {definitionArray.map((vocab, idx) => (
-                  <ListItem button style={{ padding: "0px", margin: "0px" }} key={idx}>
+                  <ListItem
+                    button
+                    style={{ padding: "0px", margin: "0px" }}
+                    key={idx}
+                  >
                     <ListItemText>
                       <Typography style={{ fontSize: "13px" }}>
                         <span style={{ color: "#40637E", fontWeight: "bold" }}>
-                          {vocab.word}
+                          {vocab.word
+                            .toLowerCase()
+                            .replace(/\b\w{3,}/g, function (l) {
+                              return l.charAt(0).toUpperCase() + l.slice(1);
+                            })}
                         </span>{" "}
                         <span style={{ fontStyle: "italic" }}>
                           (

@@ -7,7 +7,7 @@ import SendIcon from '@material-ui/icons/Send';
 import React from 'react';
 
 import { Chatrooms } from './Chatrooms';
-
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import Badge from '@material-ui/core/Badge';
 import { ListItem } from '@material-ui/core';
 
@@ -47,13 +47,17 @@ const Join = ({ handleRoomNameChange, socket }) => {
           >
             <ListItemIcon>
               <Badge
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
                 badgeContent={usersCountByRoom.length > 0
                   ? usersCountByRoom.find(rm => rm.roomName == room.roomName)
                       .userCount
                   : null}
                 color="primary"
               >
-                <SendIcon fontSize="small" />
+                <PeopleAltIcon  style={{color: "#3caea3", fontSize:"30px" }}/>
               </Badge>
             </ListItemIcon>
             <ListItemText variant="inherit">
