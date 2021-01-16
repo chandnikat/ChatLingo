@@ -1,7 +1,6 @@
-import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem';
+
 import { makeStyles } from '@material-ui/core/styles';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import {ListItemIcon, Grid, ListItemText, List, Divider} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import SendIcon from '@material-ui/icons/Send';
@@ -10,6 +9,7 @@ import React from 'react';
 import { Chatrooms } from './Chatrooms';
 
 import Badge from '@material-ui/core/Badge';
+import { ListItem } from '@material-ui/core';
 
 const useStyles = makeStyles({
   joinSection: {
@@ -28,12 +28,20 @@ const useStyles = makeStyles({
 
 const Join = ({ handleRoomNameChange, socket }) => {
   const {usersCountByRoom} = socket;
+  const classes = useStyles();
 
   return (
-    <Paper>
-      <MenuList>
+      <Grid container component={Paper} className={classes.joinSection}>
+      <Grid item xs={12}>
+        <List>
+          <ListItem button>
+            <Typography className={classes.titleBox}>
+              Join a Chatroom
+            </Typography>
+          </ListItem>
+          <Divider />
         {Chatrooms.map((room, idx) => (
-          <MenuItem
+          <ListItem button
             key={`room-${idx}`}
             onClick={e => handleRoomNameChange(room.roomName)}
           >
@@ -48,17 +56,18 @@ const Join = ({ handleRoomNameChange, socket }) => {
                 <SendIcon fontSize="small" />
               </Badge>
             </ListItemIcon>
-            <Typography variant="inherit">
+            <ListItemText variant="inherit">
               {room.roomName}
-              {usersCountByRoom.length > 0
+              {/* {usersCountByRoom.length > 0
                 ? usersCountByRoom.find(rm => rm.roomName == room.roomName)
                     .userCount
-                : null}
-            </Typography>
-          </MenuItem>
+                : null} */}
+            </ListItemText>
+          </ListItem>
         ))}
-      </MenuList>
-    </Paper>
+</List>
+      </Grid>
+    </Grid>
   );
 };
 
