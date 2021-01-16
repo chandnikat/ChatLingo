@@ -61,12 +61,8 @@ const useSocket = (name, room) => {
   const sendTypingMsg = () => {
     socket.emit('sendTypingMsg', `${name} is typing...`);
   };
-  
-  const emitGetRooms = () => {
-    socket.emit('getAllRooms')
-  }
 
-  return {messages, typeMsg, usersCountByRoom, sendNewMessage, sendTypingMsg, emitGetRooms};
+  return {messages, typeMsg, usersCountByRoom, sendNewMessage, sendTypingMsg};
 };
 
 export default useSocket;

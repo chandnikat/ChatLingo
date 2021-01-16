@@ -3,6 +3,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import SendIcon from '@material-ui/icons/Send';
 import React from 'react';
 

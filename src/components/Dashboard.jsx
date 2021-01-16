@@ -121,7 +121,6 @@ const Dashboard = ({ match }) => {
   const [tool, setTool] = useState("rooms");
   const [room, setRoom] = useState("English");
   const socket = useSocket(name, room);
-  const {emitGetRooms} = socket;
 
 
   //Capitalizes username:
@@ -138,7 +137,6 @@ const Dashboard = ({ match }) => {
   };
 
   const handleRoomNameChange = (input) => {
-    emitGetRooms();
     setRoom(input);
   };
 
