@@ -267,7 +267,7 @@ const Dashboard = ({ match }) => {
                   socket={socket}
                 />
               )}
-              {tool === 'conversations' && <Conversations socket={socket} />}
+              {tool === 'conversations' && <Conversations name={name} socket={socket} />}
               {tool === 'dictionary' && (
                 <Dictionary name={name} toUpperFirst={toUpperFirst} />
               )}

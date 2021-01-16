@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Conversations = ({ socket }) => {
+const Conversations = ({ name, socket }) => {
   const classes = useStyles();
   const [ConversationArray, setConversationArray] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -39,7 +39,7 @@ const Conversations = ({ socket }) => {
 
   //GET all conversations useEffect:
   useEffect(async () => {
-    let token = localStorage.getItem('currentUser');
+    let token = localStorage.getItem(name);
     try {
       const response = await Axios.get('/history/getAllConversations', {
         headers: {
@@ -58,7 +58,7 @@ const Conversations = ({ socket }) => {
   }, [toggle]);
 
   const handleDeleteConversation = async (word) => {
-    let token = localStorage.getItem('currentUser');
+    let token = localStorage.getItem(name);
     const body = { word };
     console.log(body);
     try {
@@ -83,7 +83,7 @@ const Conversations = ({ socket }) => {
   };
 
   const handleSaveConversation = async (e) => {
-    let token = localStorage.getItem('currentUser');
+    let token = localStorage.getItem(name);
     const body = { messages };
     console.log(
       'file: Conversations.jsx ~ line 101 ~ handleSaveConversation ~ body',
@@ -134,7 +134,7 @@ const Conversations = ({ socket }) => {
                       <Typography>{conversation.language}</Typography>
                       <DeleteOutlineIcon
                         style={{ padding: '2px', color: '#40637E' }}
-                        onClick={(e) => handleDeleteConversation(vocab.word)}
+                        // onClick={(e) => handleDeleteConversation(vocab.word)}
                       />
                     </AccordionSummary>
                     <AccordionDetails>
